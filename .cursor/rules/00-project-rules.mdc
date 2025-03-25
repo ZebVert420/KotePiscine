@@ -1,0 +1,131 @@
+---
+description: IMPORTANT - Toujours se référer a ce fichier : Il décrit le projet de facon technique pour le mener a bien , toutes les informations sont importantes
+globs: 
+alwaysApply: true
+---
+## Documentation technique – Développement site web Koté Piscine
+
+## 1. Objectifs
+Développer un site web catalogue informatif (sans vente en ligne) avec blog intégré pour Koté Piscine, destiné à inciter les clients à appeler ou à se rendre en magasin. Le site doit être performant, sécurisé et optimisé pour le référencement naturel.
+
+## 2. Stack technologique détaillée
+-Frontend : React (Vite) typescript, React Router DOM, Axios, TailwindCSS + PostCSS
+-Backend : Node.js + Express.js, API REST
+-Base de données : MongoDB 
+-Administration : React Admin connecté à l’API backend 
+
+## 3. Modèle de données MongoDB 
+Voici les principaux schémas à implémenter via Mongoose :
+
+-Collection : products
+{
+  _id: ObjectId,
+  name: String,               // Nom du produit
+  reference: String,          // Référence interne
+  description: String,        // Description complète (Markdown possible)
+  images: [String],           // URLs des images stockées
+  category: ObjectId,         // Référence à une collection de catégorie
+  price: Number,              // Prix indicatif (facultatif)
+  availability: Boolean,      // Disponibilité en magasin
+  createdAt: Date,
+  updatedAt: Date
+}
+
+-Collection : categories
+{
+  _id: ObjectId,
+  name: String,               // Nom de la catégorie (ex : Accessoires, Entretien...)
+  description: String,        // Description facultative
+  createdAt: Date,
+  updatedAt: Date
+}
+
+-Collection : posts (Articles Blog)
+{
+  _id: ObjectId,
+  title: String,              // Titre de l’article
+  slug: String,               // URL friendly générée automatiquement
+  content: String,            // Contenu complet (Markdown supporté)
+  author: String,             // Auteur de l'article
+  image: String,              // Image d'illustration principale
+  tags: [String],             // Tags pour SEO et classement
+  createdAt: Date,
+  updatedAt: Date
+}
+
+
+## 4. Structure précise du Frontend React
+
+src/
+├── api/                  # Gestion appels API (axios instances)
+├── components/           # Composants réutilisables (Navbar, Footer, Card...)
+├── pages/                # Pages complètes (Accueil, Services, Contact, Blog, Catalogue)
+│   ├── HomePage.jsx
+│   ├── ServicesPage.jsx
+│   ├── ContactPage.jsx
+│   ├── CataloguePage.jsx (détail produits en pop-up dans la page)
+│   ├── BlogPage.jsx
+│   └── BlogPostPage.jsx
+├── layouts/              # Layouts principaux
+│   └── MainLayout.jsx
+├── routes/               # Configuration React Router DOM
+│   └── AppRouter.jsx
+├── utils/                # Helpers divers (dates, formattage prix, slugify...)
+├── images/               # Images for the website
+├── App.jsx               # Point d'entrée principal
+└── index.css             # Styles de l'application globale
+
+
+## 5. Interactions Frontend-Backend
+
+Le frontend interagit avec l’API backend via Axios :
+
+API Endpoints principaux (RESTful) :
+Méthode	    Route	            Description
+GET	        /api/products	    Lister tous les produits (catalogue)
+GET	        /api/products/:id	Détail d’un produit
+GET	        /api/categories	    Lister les catégories
+GET	        /api/posts	        Lister articles de blog
+GET	        /api/posts/:slug	Détail article blog
+POST	    /api/admin/login	Connexion admin
+POST	    /api/admin/*	    CRUD admin sécurisé
+
+
+## 6. Structure Backend Node.js/Express.js
+
+backend/
+├── controllers/          # Logique métier
+├── models/               # Schémas Mongoose
+├── routes/               # Routes Express
+│   ├── products.js
+│   ├── categories.js
+│   ├── posts.js
+│   └── admin.js
+├── middleware/           # Middlewares d’authentification (JWT), validations, erreurs
+├── utils/                # Fonctions utilitaires
+├── config/               # Config DB MongoDB + Environnement (.env)
+└── index.js              # Point d'entrée serveur Express
+
+
+## 7. Styles visuels (charte graphique stricte)
+
+- Police d’écriture : Arboria
+
+- Couleurs officielles :
+    Bleu foncé (Principale): #244F82
+    Blanc (Police): #F5F8FC
+    Dégradé : Bleu clair : #0099D9 - Bleu foncé : #244F82
+    Bleu turquoise (Secondaire): #40C0F0
+    Vert clair (Call To Action): #B0C852
+
+(Couleurs à intégrer directement via TailwindCSS personnalisé)
+
+
+## 8. SEO et Optimisations techniques (futur-proof)
+
+Balises sémantiques HTML claires (<header>, <nav>, <main>, <footer>, titres H1-H3)
+URLs lisibles (ex : /catalogue/pompe-filtration-pentair, /blog/comment-choisir-sa-pompe)
+Vitesse de chargement rapide (optimisation des images, lazy-loading, cache HTTP côté serveur)
+Structure facilement évolutive pour intégration ultérieure de données structurées JSON-LD
+
+## IMPORTANT - Toujours se référer a ce fichier : Il décrit le projet de facon technique pour le mener a bien , toutes les informations sont importantes

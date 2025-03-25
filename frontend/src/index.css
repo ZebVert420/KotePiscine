@@ -1,0 +1,478 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Arboria', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 153, 217, 0.5) rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Barre de défilement personnalisée pour tout le site */
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 153, 217, 0.5);
+    border-radius: 10px;
+    backdrop-filter: blur(12px);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 153, 217, 0.7);
+  }
+  
+  body {
+    @apply bg-kote-white text-gray-800;
+    overflow-x: hidden; /* Éviter les barres de défilement horizontales pendant les animations */
+    /* Toujours afficher la barre de défilement pour éviter les sauts */
+    overflow-y: scroll;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-kote-blue-dark;
+  }
+}
+
+@layer components {
+  /* Animation d'apparition pour les éléments */
+  .animate-fade-in-up {
+    opacity: 0; /* État initial pour éviter le flash */
+    transform: translateY(20px); /* Position initiale hors écran */
+    animation: fadeInUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* Plus lent et avec une courbe plus douce */
+    animation-fill-mode: both; /* S'assure que les styles sont appliqués avant et après l'animation */
+    will-change: opacity, transform; /* Optimisation pour le rendu */
+  }
+  
+  /* Animation d'apparition pour les sections avec background */
+  .animate-fade-in-section {
+    opacity: 0;
+    animation: fadeInSection 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: inherit;
+    animation-fill-mode: both;
+    will-change: opacity, transform;
+    transform-style: preserve-3d;
+  }
+  
+  /* Animation flottante pour les cercles décoratifs */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Styles pour le background de section étendu */
+  .section-background {
+    transform-origin: center;
+    transform: scale(1.15); /* Plus grand par défaut pour éviter les bords visibles */
+    backface-visibility: hidden;
+    will-change: opacity, transform;
+    box-shadow: 0 0 50px rgba(0,0,0,0.2), 0 0 100px rgba(0,0,0,0.1); /* Ombre plus prononcée pour masquer les bords */
+    filter: blur(0);
+    transition: transform 1.7s cubic-bezier(0.23, 1, 0.32, 1), 
+                opacity 1.7s cubic-bezier(0.23, 1, 0.32, 1), 
+                filter 1.7s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Ajouter un dégradé radial comme une ombre interne */
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 75%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 75%, transparent 100%);
+  }
+  
+  /* Styles pour s'assurer que les sections ont des transitions fluides */
+  section {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    overflow: hidden; /* Évite les débordements pendant les animations */
+    transform: translateZ(0); /* Force l'utilisation du GPU */
+    isolation: isolate; /* Créer un contexte de superposition indépendant */
+    clip-path: inset(0); /* Garantir que rien ne déborde */
+  }
+  
+  /* Styles pour éviter les effets de bords avec les backgrounds */
+  section.with-background {
+    margin: 2rem 0; 
+    border-radius: 2rem !important; /* Force l'arrondi des coins */
+    transform: translateZ(0); 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    isolation: isolate;
+    contain: paint layout; /* Optimisation de performance */
+    /* Masquage avancé des bords */
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 85%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 85%, transparent 100%);
+  }
+  
+  /* Stabilisateur pour éviter les oscillations pendant l'animation */
+  section.with-background > div {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Transitions de page */
+  .transition-wrapper {
+    position: relative;
+    transform-origin: center;
+    will-change: opacity, transform;
+    width: 100%;
+    min-height: 100vh;
+    transform: translateZ(0); /* Activer l'accélération GPU */
+    backface-visibility: hidden; /* Réduire les artefacts visuels */
+  }
+  
+  .transition-wrapper.page-exit {
+    animation: pageExit 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    transform-style: preserve-3d;
+  }
+  
+  .transition-wrapper.page-enter {
+    animation: pageEnter 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    z-index: 10;
+    transform-style: preserve-3d;
+    opacity: 0; /* S'assurer que la page commence invisible */
+    position: relative;
+  }
+  
+  /* Perspective et rotation 3D */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    @apply translate-z-0;
+  }
+  
+  .transform-style-3d {
+    @apply transform-preserve-3d;
+  }
+  
+  /* Correction du flou de texte avec la séparation du conteneur 3D */
+  .card-3d-wrapper {
+    position: relative;
+    @apply transform-preserve-3d translate-z-0;
+    border-radius: 1rem;
+    height: 100%;
+    will-change: transform;
+  }
+  
+  /* Ombre de texte pour améliorer la lisibilité */
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hover\:rotate-y-10:hover {
+    transform: rotateY(5deg) rotateX(2deg) scale(1.05);
+  }
+  
+  .hover\:rotate-x-10:hover {
+    transform: rotateX(5deg) rotateY(2deg) scale(1.05);
+  }
+  
+  /* Classes pour améliorer l'effet de glassmorphism */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(12px);
+  }
+  
+  .backdrop-saturate-150 {
+    backdrop-filter: saturate(150%) blur(12px);
+  }
+  
+  /* Animation bouton circulaire */
+  .group-hover\/button\:h-56 {
+    height: 14rem;
+  }
+  
+  .group-hover\/button\:w-56 {
+    width: 14rem;
+  }
+  
+  /* Classe pour optimiser le rendu */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .container-kote {
+    @apply container px-4 mx-auto max-w-7xl;
+  }
+  
+  .btn-primary {
+    @apply bg-kote-green text-white font-bold py-2 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-opacity-90;
+  }
+  
+  .btn-secondary {
+    @apply bg-kote-turquoise text-white font-bold py-2 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-opacity-90;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-kote-blue-dark text-kote-blue-dark font-bold py-2 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:bg-kote-blue-dark hover:text-white;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-kote-blue-dark mb-8 text-center;
+  }
+  
+  .section-subtitle {
+    @apply text-xl md:text-2xl font-bold text-kote-blue-dark mb-4;
+  }
+  
+  .card-premium {
+    @apply bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2;
+  }
+}
+
+/* Animation spéciale pour les sections avec background */
+@keyframes fadeInSection {
+  0% { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.97);
+    filter: blur(3px);
+  }
+  30% {
+    opacity: 0.6;
+    transform: translateY(10px) scale(0.99);
+    filter: blur(1px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Animation flottante */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Animations de transition entre pages */
+@keyframes pageExit {
+  0% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+    filter: blur(0);
+  }
+  100% { 
+    opacity: 0; 
+    transform: scale(0.97) translateY(-5px); 
+    filter: blur(2px);
+  }
+}
+
+@keyframes pageEnter {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.97) translateY(5px); 
+    filter: blur(2px);
+  }
+  20% {
+    opacity: 0.2;
+    transform: scale(0.98) translateY(3px);
+    filter: blur(1px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+    filter: blur(0);
+  }
+}
+
+/* Styles personnalisés pour Swiper */
+.swiper {
+  padding-bottom: 40px !important;
+}
+
+.swiper-pagination {
+  bottom: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1 !important;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #40C0F0 !important;
+  width: 24px !important;
+  border-radius: 4px !important;
+}
+
+/* Styles personnalisés pour Swiper - Témoignages */
+.testimonials-swiper.swiper {
+  padding-bottom: 40px !important;
+}
+
+.testimonials-swiper .swiper-pagination {
+  bottom: 0 !important;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5) !important;
+  opacity: 1 !important;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: #40C0F0 !important;
+  width: 24px !important;
+  border-radius: 4px !important;
+}
+
+/* Styles pour les cartes de produits */
+.product-card {
+  position: relative;
+  visibility: visible !important; /* Toujours visible */
+  backface-visibility: hidden; /* Optimisation */
+  transform: translateZ(0); /* Force GPU */
+  z-index: 5; /* Z-index par défaut */
+}
+
+/* Modifier le z-index des cartes pendant les transitions et modals */
+.transition-wrapper.page-exit ~ .product-card,
+.transition-wrapper.page-enter ~ .product-card,
+.modal-container ~ .product-card {
+  z-index: 1;
+}
+
+/* Assurer que la grille de produits maintient son espace même si les enfants ont des problèmes */
+.products-grid {
+  min-height: 200px; /* Hauteur minimale pour éviter l'effondrement */
+  position: relative;
+  z-index: 10;
+  transform: translateZ(0); /* Force GPU */
+  visibility: visible !important;
+}
+
+/* Amélioration du modal pour éviter les interférences */
+[role="dialog"][aria-modal="true"] {
+  position: fixed !important; /* Forcer le positionnement fixe */
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important; /* Couvrir toute la largeur de la fenêtre */
+  height: 100vh !important; /* Couvrir toute la hauteur de la fenêtre */
+  z-index: 9999 !important; /* S'assurer que le modal est toujours au dessus */
+  isolation: isolate; /* Créer un nouveau contexte d'empilement */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Style pour l'overlay qui doit couvrir tout l'écran */
+[role="dialog"][aria-modal="true"] > div:first-child {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Style pour le contenu du modal qui doit être au-dessus de l'overlay */
+[role="dialog"][aria-modal="true"] > div:nth-child(2) {
+  position: relative !important;
+  z-index: 10000 !important;
+}
+
+/* Animation pour les cartes produits */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.products-grid-fade-out {
+  animation: fadeOutDown 0.3s ease-out forwards;
+}
+
+.products-grid-fade-in {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.products-grid [class*="col-"] {
+  display: inline-block;
+  transition: all 0.3s ease-out;
+}
+
+/* Animation individuelle des cartes produits */
+.product-card {
+  transition: all 0.3s ease-out;
+  opacity: 1;
+  transform: translateY(0);
+  will-change: opacity, transform;
+}
+
+.product-card.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.product-card.fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Animation retardée pour chaque carte */
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-card:nth-child(6) { animation-delay: 0.6s; }
+.product-card:nth-child(7) { animation-delay: 0.7s; }
+.product-card:nth-child(8) { animation-delay: 0.8s; }
+.product-card:nth-child(n+9) { animation-delay: 0.9s; }
+
+/* Styles avancés pour le conteneur */
+.content-wrapper {
+  position: relative;
+  z-index: 10;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}

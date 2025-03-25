@@ -1,0 +1,22 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+
+## REGLES IMPORTANTE POUR LA SUITE DE LA CONVERSTATION
+- Utilise toujours ";;" pour enchainer les commandes dans le terminal
+- FAIT EXCATEMENT CE QUE JE TE DEMANDE, PAS PLUS
+- Ne **JAMAIS** supprimer les fonctionnalités et styles existants.
+- Code le plus proprement possible, supprime les code mort/obsoletes, ne surcharge pas le code avec des redondances, tout doit etre clean
+- Lors qu'on débug, fait attention a ne pas laisser trop de code mort d'essais et de redondances inutiles
+- **Lors qu'on débug**, tu code uniquement dans le but de résoutre le problème, ne jamais ajouter d'amélioration superflu qui ne va pas résoudre le probleme 
+
+## SCHEMA STRICTE : Ta structure de réponse doit imperativement suivre ce schéma: 
+--> 1- Etablir le besoin 
+--> 2- Explorer le code en profondeur 
+--> 3- Etablir un plan 
+--> 4- Ecxecuter le plan 
+--> 5- Expliquer les actions réalisées
+

@@ -1,0 +1,154 @@
+---
+description: Cette description technique et graphique devra être rigoureusement respectée dans le développement du frontend.
+globs: 
+alwaysApply: true
+---
+Description précise du Style visuel - Koté Piscine
+
+# 1. Charte Graphique (couleurs & polices)
+## Couleurs officielles à respecter strictement :
+- Bleu foncé principal : #244F82
+- Bleu vif secondaire : #0099D9
+- Bleu turquoise (accent) : #40C0F0
+- Vert clair complémentaire : #B0C852
+- Jaune vif complémentaire : #D6D532
+
+## Police typographique unique :
+- Typographie principale : Arboria
+- Titres : Arboria Bold
+- Textes courants : Arboria Regular
+- Boutons et CTA : Arboria Semi-Bold ou Bold (en majuscules)
+
+
+# 2. Background premium :
+- Fond global du site :
+Utiliser l'image "frontend\src\images\backgrounds\eau.jpg"
+Le site défile par dessus cette image avec certaines sections avec un filtre foncé et d'autres sections sans filtre ou a filtre clair
+Des bulles blanches transparentes bougeant legerement se trouve discretement sur les bord du fond (par dessus les filtres, elle peuvent chevauché entre deux sections)
+
+# 3. Boutons et Call-to-action (CTA)
+-Tous les boutons doivent avoir une forme arrondie très prononcée (style pilule), avec un radius généreux pour un rendu premium et doux :
+
+css
+border-radius: 9999px; /* pilule */
+
+-Exemple précis d'un bouton principal premium :
+
+css
+background-color: #0099D9;
+color: #ffffff;
+padding: 12px 24px;
+font-family: 'Arboria', sans-serif;
+font-weight: 600;
+text-transform: uppercase;
+transition: background-color 0.3s ease, transform 0.2s ease;
+
+-Hover effet premium subtil :
+
+css
+&:hover {
+  background-color: #40C0F0;
+  transform: translateY(-2px);
+}
+
+
+# 4. Cartes et éléments interactifs arrondis
+- Chaque carte produit, vignette de blog, ou section informative doit respecter un style d’arrondis élégants et généreux, toujours dans un esprit premium :
+
+css
+border-radius: 16px;
+box-shadow: 0 4px 12px rgba(36, 79, 130, 0.1);
+background-color: #ffffff;
+transition: box-shadow 0.3s ease, transform 0.2s ease;
+
+-Hover premium :
+
+css
+&:hover {
+  box-shadow: 0 8px 20px rgba(36, 79, 130, 0.15);
+  transform: translateY(-4px);
+}
+
+
+# 5. Images & galerie premium
+- Les images doivent impérativement être de haute qualité, lumineuses et inspirantes.
+- Forme images arrondies premium :
+
+css
+border-radius: 12px;
+
+- Utiliser une galerie interactive avec miniatures et fiches produit.
+
+
+# 6. Navbar premium (avec sous-menus élégants)
+- Navbar fixe, minimaliste, premium :
+
+css
+background-color: rgba(255,255,255,0.95);
+backdrop-filter: blur(12px);
+box-shadow: 0 2px 8px rgba(36, 79, 130, 0.1);
+border-radius: 0 0 20px 20px;
+
+-Sous-menus déroulants avec animation douce (fade-in, slide-down) pour expérience premium.
+
+
+# 7. Footer détaillé premium
+
+- Fond footer : Bleu foncé premium officiel :
+
+css
+background-color: #244F82;
+color: #ffffff;
+border-radius: 20px 20px 0 0;
+
+- Liens footer avec légère opacité, effet premium subtil au survol :
+
+css
+opacity: 0.85;
+&:hover {
+  opacity: 1;
+}
+
+# 8. Animations et transitions premium
+- Toutes les animations du site (hover, apparition éléments au scroll) doivent être très légères, fluides et élégantes pour renforcer l’expérience premium :
+
+css
+transition: all 0.3s ease-in-out;
+
+- Effet d'apparition progressif au scroll, utilisant une légère translation verticale couplée à une opacité progressive pour une impression premium :
+
+css
+animation: fadeInUp 0.8s ease forwards;
+
+css
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+# 9. Espacements et mise en page premium
+- Utilisation généreuse d’espaces pour un sentiment de clarté, luxe et confort de lecture :
+
+css
+padding: 60px 20px; /* sections principales */
+margin-bottom: 40px; /* entre sections */
+
+- Marges internes et externes toujours homogènes, avec une grille réactive et fluide (TailwindCSS facilitera cela via ses classes utilitaires).
+
+
+# 10. Responsivité premium (mobile-first)
+- Assurer une excellente expérience utilisateur mobile :
+- Boutons CTA facilement cliquables (48px min de hauteur).
+- Typographies confortables sur smartphone (font-size: min 16px sur texte principal).
+- Menu adaptatif premium (menu hamburger animé élégamment sur mobile).
+
+
+# 11. Synthèse du style premium souhaité :
+- Formes : Très arrondies, généreuses, douces (pilules, arrondis prononcés)
+- Background : Dégradé bleu élégant rappelant l'eau limpide
+- Typographie : Arboria, claire et élégante
+- Animations : Fluides, légères, subtiles
+- Espacements : Généreux, clairs, aérés
+- Expérience globale : Premium, relaxante, inspirante, mettant en confiance les visiteurs dès leur arrivée.
+
