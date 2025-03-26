@@ -3,7 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - main
+
+# Donne les permissions pour le déploiement
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -17,11 +21,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
 
       - name: Install Dependencies
         run: |
           cd frontend
-          npm install
+          npm ci
 
       - name: Build
         run: |
