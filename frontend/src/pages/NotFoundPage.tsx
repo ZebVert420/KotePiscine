@@ -1,6 +1,12 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <div className="py-32">
       <div className="container-kote">
@@ -19,18 +25,18 @@ const NotFoundPage = () => {
           
           <div className="mb-16 mx-auto max-w-md">
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link 
-                to="/" 
+              <button 
+                onClick={() => handleNavigation('/')}
                 className="btn-primary"
               >
                 Retourner à l'accueil
-              </Link>
-              <Link 
-                to="/catalogue" 
+              </button>
+              <button 
+                onClick={() => handleNavigation('/catalogue')}
                 className="btn-outline"
               >
                 Voir notre catalogue
-              </Link>
+              </button>
             </div>
           </div>
           

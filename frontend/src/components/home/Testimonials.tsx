@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { assetService } from '../../services/assetService';
 
 // Définir le style global pour les animations
 const animationStyles = `
@@ -73,7 +74,7 @@ const testimonials = [
     date: "Mar 2023",
     testimonial: "Koté Piscine a réalisé ma piscine sur-mesure avec professionnalisme. Délais respectés, équipe à l'écoute, résultat impeccable. Je recommande vivement !",
     rating: 5,
-    avatar: "/images/avatars/avatar-1.svg",
+    avatar: "avatar-1.svg",
   },
   {
     id: 2,
@@ -82,7 +83,7 @@ const testimonials = [
     date: "Fév 2023",
     testimonial: "Notre piscine avait besoin d'une rénovation complète. Koté Piscine a effectué un travail remarquable. Leur expertise a permis de résoudre tous nos problèmes techniques.",
     rating: 5,
-    avatar: "/images/avatars/avatar-2.svg",
+    avatar: "avatar-2.svg",
   },
   {
     id: 3,
@@ -91,7 +92,7 @@ const testimonials = [
     date: "Avr 2023",
     testimonial: "Nous faisons appel à Koté Piscine pour l'entretien hebdomadaire de notre piscine depuis 5 ans. Service ponctuel et efficace. Notre piscine est toujours impeccable !",
     rating: 5,
-    avatar: "/images/avatars/avatar-3.svg",
+    avatar: "avatar-3.svg",
   },
   {
     id: 4,
@@ -100,9 +101,8 @@ const testimonials = [
     date: "Jan 2023",
     testimonial: "L'équipe de Koté Piscine nous a aidé à choisir les équipements automatisés adaptés à nos besoins. Installation parfaite et conseils judicieux.",
     rating: 4,
-    avatar: "/images/avatars/avatar-4.svg",
+    avatar: "avatar-4.svg",
   },
-
 ];
 
 // Constants pour le composant
@@ -271,6 +271,25 @@ const Testimonials = () => {
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
       </svg>
     ));
+  };
+
+  // Dans le rendu des avatars, remplacer les chemins d'images
+  const renderAvatar = (avatar: string) => {
+    const avatarPath = assetService.getAvatarPath(avatar);
+    const placeholderPath = assetService.getAvatarPath('avatar-placeholder.svg');
+    
+    return (
+      <img 
+        src={avatarPath}
+        alt="Avatar du client"
+        className="w-full h-full object-cover"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.onerror = null;
+          target.src = placeholderPath;
+        }}
+      />
+    );
   };
 
   // Style pour chaque carte basé sur sa position
@@ -531,16 +550,7 @@ const Testimonials = () => {
                               {/* Avatar */}
                               <div className="p-0.5 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20">
                                 <div className="w-10 h-10 rounded-full overflow-hidden border border-white/30">
-                                  <img 
-                                    src={testimonial.avatar || '/images/avatars/avatar-placeholder.svg'} 
-                                    alt={testimonial.name}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                      const target = e.target as HTMLImageElement;
-                                      target.onerror = null;
-                                      target.src = '/images/avatars/avatar-placeholder.svg';
-                                    }}
-                                  />
+                                  {renderAvatar(testimonial.avatar)}
                                 </div>
                               </div>
                               
@@ -633,16 +643,7 @@ const Testimonials = () => {
                           {/* Avatar */}
                           <div className="p-0.5 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20">
                             <div className="w-10 h-10 rounded-full overflow-hidden border border-white/30">
-                              <img 
-                                src={testimonial.avatar || '/images/avatars/avatar-placeholder.svg'} 
-                                alt={testimonial.name}
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.onerror = null;
-                                  target.src = '/images/avatars/avatar-placeholder.svg';
-                                }}
-                              />
+                              {renderAvatar(testimonial.avatar)}
                             </div>
                           </div>
                           

@@ -1,6 +1,7 @@
 import { ReactNode, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import { assetService } from '../../services/assetService';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -10,7 +11,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   // Forcer le chargement de l'image d'arrière-plan immédiatement
   useEffect(() => {
     const bgImage = new Image();
-    bgImage.src = '/src/images/backgrounds/eau.jpg';
+    bgImage.src = assetService.getBackgroundPath('eau.jpg');
   }, []);
 
   return (
@@ -19,7 +20,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <div 
         className="fixed inset-0 z-0" 
         style={{ 
-          backgroundImage: `url('/src/images/backgrounds/eau.jpg')`,
+          backgroundImage: `url('${assetService.getBackgroundPath('eau.jpg')}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',

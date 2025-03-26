@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { Product } from '../../types';
-import eauBg from '../../images/backgrounds/eau.jpg';
+import { assetService } from '../../services/assetService';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 
@@ -191,7 +191,7 @@ const ProductCard = memo(({
               : 'opacity-0 scale-95 translate-y-8'
           }`}
           style={{ 
-            backgroundImage: `url(${eauBg})`,
+            backgroundImage: `url(${assetService.getBackgroundPath('eau.jpg')})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'brightness(0.85)',

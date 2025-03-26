@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import MainLayout from '../components/layout/MainLayout';
 import HomePage from '../pages/HomePage';
@@ -22,7 +22,7 @@ const LoadingFallback = () => (
 
 const AppRouter = () => {
   return (
-    <Router>
+    <Router basename="/KotePiscine">
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
           <Route path="/" element={<MainLayout><PageTransition><HomePage /></PageTransition></MainLayout>} />
@@ -33,7 +33,8 @@ const AppRouter = () => {
           <Route path="/blog" element={<MainLayout><PageTransition><BlogPage /></PageTransition></MainLayout>} />
           <Route path="/blog/:slug" element={<MainLayout><PageTransition><BlogPostPage /></PageTransition></MainLayout>} />
           <Route path="/contact" element={<MainLayout><PageTransition><ContactPage /></PageTransition></MainLayout>} />
-          <Route path="*" element={<MainLayout><PageTransition><NotFoundPage /></PageTransition></MainLayout>} />
+          <Route path="/404" element={<MainLayout><PageTransition><NotFoundPage /></PageTransition></MainLayout>} />
+          <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
       </Suspense>
     </Router>
