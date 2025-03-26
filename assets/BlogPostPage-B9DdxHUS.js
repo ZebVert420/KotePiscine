@@ -1,4 +1,4 @@
-import{u as y,r as m,j as e,L as i}from"./index-CuI5FKhp.js";const P={_id:"1",title:"Comment choisir la pompe à chaleur idéale pour votre piscine",slug:"comment-choisir-pompe-chaleur-ideale-piscine",content:`
+import{u as y,r as m,j as e,L as i}from"./index-B92ELH6b.js";const P={_id:"1",title:"Comment choisir la pompe à chaleur idéale pour votre piscine",slug:"comment-choisir-pompe-chaleur-ideale-piscine",content:`
 # Comment choisir la pompe à chaleur idéale pour votre piscine
 
 Investir dans une pompe à chaleur est l'une des meilleures décisions que vous puissiez prendre pour profiter pleinement de votre piscine. Cet équipement vous permettra de prolonger votre saison de baignade et d'atteindre une température de l'eau parfaite, tout en maîtrisant votre consommation énergétique.
