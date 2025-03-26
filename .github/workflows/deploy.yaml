@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
 
 # Donne les permissions pour le déploiement
 permissions:
@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: |
           cd frontend
-          npm run build
+          npm run dev
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
