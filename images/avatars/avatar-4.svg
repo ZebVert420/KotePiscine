@@ -1,0 +1,19 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dégradé de fond -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F6AD55" />
+      <stop offset="100%" stop-color="#E53E3E" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Cercle de fond -->
+  <circle cx="100" cy="100" r="100" fill="url(#gradient)" />
+  
+  <!-- Silhouette de personne -->
+  <circle cx="100" cy="70" r="40" fill="white" fill-opacity="0.7" />
+  <path d="M160,180 C160,125 40,125 40,180" stroke="white" stroke-width="10" fill="white" fill-opacity="0.5" />
+  
+  <!-- Initiales -->
+  <text x="100" y="85" font-family="Arial, sans-serif" font-weight="bold" font-size="40" text-anchor="middle" fill="white">MK</text>
+</svg> 
