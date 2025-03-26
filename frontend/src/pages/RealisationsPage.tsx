@@ -74,8 +74,6 @@ const realisationsData = [
   },
 ];
 
-// Filtres disponibles
-const allTags = [...new Set(realisationsData.flatMap(item => item.services))];
 
 const RealisationsPage = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);

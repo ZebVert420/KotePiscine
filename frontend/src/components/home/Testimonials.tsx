@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import eauBg from '../../images/backgrounds/eau.jpg'; // On assumera que l'image est placée ici
 import logoKote from '../../images/logo/Couleur Vertical.png'; // Import du logo Koté Piscine
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -603,8 +602,7 @@ const Testimonials = () => {
           >
             {testimonials.map((testimonial, index) => {
               const cardStyle = getCardStyle(index);
-              const leftIndex = (activeIndex - 1 + testimonials.length) % testimonials.length;
-              const rightIndex = (activeIndex + 1) % testimonials.length;
+
               
               return (
               <div 
