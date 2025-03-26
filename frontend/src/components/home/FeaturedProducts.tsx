@@ -68,7 +68,7 @@ const FeaturedProducts = () => {
               to="/catalogue"
               text="Voir tous nos produits"
             />
-            {featuredProducts.map((product, index) => (
+            {featuredProducts.map((product) => (
               <Link 
                 key={product._id}
                 to={`/catalogue/${product.slug}`}

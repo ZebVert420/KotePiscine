@@ -17,15 +17,14 @@ const ProductGrid = ({
   className = "", 
   onHeightChange
 }: ProductGridProps) => {
-  const [visibleProducts, setVisibleProducts] = useState<Product[]>(products);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
   const [fadeOut, setFadeOut] = useState(false);
-  const [showEmptyMessage, setShowEmptyMessage] = useState(products.length === 0);
-  const [emptyMessageVisible, setEmptyMessageVisible] = useState(products.length === 0);
-  const [currentHeight, setCurrentHeight] = useState<number>(0);
+  const [currentHeight, setCurrentHeight] = useState(350);
+  const [showEmptyMessage, setShowEmptyMessage] = useState(false);
+  const [emptyMessageVisible, setEmptyMessageVisible] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
   const transitionTimerRef = useRef<NodeJS.Timeout | null>(null);
   const emptyMessageTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
 
   // Observer les changements de hauteur
   useEffect(() => {
@@ -60,7 +59,6 @@ const ProductGrid = ({
     }
     
     // Démarrer l'animation de disparition
-    setIsAnimating(true);
     setFadeOut(true);
     
     // Gérer l'affichage du message vide
@@ -87,7 +85,6 @@ const ProductGrid = ({
       
       // Réinitialiser l'état d'animation après la transition complète
       transitionTimerRef.current = setTimeout(() => {
-        setIsAnimating(false);
         setCurrentHeight(0); // Réinitialiser la hauteur pour la nouvelle grille
       }, Math.max(600, products.length * 50 + 300));
     }, 500);

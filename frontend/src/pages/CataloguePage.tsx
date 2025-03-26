@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import eauBg from '../images/backgrounds/eau.jpg';
+import { useParams } from 'react-router-dom';
 import { Product } from '../types';
 import ProductGrid from '../components/products/ProductGrid';
 

@@ -603,10 +603,8 @@ const Testimonials = () => {
           >
             {testimonials.map((testimonial, index) => {
               const cardStyle = getCardStyle(index);
-              const isActiveCard = index === activeIndex;
-              const leftIndex = getAdjacentCardIndex('left');
-              const rightIndex = getAdjacentCardIndex('right');
-              const isAdjacentCard = index === leftIndex || index === rightIndex;
+              const leftIndex = (activeIndex - 1 + testimonials.length) % testimonials.length;
+              const rightIndex = (activeIndex + 1) % testimonials.length;
               
               return (
               <div 

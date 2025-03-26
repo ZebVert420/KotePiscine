@@ -78,16 +78,14 @@ const realisationsData = [
 const allTags = [...new Set(realisationsData.flatMap(item => item.services))];
 
 const RealisationsPage = () => {
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
-  const [selectedRealisation, setSelectedRealisation] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Filtrer les réalisations selon le tag sélectionné
-  const filteredRealisations = activeTag === null
+  const filteredRealisations = activeFilter === null
     ? realisationsData
-    : realisationsData.filter(item => item.services.includes(activeTag));
+    : realisationsData.filter(item => item.services.includes(activeFilter));
 
   // Ouvrir la lightbox pour visualiser une image
   const openLightbox = (imageSrc: string) => {
@@ -119,9 +117,9 @@ const RealisationsPage = () => {
           <div className="pb-4 mb-8 border-b border-gray-200">
             <div className="flex flex-wrap gap-2 pt-4">
               <button
-                onClick={() => setActiveTag(null)}
+                onClick={() => setActiveFilter(null)}
                 className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                  activeTag === null ? 'bg-kote-blue text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  activeFilter === null ? 'bg-kote-blue text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 Tous
@@ -129,9 +127,9 @@ const RealisationsPage = () => {
               {Array.from(new Set(realisationsData.flatMap(item => item.services))).map(service => (
                 <button
                   key={service}
-                  onClick={() => setActiveTag(service)}
+                  onClick={() => setActiveFilter(service)}
                   className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                    activeTag === service ? 'bg-kote-blue text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    activeFilter === service ? 'bg-kote-blue text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
                   {service}
@@ -169,10 +167,7 @@ const RealisationsPage = () => {
                   </div>
                   
                   <button 
-                    onClick={() => {
-                      setSelectedRealisation(realisation);
-                      setIsModalOpen(true);
-                    }} 
+                    onClick={() => openLightbox(realisation.images[0])} 
                     className="mt-4 w-full py-2 bg-kote-blue text-white rounded hover:bg-kote-blue-dark transition-colors text-sm"
                   >
                     Voir le projet

@@ -1,10 +1,8 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { Product } from '../../types';
 import eauBg from '../../images/backgrounds/eau.jpg';
-import AnimatedElement from '../common/AnimatedElement';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
