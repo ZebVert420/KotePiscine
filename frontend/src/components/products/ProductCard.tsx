@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { Product } from '../../types';
 import { assetService } from '../../services/assetService';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import { categories } from '../../config/categories';
 
 interface ProductCardProps {
   product: Product;
@@ -23,10 +24,93 @@ const ProductCard = memo(({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [shouldAnimate, setShouldAnimate] = useState(true);
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const originalPathRef = useRef<string>('');
   const cardRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { productSlug } = useParams<{ productSlug?: string }>();
+  const { productSlug, category } = useParams<{ productSlug?: string, category?: string }>();
+  const mountedRef = useRef(false);
+  const isNavigatingRef = useRef(false);
+
+  // Gérer le montage initial
+  useEffect(() => {
+    mountedRef.current = true;
+
+    // Si on a un productSlug dans l'URL au montage initial, on doit ouvrir le modal
+    if (productSlug === product.slug && !showModal && !isNavigatingRef.current) {
+      const productCategory = categories.find(cat => cat.id === product.category);
+      const categorySlug = category || productCategory?.slug;
+      
+      if (categorySlug) {
+        // Sauvegarder l'URL de la catégorie comme URL d'origine
+        originalPathRef.current = `/KotePiscine/catalogue/${categorySlug}`;
+        
+        // Ouvrir le modal sans modifier l'URL
+        setShowModal(true);
+        requestAnimationFrame(() => {
+          setModalVisible(true);
+        });
+      }
+    }
+
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    if (!mountedRef.current || isNavigatingRef.current) return;
+    
+    isNavigatingRef.current = true;
+    setIsClosing(true);
+    setModalVisible(false);
+    
+    setTimeout(() => {
+      if (mountedRef.current) {
+        // Restaurer l'URL d'origine
+        if (originalPathRef.current) {
+          window.history.pushState({ modal: false }, '', originalPathRef.current);
+        }
+        setShowModal(false);
+        setIsClosing(false);
+        setTimeout(() => {
+          isNavigatingRef.current = false;
+        }, 300); // Augmenté à 300ms pour correspondre à la durée de l'animation
+      }
+    }, 300);
+  }, []);
+
+  // Nettoyer au démontage seulement si nécessaire
+  useEffect(() => {
+    return () => {
+      const currentPath = window.location.pathname;
+      const isChangingCategory = currentPath.includes('/catalogue/') && !currentPath.includes(product.slug);
+      const isNavigatingAway = !currentPath.includes('/catalogue/');
+
+      if (showModal && (isNavigatingAway || isChangingCategory)) {
+        isNavigatingRef.current = true;
+        setShowModal(false);
+        setModalVisible(false);
+        setIsClosing(false);
+        // Garder isNavigatingRef.current à true pendant un moment pour éviter la réouverture
+        setTimeout(() => {
+          isNavigatingRef.current = false;
+        }, 300);
+      }
+    };
+  }, [showModal, product.slug]);
+
+  // Gérer la navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      if (showModal) {
+        handleCloseModal();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [showModal, handleCloseModal]);
 
   useEffect(() => {
     return () => {
@@ -52,24 +136,26 @@ const ProductCard = memo(({
     };
   }, [shouldAnimate]);
 
+  // Effet pour gérer l'ouverture du modal basé sur l'URL
   useEffect(() => {
-    const isCatalogPath = location.pathname.startsWith('/catalogue');
-    const isProductPath = location.pathname.match(/^\/catalogue\/[^\/]+$/);
-    
-    if (showModal && !isCatalogPath) {
-      closeModal(false);
+    if (productSlug === product.slug && !showModal && !isNavigatingRef.current) {
+      const productCategory = categories.find(cat => cat.id === product.category);
+      const categorySlug = category || productCategory?.slug;
+      
+      if (categorySlug) {
+        const currentPath = window.location.pathname;
+        const isChangingCategory = currentPath.includes('/catalogue/') && !currentPath.includes(product.slug);
+        
+        if (!isChangingCategory) {
+          originalPathRef.current = `/KotePiscine/catalogue/${categorySlug}`;
+          setShowModal(true);
+          requestAnimationFrame(() => {
+            setModalVisible(true);
+          });
+        }
+      }
     }
-    
-    if (showModal && isProductPath && productSlug !== product.slug) {
-      closeModal(false);
-    }
-  }, [location.pathname, product.slug, productSlug, showModal]);
-
-  useEffect(() => {
-    if (productSlug === product.slug) {
-      openProductModal();
-    }
-  }, [productSlug, product.slug]);
+  }, [productSlug, product.slug, category, product.category]);
 
   useEffect(() => {
     if (showModal) {
@@ -113,40 +199,31 @@ const ProductCard = memo(({
   }, []);
 
   const handleOpenModal = useCallback(() => {
-    openProductModal();
-  }, []);
+    if (isNavigatingRef.current) return;
+
+    // Trouver la catégorie du produit
+    const productCategory = categories.find(cat => cat.id === product.category);
+    const categorySlug = category || productCategory?.slug;
+
+    if (!categorySlug) return;
+
+    // Construire le chemin cible
+    const targetPath = `/KotePiscine/catalogue/${categorySlug}/${product.slug}`;
+    
+    // Sauvegarder le chemin actuel comme chemin d'origine
+    originalPathRef.current = window.location.pathname;
+    
+    // Mettre à jour l'URL sans navigation complète
+    window.history.pushState({ modal: true }, '', targetPath);
+
+    // Ouvrir le modal immédiatement
+    setShowModal(true);
+    requestAnimationFrame(() => {
+      setModalVisible(true);
+    });
+  }, [product, category]);
 
   const isOutOfStock = !product.inStock;
-
-  const openProductModal = () => {
-    if (location.pathname !== `/catalogue/${product.slug}`) {
-      navigate(`/catalogue/${product.slug}`, { replace: false });
-    }
-
-    setShowModal(true);
-    
-    setTimeout(() => {
-      setModalVisible(true);
-    }, 10);
-  };
-
-  const closeModal = (shouldNavigateBackOrEvent: boolean | React.MouseEvent = true) => {
-    const shouldNavigateBack = typeof shouldNavigateBackOrEvent === 'boolean' 
-      ? shouldNavigateBackOrEvent 
-      : true;
-    
-    setIsClosing(true);
-    setModalVisible(false);
-    
-    setTimeout(() => {
-      setShowModal(false);
-      setIsClosing(false);
-      
-      if (shouldNavigateBack && location.pathname.includes(`/catalogue/${product.slug}`)) {
-        navigate('/catalogue', { replace: true });
-      }
-    }, 350);
-  };
 
   const renderModal = () => {
     if (!showModal) return null;
@@ -154,7 +231,7 @@ const ProductCard = memo(({
     return createPortal(
       <div 
         className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8 modal-container"
-        onClick={closeModal}
+        onClick={handleCloseModal}
         role="dialog"
         aria-modal="true"
         aria-labelledby="product-modal-title"
@@ -209,7 +286,7 @@ const ProductCard = memo(({
           <div className="relative z-10 overflow-y-auto max-h-[90vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-white/5 [&::-webkit-scrollbar-thumb]:bg-kote-turquoise/50 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:backdrop-blur-xl [&::-webkit-scrollbar-thumb]:border-[3px] [&::-webkit-scrollbar-thumb]:border-solid [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-clip-padding [&::-webkit-scrollbar-thumb]:hover:bg-kote-turquoise/70">
             <button 
               className="absolute top-2 right-2 w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center z-10 transition-all duration-300 hover:rotate-90 focus:outline-none focus:ring-2 focus:ring-kote-turquoise/50"
-              onClick={closeModal}
+              onClick={handleCloseModal}
               aria-label="Fermer"
             >
               <svg 

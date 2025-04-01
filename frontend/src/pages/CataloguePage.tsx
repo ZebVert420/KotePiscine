@@ -1,144 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Product } from '../types';
 import ProductGrid from '../components/products/ProductGrid';
-
-// Import des images produits
-import algastopCtxpro from '../images/photos/products/algastop-ctxpro.jpg';
-import epuissetteDeFond from '../images/photos/products/epuissette-de-fond.jpg';
-import balaisLinerAValve from '../images/photos/products/balais-liner-a-valve.jpg';
-import brosseDeNettoyage from '../images/photos/products/brosse-de-nettoyage.jpg';
-import robotMaytronicsS100 from '../images/photos/products/robot-maytronics-s100.png';
-import robotMaytronicsS300i from '../images/photos/products/robot-maytronics-s300i.png';
-
-// Catégories de produits
-const categories = [
-  { id: 1, name: 'Produits d\'entretien', slug: 'entretien' },
-  { id: 2, name: 'Équipements de filtration', slug: 'filtration' },
-  { id: 3, name: 'Robots & Nettoyeurs', slug: 'robots' },
-  { id: 4, name: 'Accessoires', slug: 'accessoires' },
-  { id: 5, name: 'Sécurité', slug: 'securite' },
-  { id: 6, name: 'Chauffage', slug: 'chauffage' }
-];
-
-// Produits réels avec les images importées
-const productsData: Product[] = [
-  {
-    _id: '1',
-    name: 'AlgaStop CTX Pro',
-    slug: 'algastop-ctx-pro',
-    description: 'Anti-algues concentré pour piscine, efficace contre tous types d\'algues. Traitement préventif et curatif.',
-    price: 34.99,
-    category: 1,
-    inStock: true,
-    rating: 4.8,
-    numReviews: 56,
-    images: [algastopCtxpro]
-  },
-  {
-    _id: '2',
-    name: 'Épuisette de fond',
-    slug: 'epuisette-de-fond',
-    description: `🌊 Offrez à votre piscine un entretien de qualité supérieure avec l'épuisette de fond Blue Devil !
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    Alliant robustesse, design ergonomique et efficacité, cette épuisette de fond premium est l'outil idéal pour un nettoyage en profondeur. Sa structure en aluminium léger et son filet renforcé permettent de collecter feuilles, sable et sédiments sans effort. Compatible avec les manches standards, elle s'adapte facilement à tous types de bassins.`,
-    price: 19.99,
-    category: 4,
-    inStock: true,
-    rating: 4.5,
-    numReviews: 28,
-    images: [epuissetteDeFond]
-  },
-  {
-    _id: '3',
-    name: 'Balais liner à valve',
-    slug: 'balais-liner-a-valve',
-    description: 'Balais de nettoyage spécial liner avec valve pour une aspiration optimale. S\'adapte à tous les manches télescopiques standard.',
-    price: 29.99,
-    category: 4,
-    inStock: true,
-    rating: 4.7,
-    numReviews: 32,
-    images: [balaisLinerAValve]
-  },
-  {
-    _id: '4',
-    name: 'Brosse de nettoyage',
-    slug: 'brosse-de-nettoyage',
-    description: 'Brosse de qualité professionnelle pour nettoyer efficacement les parois et le fond de votre piscine.',
-    price: 15.99,
-    category: 4,
-    inStock: true,
-    rating: 4.3,
-    numReviews: 24,
-    images: [brosseDeNettoyage]
-  },
-  {
-    _id: '5',
-    name: 'Robot Maytronics S100',
-    slug: 'robot-maytronics-s100',
-    description: 'Robot nettoyeur autonome Dolphin S100 pour piscines jusqu\'à 10m. Nettoyage optimal du fond et des parois.',
-    price: 699.99,
-    category: 3,
-    inStock: true,
-    rating: 4.9,
-    numReviews: 48,
-    images: [robotMaytronicsS100]
-  },
-  {
-    _id: '6',
-    name: 'Robot Maytronics S300i',
-    slug: 'robot-maytronics-s300i',
-    description: 'Robot haut de gamme avec contrôle via smartphone. Nettoyage complet fond, parois et ligne d\'eau. Technologie PowerStream.',
-    price: 1299.99,
-    category: 3,
-    inStock: false,
-    rating: 5.0,
-    numReviews: 37,
-    images: [robotMaytronicsS300i]
-  },
-  {
-    _id: '7',
-    name: 'pH Moins liquide - 20L',
-    slug: 'ph-moins-liquide-20l',
-    description: 'Solution acide concentrée pour réduire le pH de l\'eau de votre piscine. Format économique.',
-    price: 24.99,
-    category: 1,
-    inStock: true,
-    rating: 4.5,
-    numReviews: 28,
-    images: [algastopCtxpro] // Image temporaire
-  },
-  {
-    _id: '8',
-    name: 'Pompe de filtration Pentair',
-    slug: 'pompe-filtration-pentair',
-    description: 'Pompe de filtration haut de gamme, silencieuse et économe en énergie. Débit optimal.',
-    price: 549.99,
-    category: 2,
-    inStock: true,
-    rating: 4.9,
-    numReviews: 56,
-    images: [robotMaytronicsS300i] // Image temporaire
-  }
-];
+import { categories } from '../config/categories';
+import { productsData } from '../config/products';
+import { urlService } from '../services/urlService';
 
 const CataloguePage = () => {
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const { productSlug } = useParams<{ productSlug?: string }>();
+  const { productSlug, category } = useParams<{ productSlug?: string; category?: string }>();
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const productsContainerRef = useRef<HTMLDivElement>(null);
   const categoriesRef = useRef<HTMLDivElement>(null);
@@ -146,6 +16,18 @@ const CataloguePage = () => {
   const [gridHeight, setGridHeight] = useState<number>(300);
   const [menuHeight, setMenuHeight] = useState<number>(0);
   const [sectionHeight, setSectionHeight] = useState<number>(300);
+
+  // Gérer la catégorie depuis l'URL
+  useEffect(() => {
+    if (category) {
+      const categoryData = categories.find(cat => cat.slug === category);
+      if (categoryData) {
+        setActiveCategory(categoryData.id);
+      }
+    } else {
+      setActiveCategory(null);
+    }
+  }, [category]);
 
   // Observer la hauteur du menu catégories
   useEffect(() => {
@@ -215,12 +97,22 @@ const CataloguePage = () => {
 
   // Fonction pour gérer le changement de catégorie
   const handleCategoryChange = (categoryId: number | null) => {
-    // Si un modal est ouvert, on ferme d'abord la page produit
+    // Si un modal est ouvert, on le ferme d'abord
     if (productSlug) {
-      window.history.pushState({}, '', '/catalogue');
+      window.history.pushState({}, '', category ? urlService.getCatalogueUrl(category) : urlService.getCatalogueUrl());
     }
     
     setActiveCategory(categoryId);
+
+    // Mise à jour de l'URL en fonction de la catégorie
+    if (categoryId) {
+      const selectedCategory = categories.find(cat => cat.id === categoryId);
+      if (selectedCategory) {
+        window.history.pushState({}, '', urlService.getCatalogueUrl(selectedCategory.slug));
+      }
+    } else {
+      window.history.pushState({}, '', urlService.getCatalogueUrl());
+    }
     
     // Fermer le menu mobile après sélection d'une catégorie
     if (isMobile) {
@@ -251,6 +143,9 @@ const CataloguePage = () => {
           document.head.appendChild(meta);
         }
       }
+    } else if (category) {
+      const currentCategory = categories.find(cat => cat.slug === category);
+      document.title = `${currentCategory?.name || 'Catalogue'} - Koté Piscine`;
     } else {
       document.title = 'Catalogue - Koté Piscine';
       const metaDescription = document.querySelector('meta[name="description"]');
@@ -258,7 +153,7 @@ const CataloguePage = () => {
         metaDescription.setAttribute('content', 'Découvrez notre sélection de produits et équipements pour l\'entretien de votre espace aquatique.');
       }
     }
-  }, [productSlug]);
+  }, [productSlug, category]);
 
   return (
     <>
@@ -387,7 +282,7 @@ const CataloguePage = () => {
                           Tout les produits
                         </button>
                       </li>
-                      {categories.map(category => (
+                      {categories.map((category) => (
                         <li key={category.id}>
                           <button
                             onClick={() => handleCategoryChange(category.id)}
@@ -412,10 +307,10 @@ const CataloguePage = () => {
                   style={{ 
                     animationDelay: '0.3s',
                     position: 'sticky',
-                    top: '6rem', // correspond à l'espace du header + marge
-                    maxHeight: 'calc(100vh - 8rem)', // hauteur maximale pour s'assurer qu'elle ne dépasse pas de l'écran
+                    top: '6rem',
+                    maxHeight: 'calc(100vh - 8rem)',
                     overflowY: 'auto',
-                    alignSelf: 'flex-start' // Pour s'assurer qu'elle s'aligne en haut
+                    alignSelf: 'flex-start'
                   }}
                 >
                   <h2 className="text-xl font-bold text-white mb-6">Catégories</h2>
@@ -429,10 +324,15 @@ const CataloguePage = () => {
                             : 'text-white hover:bg-white/10'
                         }`}
                       >
-                        Tous les produits
+                        <div className="flex items-center">
+                          <svg className="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                          </svg>
+                          Tous les produits
+                        </div>
                       </button>
                     </li>
-                    {categories.map(category => (
+                    {categories.map((category) => (
                       <li key={category.id}>
                         <button
                           onClick={() => handleCategoryChange(category.id)}
@@ -442,7 +342,12 @@ const CataloguePage = () => {
                               : 'text-white hover:bg-white/10'
                           }`}
                         >
-                          {category.name}
+                          <div className="flex items-center">
+                            <span className="mr-3">
+                              {<category.icon />}
+                            </span>
+                            {category.name}
+                          </div>
                         </button>
                       </li>
                     ))}

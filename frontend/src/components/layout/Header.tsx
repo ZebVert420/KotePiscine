@@ -4,20 +4,17 @@ import { FaInstagram, FaPhone } from 'react-icons/fa';
 import { FaMapLocationDot, FaCircleChevronRight } from 'react-icons/fa6';
 import { 
   MdConstruction, 
-  MdHomeRepairService, 
   MdOutlineMiscellaneousServices, 
   MdOutlineSettingsRemote,
   MdCleaningServices
 } from 'react-icons/md';
 import { 
-  GiChemicalTank,
-  GiWaterTank,
   GiPoolDive,
   GiWaveSurfer,
-  GiRobotGrab,
-  GiWarpPipe
 } from 'react-icons/gi';
-import { TbCards } from "react-icons/tb";
+import { TbCards, TbPool, TbTool } from "react-icons/tb";
+import { GiTrowel, GiWaterSplash } from 'react-icons/gi';
+import { categories } from '../../config/categories';
 
 // Importer le logo
 import LogoHorizontal from '../../images/logo/Blanc Horizontal.png';
@@ -53,35 +50,56 @@ const Header = () => {
       to: '/services',
       icon: <MdOutlineMiscellaneousServices />,
       submenu: [
-        { name: 'Construction', to: '/services/construction', icon: <MdConstruction /> },
-        { name: 'Rénovation', to: '/services/renovation', icon: <MdHomeRepairService /> },
-        { name: 'Entretien', to: '/services/entretien', icon: <MdCleaningServices /> },
-        { name: 'Automatismes', to: '/services/automatismes', icon: <MdOutlineSettingsRemote /> },
+        { name: 'Construction', to: '/services/construction', icon: <TbPool /> },
+        { name: 'Rénovation', to: '/services/renovation', icon: <GiTrowel /> },
+        { name: 'Entretien', to: '/services/entretien', icon: <GiWaterSplash /> },
+        { name: 'Réparation', to: '/services/reparation', icon: <TbTool /> },
+        { name: 'Automatismes', to: '/services/automatismes', icon: <MdOutlineSettingsRemote /> }
       ]
     },
     { 
       name: 'Notre Gamme', 
       to: '/catalogue',
       icon: <TbCards />,
-      submenu: [
-        { name: 'Produits d\'entretien', to: '/catalogue/produits-entretien', icon: <GiChemicalTank /> },
-        { name: 'Équipements d\'entretien', to: '/catalogue/equipements-entretien', icon: <MdCleaningServices /> },
-        { name: 'Robots', to: '/catalogue/robots', icon: <GiRobotGrab /> },
-        { name: 'Équipements filtration', to: '/catalogue/equipements-filtration', icon: <GiWaterTank /> },
-        { name: 'Tuyauterie', to: '/catalogue/tuyauterie', icon: <GiWarpPipe /> },
-      ]
+      submenu: categories.map(cat => ({
+        name: cat.name,
+        to: `/catalogue/${cat.slug}`,
+        icon: <cat.icon />
+      }))
     },
     { 
       name: 'Nos Piscines', 
       to: '/realisations',
       icon: <GiPoolDive />,
       submenu: [
-        { name: 'Piscines auto-nettoyantes', to: '/realisations/residentielles', icon: <GiPoolDive /> },
-        { name: 'Piscines traditionnelles', to: '/realisations/spas', icon: <GiWaveSurfer /> }
+        { name: 'Piscines auto-nettoyantes', to: '/realisations/auto-nettoyantes', icon: <GiPoolDive /> },
+        { name: 'Piscines traditionnelles', to: '/realisations/traditionnelles', icon: <GiWaveSurfer /> },
+        { name: 'Spas', to: '/realisations/spas', icon: <GiWaterSplash /> },
+        { name: 'Projets en cours', to: '/realisations/en-cours', icon: <MdConstruction /> }
       ]
     },
-    { name: 'Nos Conseils', to: '/blog' },
-    { name: 'Notre Magasin', to: '/contact' }
+    { 
+      name: 'Nos Conseils', 
+      to: '/blog',
+      icon: <TbCards />,
+      submenu: [
+        { name: 'Entretien & Maintenance', to: '/blog/entretien-maintenance', icon: <MdCleaningServices /> },
+        { name: 'Construction', to: '/blog/construction', icon: <TbPool /> },
+        { name: 'Rénovation', to: '/blog/renovation', icon: <GiTrowel /> },
+        { name: 'Équipements', to: '/blog/equipements', icon: <TbTool /> },
+        { name: 'Actualités', to: '/blog/actualites', icon: <FaCircleChevronRight /> }
+      ]
+    },
+    { 
+      name: 'Notre Magasin', 
+      to: '/contact',
+      icon: <FaMapLocationDot />,
+      submenu: [
+        { name: 'Nous trouver', to: '/contact/localisation', icon: <FaMapLocationDot /> },
+        { name: 'Horaires', to: '/contact/horaires', icon: <FaCircleChevronRight /> },
+        { name: 'Contact', to: '/contact/formulaire', icon: <FaPhone /> }
+      ]
+    }
   ];
 
   // Gestion du comportement de la navbar au scroll
