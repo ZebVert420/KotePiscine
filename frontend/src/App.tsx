@@ -1,9 +1,12 @@
 import './index.css'
 import AppRouter from './routes/AppRouter'
+import { HelmetProvider } from 'react-helmet-async'
 
 function App() {
   return (
-    <AppRouter />
+    <HelmetProvider>
+      <AppRouter />
+    </HelmetProvider>
   )
 }
 

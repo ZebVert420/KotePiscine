@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@modelcontextprotocol/server-github": "^2025.3.19"
+    "@modelcontextprotocol/server-github": "^2025.3.19",
+    "framer-motion": "^12.6.2"
   }
 }

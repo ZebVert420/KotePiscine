@@ -23,13 +23,16 @@ The goal is to help you maintain a big picture as well as the progress of the ta
 
 # Lessons
 
-## User Specified Lessons
+## User Specified Lessons (very important)
 
 - Always chain commands together with ";;" (never use "&&")
 
+
 ## Cursor learned
 
-- When searching for recent news, use the current year (2025) instead of previous years, or simply use the "recent" keyword to get the latest information
+- When searching for recent docs, use the current year (2025) instead of previous years, or simply use the "recent" keyword to get the latest information
+- Il est important de typer explicitement les paramètres dans les callbacks (find, filter, map) pour éviter les erreurs TypeScript "implicitly has an 'any' type"
+- Toujours importer les types depuis les fichiers de définition existants pour maintenir la cohérence
 
 # Scratchpad
 

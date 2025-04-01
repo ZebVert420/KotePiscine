@@ -74,9 +74,23 @@ const PageTransition = ({ children }: PageTransitionProps) => {
   // Fonction pour déterminer si on navigue vraiment vers une nouvelle page
   // ou si c'est juste l'URL d'un produit qui change
   const isProductModalNavigation = (from: string, to: string) => {
-    // Vérifier si l'un des chemins est /catalogue et l'autre est /catalogue/un-produit
-    const catalogRegex = /^\/catalogue(?:\/[^\/]+)?$/;
-    return catalogRegex.test(from) && catalogRegex.test(to);
+    // Vérifier si on est dans une navigation catalogue (catégories ou produits)
+    const isCatalogueNavigation = (path: string) => {
+      const normalizedPath = path.replace('/KotePiscine', '');
+      return normalizedPath.startsWith('/catalogue');
+    };
+
+    // Si les deux chemins sont dans le catalogue, pas de transition
+    if (isCatalogueNavigation(from) && isCatalogueNavigation(to)) {
+      // Extraire les parties du chemin
+      const fromParts = from.replace('/KotePiscine', '').split('/');
+      const toParts = to.replace('/KotePiscine', '').split('/');
+      
+      // Si on change juste de produit ou de catégorie dans le catalogue
+      // (même nombre de segments ou plus), c'est une navigation modale
+      return fromParts.length >= 2 && toParts.length >= 2;
+    }
+    return false;
   };
 
   // Surveiller les changements de location pour démarrer l'animation

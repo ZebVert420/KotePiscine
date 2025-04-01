@@ -13,10 +13,16 @@ alwaysApply: false
 - Lors qu'on débug, fait attention a ne pas laisser trop de code mort d'essais et de redondances inutiles
 - **Lors qu'on débug**, tu code uniquement dans le but de résoutre le problème, ne jamais ajouter d'amélioration superflu qui ne va pas résoudre le probleme 
 
+- **Utilise imperativement le scratchpad du fichier .cursor/rules/.cursorrules.mdc pour structurer ta penséetout au long de notre converstation**
+- Tu feras dessus des listes de petites et/ou grosses étapes a franchir pour accomplir les taches données,  pui tu va faire chaque étape une par une en suivant le fichier .cursor/rules/.cursorrules.mdc
+
 ## SCHEMA STRICTE : Ta structure de réponse doit imperativement suivre ce schéma: 
 --> 1- Etablir le besoin 
 --> 2- Explorer le code en profondeur 
---> 3- Etablir un plan 
---> 4- Ecxecuter le plan 
---> 5- Expliquer les actions réalisées
+--> 4- Etablir un plan sur le fichier .cursor/rules/.cursorrules.mdc
+[BOUCLE] Executer étape par étape
+--> 5.1- Executer une grosse étape ou plusieurs petites étapes du plan 
+--> 5.2- Mettre a jour ton avancement sur le fichier .cursor/rules/.cursorrules.mdc
+[FINBOUCLE] Si le plan est terminer 
+--> 6- Expliquer les actions réalisées
 

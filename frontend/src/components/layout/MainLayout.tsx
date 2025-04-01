@@ -1,4 +1,5 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import { assetService } from '../../services/assetService';
@@ -8,11 +9,32 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+  const location = useLocation();
+
   // Forcer le chargement de l'image d'arrière-plan immédiatement
   useEffect(() => {
     const bgImage = new Image();
     bgImage.src = assetService.getBackgroundPath('eau.jpg');
   }, []);
+
+  // Gestion du scroll et des transitions
+  useLayoutEffect(() => {
+    const { pathname } = location;
+    
+    // Gestion spécifique pour les sections de contact
+    if (pathname.startsWith('/contact/')) {
+      const section = pathname.split('/')[2];
+      const element = document.getElementById(section);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100); // Petit délai pour laisser le temps au DOM de se mettre à jour
+      }
+    } else {
+      // Pour toutes les autres pages, scroll en haut
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]); // Ne dépend que du pathname, pas de l'objet location entier
 
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden">
@@ -40,8 +62,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       
       {/* Zone de contenu principal - où se produisent les transitions */}
       <main className="flex-grow relative z-10 pt-24 flex">
-        {/* Le wrapper de contenu doit permettre le positionnement absolu des pages en transition */}
-        <div className="w-full relative">
+        {/* Le wrapper de contenu avec clé pour forcer le re-render */}
+        <div className="w-full relative" key={location.pathname}>
           {children}
         </div>
       </main>

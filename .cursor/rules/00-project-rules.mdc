@@ -15,27 +15,19 @@ Développer un site web catalogue informatif (sans vente en ligne) avec blog int
 -Administration : React Admin connecté à l’API backend 
 
 ## 3. Modèle de données MongoDB 
-Voici les principaux schémas à implémenter via Mongoose :
+Voici les schémas à implémenter via Mongoose :
 
 -Collection : products
 {
   _id: ObjectId,
   name: String,               // Nom du produit
+  slug: String,               // URL
   reference: String,          // Référence interne
   description: String,        // Description complète (Markdown possible)
   images: [String],           // URLs des images stockées
   category: ObjectId,         // Référence à une collection de catégorie
   price: Number,              // Prix indicatif (facultatif)
   availability: Boolean,      // Disponibilité en magasin
-  createdAt: Date,
-  updatedAt: Date
-}
-
--Collection : categories
-{
-  _id: ObjectId,
-  name: String,               // Nom de la catégorie (ex : Accessoires, Entretien...)
-  description: String,        // Description facultative
   createdAt: Date,
   updatedAt: Date
 }
@@ -69,7 +61,7 @@ src/
 ├── layouts/              # Layouts principaux
 │   └── MainLayout.jsx
 ├── routes/               # Configuration React Router DOM
-│   └── AppRouter.jsx
+│   └── AppRouter.jsx     # Utilisation d'un service URL
 ├── utils/                # Helpers divers (dates, formattage prix, slugify...)
 ├── images/               # Images for the website
 ├── App.jsx               # Point d'entrée principal
@@ -106,8 +98,33 @@ backend/
 ├── config/               # Config DB MongoDB + Environnement (.env)
 └── index.js              # Point d'entrée serveur Express
 
+## 7. Structure des URL
 
-## 7. Styles visuels (charte graphique stricte)
+/KotePiscine/            # Acceuil
+├── services/           # Résumé des services
+│   ├── construction-piscine  # Détail service construction
+│   ├── renovation-piscine    # Détail service renovation
+│   ├── entretien-piscine     # Détail service entretien
+│   ├── reparation-piscine    # Détail service reparation robots et pompes
+│   └── automatismes-piscine  # Détail service automatismes
+├── catalogue/          # Catalogue produits (Fonctionne comme une unique page, pas de transition entre les URL URL, uniquement les transition fluides spécifique des composants mis a jour)
+│   ├── produits-entretien-piscine            # Page catalogue triée
+│   │   └── :slug                                   # produits de la categorie
+│   ├── equipements-entretien-piscine        # Page catalogue triée
+│   │   └── :slug                                   # produits de la categorie
+│   ├── equipements-filtration-piscine         # Page catalogue triée
+│   │   └── :slug                                   # produits de la categorie
+│   ├── robots-piscine                        # Page catalogue triée
+│   │   └── :slug                                   # produits de la categorie
+│   └── Tuyauterie-piscine                        # Page catalogue triée
+│       └── :slug                                   # produits de la categorie
+├── nos-piscines/                 # Résumé de nos tecniques de constrution et réalisatoions
+│   ├── piscines-beton            # Détail de notre tecniques de constrution béton 
+│   └── piscines-autonettoyante   # Détail de notre tecniques de constrution autonettoyante 
+├── notre-magasin   # Résumé sur l'entreprise :  notre contact, l'itinéraire, les horaires, l'equipe
+└── site-map   # Site map pour l'exploration du robot google, n'est pas pas dans le menu du header mais figure dans le footer
+
+## 8. Styles visuels (charte graphique stricte)
 
 - Police d’écriture : Arboria
 
@@ -121,11 +138,28 @@ backend/
 (Couleurs à intégrer directement via TailwindCSS personnalisé)
 
 
-## 8. SEO et Optimisations techniques (futur-proof)
+## 9. SEO et Optimisations techniques (futur-proof)
 
 Balises sémantiques HTML claires (<header>, <nav>, <main>, <footer>, titres H1-H3)
 URLs lisibles (ex : /catalogue/pompe-filtration-pentair, /blog/comment-choisir-sa-pompe)
 Vitesse de chargement rapide (optimisation des images, lazy-loading, cache HTTP côté serveur)
 Structure facilement évolutive pour intégration ultérieure de données structurées JSON-LD
+
+## 10. Détails
+
+# Fonctionement et cas d'utilisation des modal de détail produits
+Trois cas d'utilisation :
+- Depuis "Tout les produits" (page catalogue) :
+L'URL change pour inclure la catégorie et le slug du produit quand le modal s'ouvre
+Le background reste sur "Tout les produits"
+Au retour, on revient à l'URL /catalogue sans changer l'affichage
+- Depuis une catégorie spécifique (page /catalogue/[categorie]):
+L'URL change pour inclure le slug du produit quand le modal s'ouvre
+Le background reste sur la catégorie actuelle
+Au retour, on revient à l'URL /catalogue/[categorie] sans changer l'affichage
+- Depuis une autre page :
+On navigue d'abord vers le catalogue
+Puis on ouvre le modal avec l'URL complète
+Au retour, on reste sur la page catalogue
 
 ## IMPORTANT - Toujours se référer a ce fichier : Il décrit le projet de facon technique pour le mener a bien , toutes les informations sont importantes
