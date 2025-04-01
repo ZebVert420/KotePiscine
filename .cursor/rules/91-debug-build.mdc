@@ -1,0 +1,22 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+## OBJECTIF
+- Réparer les erreurs typescript lors du "npm run build"
+- Si un object est déclarer mais non utiliser, le supprimer de préférence si c'est un ancienne fonction qui n'est plus utilisée, sauf si c'est une fonction utile pour la bonne structure du projet qui n'est pas implémentée correctement
+- Ne jamais casser/modifier le styles et les fonctionnalités du site.
+
+## REGLES IMPORTANTE POUR LA SUITE DE LA CONVERSTATION
+- Utilise toujours ";;" pour enchainer les commandes dans le terminal
+- FAIT EXCATEMENT CE QUE JE TE DEMANDE, PAS PLUS
+- Ne **JAMAIS** supprimer les fonctionnalités et styles existants.
+- Code le plus proprement possible, supprime les code mort/obsoletes, ne surcharge pas le code avec des redondances, tout doit etre clean
+- **Lors qu'on débug**, tu code uniquement dans le but de résoutre le problème, ne jamais ajouter d'amélioration superflu qui ne va pas résoudre le probleme 
+
+- **Utilise imperativement le scratchpad du fichier .cursor/rules/.cursorrules.mdc**
+- Fait une liste des erreurs a réparer et occupe toi en un par un 
+
+## Début de la CONVERSTATION

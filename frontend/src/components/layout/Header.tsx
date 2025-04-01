@@ -14,7 +14,7 @@ import {
 } from 'react-icons/gi';
 import { TbCards, TbPool, TbTool } from "react-icons/tb";
 import { GiTrowel, GiWaterSplash } from 'react-icons/gi';
-import { categories } from '../../config/categories';
+import { categories, Category } from '../../config/categories';
 
 // Importer le logo
 import LogoHorizontal from '../../images/logo/Blanc Horizontal.png';
@@ -61,7 +61,7 @@ const Header = () => {
       name: 'Notre Gamme', 
       to: '/catalogue',
       icon: <TbCards />,
-      submenu: categories.map(cat => ({
+      submenu: categories.map((cat: Category) => ({
         name: cat.name,
         to: `/catalogue/${cat.slug}`,
         icon: <cat.icon />

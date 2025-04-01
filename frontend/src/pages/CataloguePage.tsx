@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductGrid from '../components/products/ProductGrid';
-import { categories } from '../config/categories';
+import { categories, Category } from '../config/categories';
 import { productsData } from '../config/products';
 import { urlService } from '../services/urlService';
+import { Product } from '../types';
 
 const CataloguePage = () => {
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
@@ -20,7 +21,7 @@ const CataloguePage = () => {
   // Gérer la catégorie depuis l'URL
   useEffect(() => {
     if (category) {
-      const categoryData = categories.find(cat => cat.slug === category);
+      const categoryData = categories.find((cat: Category) => cat.slug === category);
       if (categoryData) {
         setActiveCategory(categoryData.id);
       }
@@ -54,7 +55,7 @@ const CataloguePage = () => {
   // Vérifier si un produit a été demandé par l'URL et trouver sa catégorie
   useEffect(() => {
     if (productSlug) {
-      const product = productsData.find(p => p.slug === productSlug);
+      const product = productsData.find((p: Product) => p.slug === productSlug);
       if (product) {
         setActiveCategory(typeof product.category === 'number' ? product.category : null);
       }
@@ -92,7 +93,7 @@ const CataloguePage = () => {
   }, [activeCategory]);
 
   const filteredProducts = activeCategory 
-    ? productsData.filter(product => product.category === activeCategory)
+    ? productsData.filter((product: Product) => product.category === activeCategory)
     : productsData;
 
   // Fonction pour gérer le changement de catégorie
@@ -106,7 +107,7 @@ const CataloguePage = () => {
 
     // Mise à jour de l'URL en fonction de la catégorie
     if (categoryId) {
-      const selectedCategory = categories.find(cat => cat.id === categoryId);
+      const selectedCategory = categories.find((cat: Category) => cat.id === categoryId);
       if (selectedCategory) {
         window.history.pushState({}, '', urlService.getCatalogueUrl(selectedCategory.slug));
       }
@@ -128,7 +129,7 @@ const CataloguePage = () => {
   // Fonction pour générer les meta tags spécifiques au produit
   useEffect(() => {
     if (productSlug) {
-      const product = productsData.find(p => p.slug === productSlug);
+      const product = productsData.find((p: Product) => p.slug === productSlug);
       if (product) {
         document.title = `${product.name} - Koté Piscine`;
         
@@ -144,7 +145,7 @@ const CataloguePage = () => {
         }
       }
     } else if (category) {
-      const currentCategory = categories.find(cat => cat.slug === category);
+      const currentCategory = categories.find((cat: Category) => cat.slug === category);
       document.title = `${currentCategory?.name || 'Catalogue'} - Koté Piscine`;
     } else {
       document.title = 'Catalogue - Koté Piscine';

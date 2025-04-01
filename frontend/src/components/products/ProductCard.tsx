@@ -3,7 +3,7 @@ import { Product } from '../../types';
 import { assetService } from '../../services/assetService';
 import { useParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { categories } from '../../config/categories';
+import { categories, Category } from '../../config/categories';
 
 interface ProductCardProps {
   product: Product;
@@ -36,7 +36,7 @@ const ProductCard = memo(({
 
     // Si on a un productSlug dans l'URL au montage initial, on doit ouvrir le modal
     if (productSlug === product.slug && !showModal && !isNavigatingRef.current) {
-      const productCategory = categories.find(cat => cat.id === product.category);
+      const productCategory = categories.find((cat: Category) => cat.id === product.category);
       const categorySlug = category || productCategory?.slug;
       
       if (categorySlug) {
@@ -139,7 +139,7 @@ const ProductCard = memo(({
   // Effet pour gérer l'ouverture du modal basé sur l'URL
   useEffect(() => {
     if (productSlug === product.slug && !showModal && !isNavigatingRef.current) {
-      const productCategory = categories.find(cat => cat.id === product.category);
+      const productCategory = categories.find((cat: Category) => cat.id === product.category);
       const categorySlug = category || productCategory?.slug;
       
       if (categorySlug) {
@@ -202,7 +202,7 @@ const ProductCard = memo(({
     if (isNavigatingRef.current) return;
 
     // Trouver la catégorie du produit
-    const productCategory = categories.find(cat => cat.id === product.category);
+    const productCategory = categories.find((cat: Category) => cat.id === product.category);
     const categorySlug = category || productCategory?.slug;
 
     if (!categorySlug) return;
