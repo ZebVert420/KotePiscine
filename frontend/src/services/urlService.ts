@@ -1,14 +1,6 @@
 const BASE_URL = '/KotePiscine';
 
-// Définir l'interface pour le service d'URL
-export interface UrlService {
-  getPath: (path: string) => string;
-  getExternalUrl: (url: string) => string;
-  isInCatalogue: (path: string) => boolean;
-  getCatalogueUrl: (category?: string, productSlug?: string) => string;
-}
-
-export const urlService: UrlService = {
+export const urlService = {
   getPath: (path: string): string => {
     // Si le chemin commence par '/', on le retire pour éviter un double slash
     const cleanPath = path.startsWith('/') ? path.slice(1) : path;

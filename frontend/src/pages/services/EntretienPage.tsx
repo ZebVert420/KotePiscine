@@ -1,43 +1,49 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import AnimatedElement from '../../components/common/AnimatedElement';
 
 const EntretienPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Mettre à jour le titre et la méta description
+    document.title = "Entretien de Piscines | Koté Piscine";
+    
+    // Mise à jour de la meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Services d\'entretien professionnel pour votre piscine en Guadeloupe. Nettoyage, équilibre de l\'eau et maintenance.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Services d\'entretien professionnel pour votre piscine en Guadeloupe. Nettoyage, équilibre de l\'eau et maintenance.';
+      document.head.appendChild(meta);
+    }
   }, []);
 
   return (
-    <>
-      <Helmet>
-        <title>Entretien de Piscines | Koté Piscine</title>
-        <meta name="description" content="Service d'entretien professionnel pour votre piscine. Nous assurons la maintenance régulière pour une eau saine et limpide toute l'année." />
-      </Helmet>
-
-      <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-        <AnimatedElement>
-          <h1 className="text-4xl md:text-5xl font-bold text-kote-blue-dark mb-8">
-            Entretien de Piscines
-          </h1>
+    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+      <AnimatedElement>
+        <h1 className="text-4xl md:text-5xl font-bold text-kote-blue-dark mb-8">
+          Entretien de Piscines
+        </h1>
+        
+        <div className="prose prose-lg max-w-none">
+          <p className="text-xl text-gray-600 mb-8">
+            Profitez de votre piscine sans vous soucier de son entretien grâce à nos services professionnels.
+          </p>
           
-          <div className="prose prose-lg max-w-none">
-            <p className="text-xl text-gray-600 mb-8">
-              Nous assurons l'entretien régulier de votre piscine pour une eau saine et limpide toute l'année.
+          {/* Contenu à venir */}
+          <div className="bg-blue-50 p-8 rounded-2xl mb-8">
+            <h2 className="text-2xl font-bold text-kote-blue-dark mb-4">
+              Nos formules d'entretien
+            </h2>
+            <p>
+              Contenu détaillé à venir...
             </p>
-            
-            {/* Contenu à venir */}
-            <div className="bg-blue-50 p-8 rounded-2xl mb-8">
-              <h2 className="text-2xl font-bold text-kote-blue-dark mb-4">
-                Notre expertise en entretien
-              </h2>
-              <p>
-                Contenu détaillé à venir...
-              </p>
-            </div>
           </div>
-        </AnimatedElement>
-      </div>
-    </>
+        </div>
+      </AnimatedElement>
+    </div>
   );
 };
 

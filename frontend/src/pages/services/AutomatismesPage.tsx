@@ -1,19 +1,27 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import AnimatedElement from '../../components/common/AnimatedElement';
 
 const AutomatismesPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Mettre à jour le titre et la méta description
+    document.title = "Automatismes de Piscine | Koté Piscine";
+    
+    // Mise à jour de la meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Solutions d\'automatisation pour votre piscine. Contrôlez facilement la filtration, le chauffage et l\'éclairage de votre bassin.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Solutions d\'automatisation pour votre piscine. Contrôlez facilement la filtration, le chauffage et l\'éclairage de votre bassin.';
+      document.head.appendChild(meta);
+    }
   }, []);
 
   return (
     <>
-      <Helmet>
-        <title>Automatismes de Piscine | Koté Piscine</title>
-        <meta name="description" content="Solutions d'automatisation pour votre piscine. Contrôlez facilement la filtration, le chauffage et l'éclairage de votre bassin." />
-      </Helmet>
-
       <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
         <AnimatedElement>
           <h1 className="text-4xl md:text-5xl font-bold text-kote-blue-dark mb-8">
