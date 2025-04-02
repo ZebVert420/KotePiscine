@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import MainLayout from '../components/layout/MainLayout';
 import ServicesLayout from '../components/layout/ServicesLayout';
@@ -41,7 +41,7 @@ const AppRouter = () => {
           
           {/* Services */}
           <Route path="/services" element={<MainLayout key="services"><PageTransition><ServicesPage /></PageTransition></MainLayout>} />
-          <Route element={<MainLayout key="services-layout"><PageTransition><ServicesLayout /></PageTransition></MainLayout>}>
+          <Route element={<MainLayout key="services-layout"><PageTransition><ServicesLayout><Outlet /></ServicesLayout></PageTransition></MainLayout>}>
             <Route path="/services/construction" element={<ConstructionPage />} />
             <Route path="/services/renovation" element={<RenovationPage />} />
             <Route path="/services/entretien" element={<EntretienPage />} />

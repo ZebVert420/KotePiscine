@@ -67,6 +67,9 @@ const FeaturedProducts = () => {
             <CtaButton
               to="/catalogue"
               text="Voir tous nos produits"
+              color="blue"
+              size="large"
+              icon="arrow"
             />
             {featuredProducts.map((product) => (
               <Link 

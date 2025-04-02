@@ -153,21 +153,22 @@ const ContactPage = () => {
                   </div>
 
                   <div className="text-right">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`btn-primary ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center">
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Envoi en cours...
-                        </span>
-                      ) : 'Envoyer le message'}
-                    </button>
+                    {isSubmitting ? (
+                      <div className="inline-flex items-center px-8 py-3 bg-kote-blue-light/90 text-white rounded-full opacity-70">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Envoi en cours...
+                      </div>
+                    ) : (
+                      <button 
+                        type="submit"
+                        className="inline-flex items-center rounded-full px-8 py-3 border border-kote-blue-light/50 text-kote-blue-light backdrop-blur-sm bg-white/5 hover:border-kote-blue-light hover:bg-kote-blue-light/90 hover:text-white hover:scale-105 will-change-transform transform-gpu transform transition-all duration-500 ease-out font-normal"
+                      >
+                        Envoyer le message
+                      </button>
+                    )}
                   </div>
                 </form>
               )}

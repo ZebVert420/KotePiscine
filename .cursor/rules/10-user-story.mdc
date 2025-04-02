@@ -1,5 +1,5 @@
 ---
-description: IMPORTANT - Ce fichier décrit l'experiece utilisateur vécue sur le site Koté Piscine
+description: 
 globs: 
 alwaysApply: true
 ---
@@ -52,7 +52,6 @@ En tant que visiteur :
 En tant que visiteur :
 - À la fin de chaque page produit ou blog, un bandeau discret m’invite élégamment à « découvrir nos produits en magasin », accompagné du numéro de téléphone et des horaires.
 - Cette invitation subtile est intégrée harmonieusement dans la mise en page, me donnant envie naturellement de contacter ou visiter Koté Piscine pour aller plus loin dans mon projet.
-
 
 
 # IMPORTANT - Ce fichier décrit l'experiece utilisateur vécue sur le site Koté Piscine

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import CtaButton from '../components/common/CtaButton';
 
 // Données de test à remplacer par API
 const mockPostData = {
@@ -208,9 +209,13 @@ const BlogPostPage = () => {
         <div className="text-center">
           <h2 className="text-2xl text-kote-blue-dark font-bold mb-4">Article non trouvé</h2>
           <p className="mb-8">Désolé, nous n'avons pas pu trouver l'article que vous recherchez.</p>
-          <Link to="/blog" className="btn-primary">
-            Retourner au blog
-          </Link>
+          <CtaButton 
+            to="/blog"
+            text="Retourner au blog"
+            color="blue"
+            size="default"
+            icon="arrow"
+          />
         </div>
       </div>
     );
@@ -316,9 +321,13 @@ const BlogPostPage = () => {
           </div>
           
           <div className="text-center mt-10">
-            <Link to="/catalogue" className="btn-primary">
-              Découvrir tous nos produits
-            </Link>
+            <CtaButton
+              to="/catalogue"
+              text="Découvrir tous nos produits"
+              color="blue"
+              size="large"
+              icon="arrow"
+            />
           </div>
         </section>
 
@@ -332,12 +341,13 @@ const BlogPostPage = () => {
               </p>
             </div>
             <div className="md:w-1/3 text-center md:text-right">
-              <Link 
-                to="/contact" 
-                className="btn-primary bg-white text-kote-blue-dark hover:bg-kote-turquoise hover:text-white inline-block"
-              >
-                Contactez-nous
-              </Link>
+              <CtaButton 
+                to="/contact"
+                text="Contactez-nous"
+                color="turquoise"
+                size="default"
+                icon="arrow"
+              />
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import CtaButton from '../common/CtaButton';
 
 const CallToAction = () => {
   return (
@@ -12,22 +12,25 @@ const CallToAction = () => {
             Prêt à donner vie à votre projet piscine ?
           </h2>
           <p className="text-white/90 mb-8">
-            Nos experts sont là pour vous accompagner dans la réalisation de votre rêve aquatique.
+            Nous sommes là pour vous accompagner dans la réalisation de votre rêve aquatique.
             Contactez-nous dès maintenant pour un devis personnalisé.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="tel:+590590838509" 
-              className="btn-primary"
-            >
-              Appelez-nous
-            </a>
-            <Link 
-              to="/contact" 
-              className="btn-secondary"
-            >
-              Nous contacter
-            </Link>
+            <CtaButton 
+              to="tel:+590590838509"
+              text="Appelez-nous"
+              external={true}
+              color="turquoise"
+              size="large"
+              icon="phone"
+            />
+            <CtaButton 
+              to="/contact"
+              text="Nous contacter"
+              color="green"
+              size="large"
+              icon="arrow"
+            />
           </div>
         </div>
       </div>

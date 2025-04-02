@@ -223,6 +223,9 @@ const Hero = () => {
             <CtaButton 
               to="/services" 
               text="Tous nos services"
+              color="green"
+              size="large"
+              icon="arrow"
             />
           </div>
         </AnimatedElement>

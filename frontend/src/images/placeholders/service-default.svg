@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" fill="#F5F8FC"/>
+  <path d="M400 180C413.255 180 424 169.255 424 156C424 142.745 413.255 132 400 132C386.745 132 376 142.745 376 156C376 169.255 386.745 180 400 180Z" fill="#244F82"/>
+  <path d="M400 188C373.49 188 352 209.49 352 236V244H448V236C448 209.49 426.51 188 400 188Z" fill="#244F82"/>
+  <text x="400" y="280" text-anchor="middle" font-family="Arial" font-size="24" fill="#244F82">Image non disponible</text>
+  <text x="400" y="310" text-anchor="middle" font-family="Arial" font-size="16" fill="#666666">Koté Piscine</text>
+</svg> 

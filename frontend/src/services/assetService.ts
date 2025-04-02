@@ -10,13 +10,13 @@ export const assetService = {
   getImagePath: (imageName: string): string => {
     // Si le chemin commence par '/', on le retire pour éviter un double slash
     const cleanPath = imageName.startsWith('/') ? imageName.slice(1) : imageName;
-    return `${BASE_URL}/images/${cleanPath}`;
+    return `${BASE_URL}/src/images/${cleanPath}`;
   },
 
   getBackgroundPath: (imageName: string): string => {
     // Si le chemin commence par '/', on le retire pour éviter un double slash
     const cleanPath = imageName.startsWith('/') ? imageName.slice(1) : imageName;
-    return `${BASE_URL}/images/background/${cleanPath}`;
+    return `${BASE_URL}/src/images/backgrounds/${cleanPath}`;
   },
 
   getAvatarPath: (avatarName: string): string => {
