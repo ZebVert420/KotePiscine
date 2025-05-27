@@ -211,7 +211,7 @@ const Hero = () => {
                             className="relative block h-full will-change-transform"
                           >
                             {/* Couche de verre principale */}
-                            <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15 ios-glass-fix">
+                            <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
                               <div className="card-shadow-projected" aria-hidden="true"></div>
                               {/* Effet de reflet en haut de la carte */}
                               <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
@@ -273,7 +273,7 @@ const Hero = () => {
                           className="relative block h-full will-change-transform"
                         >
                           {/* Couche de verre principale */}
-                          <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15 ios-glass-fix">
+                          <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
                             <div className="card-shadow-projected" aria-hidden="true"></div>
                             {/* Effet de reflet en haut de la carte */}
                             <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>

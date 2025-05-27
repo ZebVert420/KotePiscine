@@ -347,10 +347,6 @@ const ContactPage = () => {
                       <span className="text-white font-medium">{address.road}, {address.city}, {address.region}</span>
                     </div>
                     
-                    <div className="text-white/80 text-sm">
-                      <span className="block md:inline">Coordonnées GPS : </span>
-                      <span className="font-medium">16.249344, -61.345889</span>
-                    </div>
                   </div>
                 </div>
               </div>

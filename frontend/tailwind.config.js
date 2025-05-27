@@ -76,14 +76,11 @@ module.exports = {
           '@apply relative py-16 px-5': {},
         },
         '.card-glass-transparent': {
-          '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
-          '-webkit-backdrop-filter': 'blur(12px)',
+          '@apply backdrop-blur-xl border border-white/20 rounded-2xl': {},
           boxShadow: theme('boxShadow.card-standard'),
         },
         '.card-glass-opaque': {
-          '@apply bg-white/20 border border-white/30 rounded-2xl': {},
-          '-webkit-backdrop-filter': 'blur(8px)',
-          'backdrop-filter': 'blur(8px)',
+          '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
           boxShadow: theme('boxShadow.card-standard'),
         },
         '.card-glass-reflect': {
@@ -95,7 +92,7 @@ module.exports = {
           inset: '0',
           'z-index': '-5',
           'border-radius': theme('borderRadius.2xl'),
-          background: 'rgba(0,0,0,0.2)',
+          background: 'rgba(226, 8, 8, 0.67)',
           filter: 'blur(20px)',
           transform: 'scale(0.98) translateY(4px)',
           opacity: '0.5',
