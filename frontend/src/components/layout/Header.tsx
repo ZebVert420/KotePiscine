@@ -2,20 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaInstagram, FaPhone, FaFacebook } from 'react-icons/fa';
 import { FaMapLocationDot, FaCircleChevronRight } from 'react-icons/fa6';
-import { 
-  MdOutlineMiscellaneousServices, 
-  MdCleaningServices
-} from 'react-icons/md';
-import { 
-  GiPoolDive,
-} from 'react-icons/gi';
-import { TbCards, TbPool, TbTool } from "react-icons/tb";
-import { GiTrowel } from 'react-icons/gi';
-import { categories, Category } from '../../config/categories';
-import { services } from '../../config/services';
-import { realisationCategories, RealisationCategory } from '../../config/realisations.config';
-import { getServiceSubMenuItems } from '../../utils/servicesMenu';
-import { getMenuItems, socialLinks, MenuItem, SubMenuItem } from '../../config/navbar.config';
+import { getMenuItems, socialLinks } from '../../config/navbar.config';
 import contact from '../../config/contact';
 
 // Importer le logo
@@ -28,8 +15,6 @@ const Header = () => {
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const location = useLocation();
   const submenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-
-  const serviceSubMenu = getServiceSubMenuItems(services);
 
   // Utiliser la configuration des menus
   const menuItems = getMenuItems();

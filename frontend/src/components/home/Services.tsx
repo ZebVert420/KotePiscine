@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { services } from '../../config/services';
 import CtaButton from '../common/CtaButton';
-import { contact } from '../../config/contact';
 
 const Services = () => {
   return (

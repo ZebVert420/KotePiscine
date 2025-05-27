@@ -3,8 +3,7 @@ import {
   FaHammer, 
   FaLightbulb, 
   FaRocket, 
-  FaHeart, 
-  FaTools 
+  FaHeart
 } from 'react-icons/fa';
 import { 
   MdCleaningServices 
