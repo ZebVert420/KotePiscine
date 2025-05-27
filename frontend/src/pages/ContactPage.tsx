@@ -133,14 +133,14 @@ const ContactPage = () => {
           {/* SECTION 1: Galerie et Informations complémentaires */}
           <div className="col-span-12 grid grid-cols-12 gap-6 mb-6">
             {/* Galerie photos du magasin */}
-            <AnimatedElement delay={0.4} className="col-span-12 md:col-span-8">
+            <div className="col-span-12 md:col-span-8">
               <div className="relative h-full">
                 <div className="card-shadow-projected" aria-hidden="true"></div>
                 
                 <div className="relative h-full card-glass-transparent card-glass-reflect overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                   
-                  <div className="relative z-10 p-6">
+                  <AnimatedElement delay={0.4} className="relative z-10 p-6">
                     <h2 className="text-3xl font-bold text-white mb-8">Notre magasin en images</h2>
                     
                     <div className="relative overflow-hidden rounded-xl h-[500px] mb-4">
@@ -202,22 +202,22 @@ const ContactPage = () => {
                         />
                       ))}
                     </div>
-                  </div>
+                  </AnimatedElement>
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* Colonne droite: Informations complémentaires */}
             <div className="col-span-12 md:col-span-4 grid grid-cols-1 gap-6">
               {/* Carte des horaires */}
-              <AnimatedElement delay={0.5}>
+              
                 <div className="relative h-full">
                   <div className="card-shadow-projected" aria-hidden="true"></div>
                   
                   <div className="relative h-full card-glass-transparent card-glass-reflect overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                     
-                    <div className="relative z-10 p-6">
+                    <AnimatedElement delay={0.5} className="relative z-10 p-6">
                       <h2 className="text-2xl font-bold text-white mb-6">Nos horaires</h2>
                       
                       <div className="space-y-4">
@@ -226,8 +226,9 @@ const ContactPage = () => {
                             <FaClock className="h-7 w-7 text-white drop-shadow-md" />
                           </div>
                           <div>
-                            <h3 className="font-bold text-xl text-white drop-shadow-sm">Lundi - Vendredi</h3>
-                            <p className="text-white text-lg font-medium">9h - 18h</p>
+                            <h3 className="text-lg text-white drop-shadow-sm">Lundi - Vendredi</h3>
+                            <p className="text-white text-lg">8h - 12h <br />
+                              14h30 - 17h</p>
                           </div>
                         </div>
                         
@@ -236,8 +237,8 @@ const ContactPage = () => {
                             <FaClock className="h-7 w-7 text-white drop-shadow-md" />
                           </div>
                           <div>
-                            <h3 className="font-bold text-xl text-white drop-shadow-sm">Samedi</h3>
-                            <p className="text-white text-lg font-medium">9h - 12h</p>
+                            <h3 className="text-lg text-white drop-shadow-sm">Samedi</h3>
+                            <p className="text-white text-lg">9h --- 12h</p>
                           </div>
                         </div>
                       </div>
@@ -247,10 +248,10 @@ const ContactPage = () => {
                           <p className="text-white/90 text-sm font-medium">Fermé le dimanche et jours fériés</p>
                         </div>
                       </div>
-                    </div>
+                    </AnimatedElement>
                   </div>
                 </div>
-              </AnimatedElement>
+              
 
               {/* Réseaux sociaux */}
               <AnimatedElement delay={0.5}>

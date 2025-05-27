@@ -452,103 +452,277 @@ La lightbox qui s'ouvre lors du clic sur un projet n'est pas centrée correcteme
 - Suivre le même pattern que les autres sous-menus (categories, realisationCategories)
 - Dans JSX, les React.ComponentType doivent être instanciés avec React.createElement() et enveloppés dans un span pour les classes CSS
 
-## Tâche actuelle : Audit des problèmes de rendu glass effect sur iPhone en production
+## Tâche actuelle : Amélioration finale BlogPage avec vraies images et simplification interface
+
+### Objectif :
+1. Utiliser les images réelles du dossier illustrations pour les articles de blog
+2. Simplifier le Hero en supprimant les statistiques
+3. Améliorer l'alignement du texte dans la recherche
+4. Réduire la taille des pastilles de tri des blogs
+
+### Plan d'action :
+
+[X] Étape 1 : Mettre à jour blog.posts.ts avec les vraies images
+    [X] Mapper les images disponibles aux articles existants
+    [X] Utiliser les 7 images disponibles pour les 12 articles (répétition acceptée)
+    [X] Corriger les imports d'images (comme dans products.ts)
+
+[X] Étape 2 : Simplifier le Hero section de BlogPage.tsx
+    [X] Supprimer la section des statistiques (3 colonnes)
+    [X] Garder le titre en blanc explicite (text-white ajouté)
+    [X] Améliorer l'alignement du texte dans la barre de recherche (text-center ajouté)
+
+[X] Étape 3 : Réduire la taille des pastilles de tri
+    [X] Ajuster padding (px-6 py-3 → px-4 py-2) et font-size (text-sm ajouté)
+    [X] Réduire l'espacement entre les pastilles (gap-3 → gap-2)
+    [X] Réduire la taille des icônes et compteurs
+    [X] Maintenir la lisibilité tout en réduisant la taille
+
+### Modifications apportées :
+
+✅ **Images réelles** : Tous les articles utilisent maintenant les vraies images du dossier illustrations
+- Imports corrects au début du fichier (comme products.ts)
+- Variables importées utilisées dans la config au lieu de chemins strings
+- Articles Construction → constructionPiscine
+- Articles Entretien → entretienPiscine ou produitEntretien
+- Articles Rénovation → renovationLiner
+- Articles Équipements → reparationPompe2 ou reparationRobot2
+- Articles généraux → magasinIllustration
+
+✅ **Hero simplifié** :
+- Suppression complète des statistiques (12 articles, 8 catégories, 85 min de lecture)
+- Titre explicitement en blanc avec `text-white`
+- Texte de recherche centré avec `text-center`
+- Interface plus épurée et focalisée sur la recherche
+
+✅ **Pastilles de tri réduites** :
+- Padding réduit de `px-6 py-3` à `px-4 py-2`
+- Font-size des boutons : `text-sm`
+- Icônes plus petites : `text-sm` au lieu de `text-lg`
+- Compteurs en `text-xs` au lieu de `text-sm`
+- Espacement entre pastilles : `gap-2` au lieu de `gap-3`
+- Marges internes ajustées pour "text-center"
+
+✅ **Amélioration générale de l'UX** :
+- Interface plus compacte et moderne
+- Meilleure hiérarchie visuelle
+- Chargement plus rapide avec vraies images locales
+- Cohérence avec le design système du site
+- **Images maintenant fonctionnelles** avec imports corrects
+
+### Leçon apprise :
+- Les images doivent être importées comme variables au début du fichier TypeScript
+- Utiliser les variables importées au lieu des chemins en string pour que Vite puisse les traiter
+- Suivre le même pattern que products.ts pour la cohérence du projet 
+
+## Tâche actuelle : Correction du Header.tsx avec les modifications précédentes
+
+### Problème résolu :
+✅ Le Header.tsx avait perdu les modifications précédentes mais le footer et autres fichiers étaient OK
+
+### Corrections apportées :
+
+[X] Étape 1 : Intégrer la configuration navbar.config.tsx
+    [X] Importer getMenuItems et socialLinks depuis navbar.config.tsx
+    [X] Supprimer la configuration locale redondante
+    [X] Utiliser getMenuItems() au lieu de la configuration locale
+
+[X] Étape 2 : Intégrer la configuration contact.ts
+    [X] Importer contact depuis './config/contact'
+    [X] Utiliser contact.phone.tel pour les liens téléphone
+    [X] Utiliser contact.phone.display pour l'affichage du numéro
+
+[X] Étape 3 : Ajouter Facebook dans les liens sociaux
+    [X] Importer FaFacebook depuis react-icons/fa
+    [X] Ajouter Facebook dans la section desktop avec socialLinks.facebook
+    [X] Ajouter Facebook dans la section mobile avec socialLinks.facebook
+
+[X] Étape 4 : Remplacer "Appelez-nous" par le numéro de téléphone
+    [X] Desktop CTA : remplacer "Appelez-nous" par {contact.phone.display} ("05 90 68 16 62")
+    [X] Mobile section : afficher le numéro dans le bouton téléphone
+    [X] Améliorer la taille du texte (text-base au lieu de text-sm)
+
+[X] Étape 5 : Améliorer l'accessibilité mobile
+    [X] Bouton téléphone mobile agrandi : px-4 py-3 avec shadow-lg
+    [X] Texte du numéro visible : text-lg font-bold
+    [X] Aria-label amélioré : "Appeler maintenant"
+
+### Fonctionnalités restaurées :
+✅ Configuration centralisée via navbar.config.tsx et contact.ts
+✅ Liens sociaux réels (Instagram, Facebook, Maps)
+✅ Numéro de téléphone réel affiché partout (05 90 68 16 62)
+✅ Amélioration accessibility pour personnes âgées
+✅ Cohérence entre desktop et mobile
+✅ Suppression du code redondant
+
+### Liens configurés :
+- ✅ Instagram : "https://www.instagram.com/kotepiscine.guadeloupe/"
+- ✅ Facebook : "https://www.facebook.com/kotepiscine.guadeloupe/"  
+- ✅ Maps : Lien Google Maps avec "Koté Piscine"
+- ✅ Téléphone : "+590590681662" (affiché "05 90 68 16 62")
+
+### Leçon apprise :
+- Vérifier que toutes les modifications sont bien appliquées à tous les fichiers concernés
+- Utiliser les configurations centralisées pour maintenir la cohérence
+- Toujours vérifier les imports et supprimer le code redondant 
+
+## Tâche actuelle : Création d'une grille mosaic stylisée pour BlogPage
+
+### Objectif :
+Créer une grille plus dynamique avec des cartes de différentes tailles pour un effet visuel moderne et engageant.
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier BlogCard pour supporter différentes tailles
+    [X] Ajouter prop size ('small', 'medium', 'large')
+    [X] Créer des classes CSS dynamiques selon la taille
+    [X] Adapter aspect-ratio, padding, taille de texte selon size
+    [X] Corriger l'affichage des icônes avec React.createElement()
+
+[X] Étape 2 : Transformer la grille de BlogPage
+    [X] Passer d'une grille 3 colonnes uniforme à une grille 4 colonnes
+    [X] Créer une logique pour déterminer la taille selon l'index
+    [X] Implémenter un pattern de répartition (première carte large, alternance)
+
+### Modifications effectuées :
+
+✅ **BlogCard amélioré** :
+- Prop `size` avec 3 variantes : small, medium, large
+- Classes dynamiques pour container (col-span-2, row-span-2 pour large)
+- Aspect ratios adaptés : 16/10 pour large, 16/9 pour autres
+- Padding variable : p-6 md:p-8 pour large, p-4 md:p-5 pour small
+- Titres adaptatifs : text-xl md:text-2xl pour large
+- Plus de tags affichés sur cartes large (4 vs 3)
+
+✅ **Grille mosaic BlogPage** :
+- Grille adaptive selon le nombre d'articles :
+  - ≤2 articles : 1-2 colonnes (évite espaces vides)
+  - 3-4 articles : 1-2-3 colonnes 
+  - ≥5 articles : 1-2-4 colonnes (pattern complet)
+- Pattern de répartition intelligent adaptatif :
+  - ≤3 articles : toutes cartes medium (optimise l'espace)
+  - 4-6 articles : 1 large + reste medium
+  - >6 articles : pattern sophistiqué (large tous les 7, small occasionnels)
+- Gap optimisé (gap-4 md:gap-6)
+- auto-rows-max pour adaptation hauteur
+- Large cards : col-span-2 row-span-1 (moins d'espace vertical)
+
+### Avantages améliorés :
+✅ **Adaptation intelligente** au nombre d'articles filtrés
+✅ **Évite les espaces vides** avec peu d'articles
+✅ **Grille responsive** optimisée selon le contexte
+✅ **Pattern équilibré** qui s'adapte au contenu
+✅ **Expérience consistante** quelque soit le filtre appliqué
+
+### Leçon apprise :
+- Les grilles CSS Grid avec col-span/row-span permettent des layouts mosaic efficaces
+- L'utilisation de patterns mathématiques (modulo) crée des répartitions équilibrées
+- Les cartes de différentes tailles améliorent l'engagement utilisateur
+
+## Tâche actuelle : Utilisation de navbar.config pour les liens utiles du footer
+
+### Objectif :
+Remplacer les liens utiles hardcodés dans le Footer.tsx par la configuration centralisée de navbar.config.tsx pour maintenir la cohérence.
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier Footer.tsx
+    [X] Importer getMenuItems depuis navbar.config.tsx
+    [X] Remplacer les liens hardcodés par la génération dynamique
+    [X] Adapter l'affichage pour montrer les sections principales du menu
+    [X] Maintenir la structure grid 2 colonnes existante
+
+### Avantages :
+✅ Cohérence entre navbar et footer
+✅ Maintenance simplifiée (un seul endroit pour modifier les liens)
+✅ Ajout automatique de nouveaux liens dans les deux endroits
+✅ Structure standardisée
+
+### Modifications effectuées :
+✅ Footer.tsx : import de getMenuItems depuis navbar.config.tsx
+✅ Remplacement des 6 liens hardcodés par une génération dynamique
+✅ Conservation du style existant (text-white/80 hover:text-kote-turquoise)
+✅ Maintien de la structure grid grid-cols-2 gap-2
+✅ Tous les liens du menu principal maintenant disponibles dans le footer
+
+### Liens maintenant générés automatiquement :
+- ✅ Accueil (/)
+- ✅ Nos Services (/services) 
+- ✅ Notre Gamme (/catalogue)
+- ✅ Nos Travaux (/realisations)
+- ✅ Nos Conseils (/blog)
+- ✅ Notre Magasin (/contact)
+
+### Leçon apprise :
+- Centraliser les configurations de navigation améliore la cohérence
+- Un seul changement dans navbar.config.tsx met à jour navbar et footer
+- La génération dynamique évite la duplication de code et les erreurs
+
+## Tâche actuelle : Suppression des sous-menus pour Nos Travaux, Nos Conseils et Notre Magasin
+
+### Objectif :
+Simplifier la navigation en supprimant les sous-menus pour trois sections spécifiques tout en conservant les liens principaux.
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier navbar.config.tsx
+    [X] Supprimer le sous-menu de "Nos Travaux" (réalisations)
+    [X] Supprimer le sous-menu de "Nos Conseils" (blog)
+    [X] Supprimer le sous-menu de "Notre Magasin" (contact)
+    [X] Conserver les icônes et liens principaux
+
+### Modifications effectuées :
+✅ navbar.config.tsx : suppression des 3 sous-menus spécifiés
+✅ Conservation des liens principaux vers les pages /realisations, /blog et /contact
+✅ Conservation des icônes principales
+✅ Simplification de l'expérience utilisateur en réduisant les options de navigation
+
+### Structure de navigation maintenant :
+- Accueil (/) : aucun sous-menu
+- Nos Services (/services) : sous-menu conservé avec les différents services
+- Notre Gamme (/catalogue) : sous-menu conservé avec les catégories de produits 
+- Nos Travaux (/realisations) : lien direct sans sous-menu
+- Nos Conseils (/blog) : lien direct sans sous-menu
+- Notre Magasin (/contact) : lien direct sans sous-menu
+
+### Avantages :
+- Interface utilisateur plus légère et directe
+- Expérience de navigation simplifiée pour l'utilisateur
+- Moins d'options potentiellement confuses
+- Accès direct aux sections principales du site
+- Focalisation sur les contenus les plus importants
+
+## Tâche actuelle : Correction du bug d'affichage du lien actif dans la navbar
 
 ### Problème identifié :
-1. Sur iPhone en production, les cartes avec effet glassmorphism s'affichent de manière trop opaque et brillante
-2. Dans HomePage.tsx, les cards sont affectées
-3. Dans ContactPage.tsx, la galerie photo a un background glass incorrect alors que les autres cards "nos horaires", "suivez-nous" s'affichent correctement
+Le soulignement bleu n'apparaissait pas sur les liens avec sous-menu lorsqu'on était sur une page associée à ce menu.
 
-### Analyse du problème :
-Le problème est probablement lié à des incompatibilités de l'effet glassmorphism avec Safari sur iOS. Les différences entre les cartes qui fonctionnent et celles qui ne fonctionnent pas peuvent être liées à :
+### Solution :
+Modifier la classe du soulignement pour qu'elle s'adapte à l'état actif du lien, même pour les liens avec sous-menu.
 
-1. Différentes implémentations des classes card-glass-transparent et card-glass-opaque
-2. Problèmes de compatibilité avec backdrop-filter et/ou bg-white/10 sur Safari iOS
-3. Problèmes potentiels avec les valeurs d'opacité fractionnaires
-4. Différences dans la façon dont les reflets et ombres sont appliqués
-5. Ordre des couches z-index et superpositions incorrectes
-6. Problèmes avec background-clip, mask-image ou autres propriétés avancées
+### Plan d'action :
 
-### Analyse des différences de code :
+[X] Étape 1 : Corriger les liens du menu desktop avec sous-menu
+    [X] Modifier le span du soulignement pour utiliser une classe conditionnelle
+    [X] Appliquer `w-full` lorsque `location.pathname.startsWith(item.to)`
+    [X] Conserver l'effet hover uniquement lorsque le lien n'est pas actif
 
-#### Cards qui fonctionnent bien (ContactPage - "Nos horaires", "Suivez-nous") :
-- Utilisent `card-glass-transparent` et `card-glass-reflect`
-- Ont une div `card-shadow-projected` séparée en position absolute
-- Ont une couche supplémentaire avec `from-white/25 to-transparent`
-- Utilisent `relative z-10` pour le contenu
-- Contiennent des éléments internes avec `backdrop-blur-sm` et des dégradés explicites
-- Les éléments internes utilisent `from-kote-blue-light/40 to-kote-turquoise/30` (valeurs précises)
+[X] Étape 2 : Corriger les liens du menu mobile avec sous-menu
+    [X] Appliquer la même logique que pour la version desktop
+    [X] Maintenir l'opacité à 70% pour conserver le style existant
+    [X] Assurer la cohérence visuelle entre desktop et mobile
 
-#### Cards qui ne fonctionnent pas bien (Hero des services) :
-- Utilisent aussi `card-glass-transparent` et `card-glass-reflect`
-- Ont aussi une div `card-shadow-projected`
-- Utilisent plusieurs couches de superposition
-- Ont des effets supplémentaires de hover avec `group-hover:bg-white/15`
-- Utilisent des transformations 3D plus complexes avec `card-3d-wrapper`
-- Ont plus d'éléments imbriqués et d'effets visuels
+### Modifications effectuées :
+✅ Remplacement de la classe statique `w-0` par une classe conditionnelle
+✅ Utilisation de l'interpolation de chaîne avec des backticks et ${} pour insérer la logique
+✅ Maintien de tous les autres styles et transitions existants
+✅ Cohérence visuelle entre tous les types de liens (avec/sans sous-menu)
 
-#### Différences clés identifiées :
-1. Les cartes qui fonctionnent utilisent `backdrop-blur-md` explicite sur les éléments internes vs. uniquement `backdrop-blur-xl` de la classe `.card-glass-transparent`
-2. Les cartes qui fonctionnent utilisent des valeurs d'opacité plus élevées (/30, /40, /50) vs. (/10, /15, /20)
-3. Les cartes qui fonctionnent ont moins d'effets de transformation 3D complexes (rotate-y, rotate-x)
-4. Les cartes qui fonctionnent ont moins de couches superposées
-5. Les cards de la galerie photos (qui ne fonctionnent pas bien) ont une structure plus complexe avec diaporama et contrôles
+### Problème résolu :
+- Les liens avec sous-menu affichent maintenant correctement le soulignement bleu lorsqu'on navigue sur une page qui fait partie de leur section
+- La transition au survol reste fonctionnelle pour les liens non-actifs
+- L'expérience utilisateur est améliorée par une meilleure indication visuelle de la navigation actuelle
 
-### Plan d'action révisé :
-
-[X] Étape 1 : Analyser les différences entre les cards qui fonctionnent et celles qui ne fonctionnent pas
-    [X] Comparer les classes CSS utilisées dans les cards qui fonctionnent (ContactPage) vs. celles qui ne fonctionnent pas (HomePage)
-    [X] Identifier les propriétés spécifiques qui causent le problème
-
-[ ] Étape 2 : Créer un composant CardGlass unifié basé sur les cards fonctionnelles
-    [ ] Créer un composant réutilisable `CardGlass.tsx` qui reprend exactement la structure des cards fonctionnelles
-    [ ] Inclure tous les éléments qui assurent la compatibilité Safari : card-shadow-projected, from-white/25, relative z-10
-    [ ] Utiliser des valeurs d'opacité plus élevées (/30, /40) et des couleurs RGBA explicites
-    [ ] Inclure -webkit-backdrop-filter en parallèle avec backdrop-filter
-    [ ] Ajouter des props pour personnaliser le contenu et le style tout en gardant la structure de base
-
-[ ] Étape 3 : Modifier le tailwind.config.js pour standardiser les classes glass
-    [ ] Remplacer les classes card-glass-transparent et card-glass-opaque par une seule classe unifiée
-    [ ] Utiliser les propriétés qui fonctionnent sur Safari iOS (-webkit-backdrop-filter, rgba au lieu de fractions)
-    [ ] Supprimer les effets 3D complexes des définitions de base
-    [ ] Garantir la compatibilité cross-browser
-
-[ ] Étape 4 : Remplacer toutes les implémentations existantes
-    [ ] Remplacer les cards de Hero.tsx par le nouveau composant CardGlass
-    [ ] Remplacer la galerie photos de ContactPage par le nouveau composant ou la nouvelle classe
-    [ ] Remplacer les cards de ServicesPage.tsx (sauf la card devis) par le nouveau composant CardGlass
-    [ ] Vérifier et corriger toutes méticuleusement les autres occurrences d'effets glassmorphism dans le site
-    [ ] Assurer une expérience visuelle cohérente sur toutes les pages
-
-### Solution technique spécifique :
-1. Standardiser la structure HTML pour toutes les cards glass :
-   ```jsx
-   <div className="relative h-full">
-     {/* Ombre projetée */}
-     <div className="card-shadow-projected" aria-hidden="true"></div>
-     
-     {/* Carte principale avec effet de verre */}
-     <div className="relative h-full card-glass-unified overflow-hidden">
-       {/* Effet de reflet en haut */}
-       <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
-       
-       {/* Contenu avec z-index positif */}
-       <div className="relative z-10 p-6">
-         {/* Contenu spécifique ici */}
-       </div>
-     </div>
-   </div>
-   ```
-
-2. Définir la classe CSS unifiée dans tailwind.config.js :
-   ```js
-   '.card-glass-unified': {
-     '@apply backdrop-blur-md bg-white/30 border border-white/30 rounded-2xl': {},
-     '-webkit-backdrop-filter': 'blur(12px)',
-     'background-color': 'rgba(255, 255, 255, 0.3)',
-     'box-shadow': theme('boxShadow.card-standard'),
-   }
-   ```
-
-3. Éliminer les transformations 3D complexes du composant Hero et simplifier sa structure
-4. Standardiser l'approche pour tous les composants utilisant des effets de verre
+### Leçon apprise :
+- Il est important de gérer de manière cohérente les styles conditionnels à travers tous les composants similaires
+- Les éléments avec et sans sous-menu doivent suivre la même logique d'affichage des états actifs

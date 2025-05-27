@@ -96,7 +96,7 @@ const ServicesPage = () => {
           {/* Patchwork unifié des cartes, statistiques et services */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Grande carte de présentation */}
-            <AnimatedElement delay={0.05} className="md:col-span-6 lg:col-span-8">
+            <div className="md:col-span-6 lg:col-span-8">
               <div className="relative h-full">
                 {/* Effet d'ombre projetée */}
                 <div className="card-shadow-projected" aria-hidden="true"></div>
@@ -105,7 +105,7 @@ const ServicesPage = () => {
                   {/* Effet de reflet en haut */}
                   <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                   
-                  <div className="relative z-10 h-full flex flex-col">
+                  <AnimatedElement delay={0.05} className="relative z-10 h-full flex flex-col">
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Notre savoir-faire à votre service</h2>
                     <p className="text-white/90 mb-6">
                       Chez Koté Piscine, nous mettons notre expérience au service de tous vos besoins liés à votre piscine. 
@@ -113,30 +113,30 @@ const ServicesPage = () => {
                       nous vous proposons des solutions adaptées à votre projet et votre budget.
                     </p>
 
-                  </div>
+                  </AnimatedElement>
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* Statistiques */}
             {stats.slice(0, 2).map((stat, index) => (
-              <AnimatedElement key={stat.label} delay={0.1 + index * 0.1} className="md:col-span-6 lg:col-span-2">
+              <div className="md:col-span-6 lg:col-span-2">
                 <div className="relative h-full">
                   <div className="card-shadow-projected" aria-hidden="true"></div>
                   
                   <div className="relative h-full p-5 card-glass-transparent card-glass-reflect overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                     
-                    <div className="relative z-10 flex flex-col items-center text-center h-full">
+                    <AnimatedElement key={stat.label} delay={0.1 + index * 0.1} className="relative z-10 flex flex-col items-center text-center h-full">
                       <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 mb-3">
                   {stat.icon}
                       </div>
                       <h3 className="text-3xl md:text-4xl font-bold text-white">{stat.value}</h3>
                       <p className="text-white/90 font-medium">{stat.label}</p>
-                    </div>
+                    </AnimatedElement>
                   </div>
                 </div>
-              </AnimatedElement>
+              </div>
             ))}
 
             {/* Configurateur de devis amélioré - design plus attractif */}
@@ -211,24 +211,24 @@ const ServicesPage = () => {
             </AnimatedElement>
 
             {/* Dernière statistique */}
-            <AnimatedElement delay={0.5} className="md:col-span-6 lg:col-span-4">
+            <div className="md:col-span-6 lg:col-span-4">
               <div className="relative h-full">
                 <div className="card-shadow-projected" aria-hidden="true"></div>
                 
                 <div className="relative h-full p-5 card-glass-transparent card-glass-reflect overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                   
-                  <div className="relative z-10 h-full flex flex-col justify-center items-center text-center">
+                  <AnimatedElement delay={0.5} className="relative z-10 h-full flex flex-col justify-center items-center text-center">
                     <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 mb-3">
                       {stats[2].icon}
                     </div>
                     <h3 className="text-3xl md:text-4xl font-bold text-white mb-1">{stats[2].value}</h3>
                     <p className="text-white/90 font-medium mb-2">{stats[2].label}</p>
                     <p className="text-white/80 text-sm">{stats[2].description}</p>
-                  </div>
+                  </AnimatedElement>
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* Image de piscine */}
             <AnimatedElement delay={0.6} className="md:col-span-6 lg:col-span-4">
@@ -255,28 +255,28 @@ const ServicesPage = () => {
               const imageRight = index % 2 !== 0; // Alterne position de l'image (gauche ou droite)
               
               return (
-                <AnimatedElement 
-                  key={service.id}
-                  delay={0.15} 
-                  className="md:col-span-12"
-                >
+                <div className="md:col-span-12">
                   <div className="relative h-full">
                     <div className="card-shadow-projected" aria-hidden="true"></div>
                     
                     <div className="relative h-full card-glass-transparent card-glass-reflect overflow-hidden">
-                      <div className="flex flex-col lg:flex-row">
+                      <AnimatedElement 
+                        key={service.id}
+                        delay={0.15}
+                        className="flex flex-col lg:flex-row"
+                      >
                         {/* Image */}
                         <div className={`w-full lg:w-1/2 relative ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
-                        <img
-                          src={getServiceImage(service.id)}
-                          alt={service.title}
-                          className="w-full h-96 object-cover object-[25%_75%]"
-                          onError={(e) => {
-                            e.currentTarget.onerror = null;
-                            e.currentTarget.src = serviceDefaultImage;
-                          }}
-                        />
-                      </div>
+                          <img
+                            src={getServiceImage(service.id)}
+                            alt={service.title}
+                            className="w-full h-96 object-cover object-[25%_75%]"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = serviceDefaultImage;
+                            }}
+                          />
+                        </div>
                         
                         {/* Contenu */}
                         <div className={`relative z-10 p-6 lg:p-8 lg:w-1/2 ${imageRight ? 'lg:order-1' : 'lg:order-2'}`}>
@@ -344,10 +344,10 @@ const ServicesPage = () => {
                             />
                           </div>
                         </div>
-                      </div>
+                      </AnimatedElement>
                     </div>
                   </div>
-                </AnimatedElement>
+                </div>
               );
             })}
           </div>

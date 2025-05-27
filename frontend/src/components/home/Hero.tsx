@@ -256,15 +256,10 @@ const Hero = () => {
             <AnimatedElement delay={0.3}>
               <div className="perspective-1000 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 lg:gap-6">
                 {heroServicesData.map((service, index) => (
-                  <AnimatedElement key={service.id} delay={index * 0.1 + 0.3}>
+                  
                     <div
                       className="relative group will-change-transform"
                     >
-                      {/* Effet d'ombre projetée pour la 3D */}
-                      <div 
-                        className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.95] translate-y-1 opacity-50 transition-all duration-500 group-hover:scale-[0.92] group-hover:translate-y-2 group-hover:opacity-70"
-                        aria-hidden="true"
-                      ></div>
                     
                       {/* Wrapper de carte avec effet 3D */}
                       <div className="card-3d-wrapper transform-gpu transition-all duration-500 ease-out group-hover:rotate-y-10 group-hover:rotate-x-10">
@@ -272,16 +267,16 @@ const Hero = () => {
                           to={service.link}
                           className="relative block h-full will-change-transform"
                         >
+                          <div className="card-shadow-projected" aria-hidden="true"></div>
                           {/* Couche de verre principale */}
                           <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
-                            <div className="card-shadow-projected" aria-hidden="true"></div>
                             {/* Effet de reflet en haut de la carte */}
                             <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                             
                             {/* Effet de brillance au survol */}
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-kote-turquoise/20 via-white/5 to-transparent"></div>
 
-                            <div className="p-4 relative z-10 flex flex-col h-full">
+                            <AnimatedElement key={service.id} delay={index * 0.1 + 0.3} className="p-4 relative z-10 flex flex-col h-full transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
                               {/* Header horizontal : icône + titre */}
                               <div className="flex items-center gap-4 mb-4">
                                 <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 w-fit transform group-hover:scale-110 group-hover:shadow-lg transition-all duration-500 will-change-transform">
@@ -289,7 +284,7 @@ const Hero = () => {
                                     {service.icon}
                                   </div>
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-kote-turquoise transition-colors duration-500 text-shadow-sm m-0">
+                                <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-kote-turquoise transition-all duration-500 text-shadow-sm m-0">
                                   {service.title}
                                 </h3>
                               </div>
@@ -304,12 +299,12 @@ const Hero = () => {
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
                               </div>
-                            </div>
+                            </AnimatedElement>
                           </div>
                         </Link>
                       </div>
                     </div>
-                  </AnimatedElement>
+                  
                 ))}
               </div>
             </AnimatedElement>
@@ -317,7 +312,7 @@ const Hero = () => {
         </div>
         
         <div ref={ctaRef}>
-          <AnimatedElement delay={0.7}>
+          <AnimatedElement delay={0.2}>
             <div className="text-center mt-12">
               <CtaButton 
                 to="/services" 

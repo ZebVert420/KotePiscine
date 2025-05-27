@@ -88,15 +88,6 @@ module.exports = {
           'z-index': '0',
         },
         '.card-shadow-projected': {
-          position: 'absolute',
-          inset: '0',
-          'z-index': '-5',
-          'border-radius': theme('borderRadius.2xl'),
-          background: 'rgba(226, 8, 8, 0.67)',
-          filter: 'blur(20px)',
-          transform: 'scale(0.98) translateY(4px)',
-          opacity: '0.5',
-          'pointer-events': 'none',
         },
       })
     }),

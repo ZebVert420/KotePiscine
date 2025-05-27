@@ -131,7 +131,7 @@ const Header = () => {
   return (
     <header 
       id="main-navbar"
-      className={`fixed w-full z-50 transition-all duration-500 py-1 bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg ${
+      className={`fixed w-full z-50 transition-all duration-500 py-2 bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg ${
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
