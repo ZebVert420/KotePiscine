@@ -187,10 +187,12 @@
   
   /* Classes pour améliorer l'effet de glassmorphism */
   .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
   }
   
   .backdrop-saturate-150 {
+    -webkit-backdrop-filter: saturate(150%) blur(12px);
     backdrop-filter: saturate(150%) blur(12px);
   }
   
@@ -505,4 +507,33 @@
 
 .animate-bounce {
   animation: bounce 2s infinite;
+}
+
+/* Styles spécifiques pour Safari iOS */
+@supports (-webkit-touch-callout: none) {
+  /* Fallback pour les cartes avec effets de glassmorphism sur iOS */
+  .card-glass-opaque {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+  }
+  
+  /* Classe spécifique pour les corrections iOS */
+  .ios-glass-fix {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Renforcement de l'effet de transparence pour iOS */
+  .backdrop-blur-xl, .backdrop-blur-sm {
+    -webkit-backdrop-filter: blur(8px) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Optimisations pour le rendu sur iOS */
+  .transform-gpu {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
 }

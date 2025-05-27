@@ -522,7 +522,7 @@ const Testimonials = () => {
                       <div className="transform-gpu transition-all duration-500 ease-out">
                         {/* Container avec effet verre */}
                         <div 
-                          className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-500 p-5 h-[380px] flex flex-col"
+                          className="relative backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-500 p-5 h-[380px] flex flex-col ios-glass-fix"
                         >
                           {/* Effet de reflet en haut de la carte */}
                           <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
@@ -615,7 +615,7 @@ const Testimonials = () => {
                   <div className="transform-gpu transition-all duration-500 ease-out">
                     {/* Container avec effet verre */}
                     <div 
-                      className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-500 p-5 h-[380px] flex flex-col"
+                      className="relative backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-500 p-5 h-[380px] flex flex-col ios-glass-fix"
                     >
                       {/* Effet de reflet en haut de la carte */}
                       <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>

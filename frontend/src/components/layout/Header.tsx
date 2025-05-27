@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaInstagram, FaPhone, FaFacebook } from 'react-icons/fa';
 import { FaMapLocationDot, FaCircleChevronRight } from 'react-icons/fa6';
 import { getMenuItems, socialLinks } from '../../config/navbar.config';
 import contact from '../../config/contact';
 
-// Importer le logo
+// Importer les logos
 import LogoHorizontal from '../../images/logo/Blanc Horizontal.png';
+import LogoRond from '../../images/logo/Blanc Rond.png';
+import LogoVertical from '../../images/logo/Blanc Vertical.png';
 
 const Header = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [useCompactLogo, setUseCompactLogo] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const submenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   // Utiliser la configuration des menus
@@ -45,6 +49,24 @@ const Header = () => {
     };
   }, [lastScrollY]);
 
+  // Surveiller la largeur de l'écran pour changer le logo
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setUseCompactLogo(window.innerWidth < 420);
+    };
+    
+    // Vérifier au chargement initial
+    checkScreenSize();
+    
+    // Ajouter un listener pour les changements de taille d'écran
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Nettoyer l'event listener
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
   // Ferme le menu mobile lors du changement de page
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -72,10 +94,44 @@ const Header = () => {
     setActiveSubmenu(activeSubmenu === menuName ? null : menuName);
   };
 
+  // Détermine quel logo afficher selon les conditions
+  const renderLogo = () => {
+    if (useCompactLogo) {
+      if (mobileMenuOpen) {
+        // Logo vertical quand menu mobile ouvert et écran petit
+        return (
+          <img 
+            src={LogoVertical} 
+            alt="Koté Piscine" 
+            className="h-14 md:h-16 transition-all duration-300 transform scale-110"
+          />
+        );
+      } else {
+        // Logo rond quand écran petit et menu fermé
+        return (
+          <img 
+            src={LogoRond} 
+            alt="Koté Piscine" 
+            className="h-12 md:h-14 transition-all duration-300 transform scale-110"
+          />
+        );
+      }
+    } else {
+      // Logo horizontal sur écran normal
+      return (
+        <img 
+          src={LogoHorizontal} 
+          alt="Koté Piscine" 
+          className="h-10 md:h-12 lg:h-14 transition-all duration-300"
+        />
+      );
+    }
+  };
+
   return (
     <header 
       id="main-navbar"
-      className={`fixed w-full z-50 transition-all duration-500 py-3 bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg ${
+      className={`fixed w-full z-50 transition-all duration-500 py-1 bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg ${
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
@@ -85,15 +141,11 @@ const Header = () => {
           to="/" 
           className="flex items-center transition-transform duration-300 hover:scale-105"
         >
-          <img 
-            src={LogoHorizontal} 
-            alt="Koté Piscine" 
-            className="h-10 md:h-12 lg:h-14"
-          />
+          {renderLogo()}
         </Link>
 
         {/* Navigation Desktop */}
-        <nav className="hidden lg:flex items-center">
+        <nav className="hidden xl:flex items-center">
           <ul className="flex space-x-6">
             {menuItems.map((item) => (
               <li key={item.name} className="relative group">
@@ -199,8 +251,8 @@ const Header = () => {
           </ul>
         </nav>
 
-        {/* Icônes sociales - desktop */}
-        <div className="hidden lg:flex items-center space-x-7">
+        {/* Icônes sociales - desktop (xl+) */}
+        <div className="hidden xl:flex items-center space-x-7">
           <a 
             href={socialLinks.instagram}
             target="_blank" 
@@ -237,8 +289,39 @@ const Header = () => {
           </a>
         </div>
 
-        {/* Bouton menu mobile */}
-        <div className="lg:hidden flex items-center space-x-4">
+        {/* Bouton menu mobile et icônes sociales (md à xl) */}
+        <div className="xl:hidden flex items-center space-x-4">
+          {/* Icônes sociales entre md et xl */}
+          <div className="hidden md:flex xl:hidden items-center space-x-6 mr-2">
+            <a 
+              href={socialLinks.instagram}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-xl"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </a>
+            <a 
+              href={socialLinks.facebook}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-xl"
+              aria-label="Facebook"
+            >
+              <FaFacebook />
+            </a>
+            <a 
+              href={socialLinks.maps}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-xl"
+              aria-label="Itinéraire"
+            >
+              <FaMapLocationDot />
+            </a>
+          </div>
+          
           {/* Icône téléphone mobile - amélioré pour accessibilité elderly */}
           <a 
             href={socialLinks.phone}
@@ -285,7 +368,7 @@ const Header = () => {
 
       {/* Menu mobile */}
       <div 
-        className={`lg:hidden absolute w-full bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg transition-all duration-300 ${
+        className={`xl:hidden absolute w-full bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg transition-all duration-300 ${
           mobileMenuOpen ? 'max-h-screen opacity-100 py-4' : 'max-h-0 opacity-0 overflow-hidden'
         }`}
       >
@@ -330,7 +413,12 @@ const Header = () => {
                       <Link
                         to={item.to}
                         className="block py-2 text-kote-white opacity-90 hover:opacity-100 font-semibold border-l-2 border-kote-turquoise pl-2 mb-3 flex items-center"
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                          e.preventDefault();
+                          setMobileMenuOpen(false);
+                          setActiveSubmenu(null);
+
+                        }}
                       >
                         {item.icon && (
                           <span className="text-kote-turquoise mr-2 text-lg">{item.icon}</span>
@@ -343,9 +431,13 @@ const Header = () => {
                           <Link
                             key={subItem.name}
                             to={subItem.to}
-                            role="menuitem"
                             className="block py-2 text-kote-white opacity-80 hover:opacity-100 hover:translate-x-1 transition-all duration-200 flex items-center"
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                              e.preventDefault();
+                              setMobileMenuOpen(false);
+                              setActiveSubmenu(null);
+
+                            }}
                           >
                             {subItem.icon && (
                               <span className="text-kote-turquoise mr-3 text-lg opacity-80 group-hover:opacity-100">{subItem.icon}</span>
@@ -357,14 +449,27 @@ const Header = () => {
                     </div>
                   </div>
                 ) : (
-                  <NavLink 
+                  <Link 
                     to={item.to} 
-                    exact={item.to === '/'} 
-                    className="block py-2 relative group" 
-                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-2 relative group text-kote-white" 
+                    onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                      e.preventDefault();
+                      setMobileMenuOpen(false);
+                      setActiveSubmenu(null);
+                      setTimeout(() => {
+                        navigate(item.to);
+                      }, 10);
+                    }}
                   >
-                    {item.name}
-                  </NavLink>
+                    <span className={location.pathname.startsWith(item.to) ? 'font-bold text-kote-turquoise text-shadow-glow' : ''}>
+                      {item.name}
+                    </span>
+                    <span 
+                      className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-kote-turquoise transition-all duration-300 ${
+                        location.pathname.startsWith(item.to) ? 'w-full' : 'group-hover:w-full'
+                      }`}
+                    />
+                  </Link>
                 )}
               </li>
             ))}

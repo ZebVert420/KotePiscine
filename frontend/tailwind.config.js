@@ -7,6 +7,13 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1300px',
+      '2xl': '1536px',
+    },
     extend: {
       colors: {
         'kote-blue-dark': '#244F82', // Bleu foncé (Principale)
@@ -70,10 +77,13 @@ module.exports = {
         },
         '.card-glass-transparent': {
           '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
+          '-webkit-backdrop-filter': 'blur(12px)',
           boxShadow: theme('boxShadow.card-standard'),
         },
         '.card-glass-opaque': {
-          '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
+          '@apply bg-white/20 border border-white/30 rounded-2xl': {},
+          '-webkit-backdrop-filter': 'blur(8px)',
+          'backdrop-filter': 'blur(8px)',
           boxShadow: theme('boxShadow.card-standard'),
         },
         '.card-glass-reflect': {
