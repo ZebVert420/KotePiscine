@@ -1,0 +1,30 @@
+---
+description: 
+globs: frontend/src/pages/HomePage.tsx
+alwaysApply: false
+---
+---
+description: Définit l'expérience utilisateur attendue spécifiquement sur la page d'accueil, en cohérence avec ses composants et la User Story Principale.
+globs: "frontend/src/pages/HomePage.tsx"
+alwaysApply: false
+---
+
+# User Story 11 - La Page d'Accueil : Première Impression et Guidage
+
+**En tant que visiteur arrivant sur la page d'accueil de Koté Piscine (`/`) :**
+
+1.  **Je veux être immédiatement captivé** par une section d'accueil (`Hero`) visuellement **impactante** et **professionnelle**, utilisant la charte graphique premium (couleurs, police Arboria, image de fond "eau" si applicable ici). Le message principal doit clairement introduire **qui est Koté Piscine** et ce que vous proposez, avec un ton **accueillant** et **rassurant**.
+
+2.  **Je comprends instantanément le cœur de métier** de Koté Piscine grâce à des cartes par dessus le héro présentant les **principaux services** (Construction, Rénovation, Entretien, etc.). Chaque carte est présentée avec une icône, un titre, une description et un lien direct pour approfondir, me permettant de m'orienter facilement.
+
+3.  **Je suis rassuré par la preuve sociale** via la section `Testimonials` qui met en avant :
+    *   Une **évaluation globale excellente** basée sur les **avis Google**, clairement visible avec les étoiles et un lien direct pour consulter ou laisser un avis, renforçant immédiatement votre **crédibilité**.
+    *   Des **témoignages clients individuels** (`name`, `location`, `date`, `testimonial`, `rating` étoiles, `avatar`) présentés dans des **cartes élégantes** (style verre arrondi premium, `backdrop-blur`, `bg-white/10`) au sein d'un **carrousel interactif** (3D sur desktop, swipe sur mobile) facile à naviguer (flèches, indicateurs, swipe), me permettant de lire concrètement des expériences positives et de me projeter.
+
+4.  **Je veux comprendre facilement pourquoi je devrais vous choisir** grâce à une section (`WhyChooseUs`) qui met en avant vos **points forts uniques** (proximité, conseil personnalisé, expertise spécifique...). Les arguments doivent être **concrets**, rédigés avec le ton "nous"/"vous" et éviter le jargon excessif.
+
+5.  **Je veux être clairement guidé vers l'action** par un **appel à l'action** (`CallToAction`) bien visible, **incitatif** (bouton "pilule" premium, texte clair comme "Contactez-nous pour un conseil" ou "Découvrez notre magasin") et aligné avec l'objectif principal : **vous appeler** ou **vous rendre visite**.
+
+6.  **Je veux que cette page incarne parfaitement l'Expérience Koté Piscine** définie dans la User Story Principale : navigation **fluide**, design **premium cohérent** (couleurs, police, arrondis, fond "eau", animations douces), **réactivité** sur mobile, et accès **immédiat aux informations de contact** (header/footer).
+
+**En résumé, dès la page d'accueil, je dois me sentir Bienvenue, Comprendre rapidement ce que vous offrez, être Rassuré sur votre expertise, et être Naturellement guidé vers les prochaines étapes logiques (explorer les services/produits, vous contacter ou visiter le magasin).** 

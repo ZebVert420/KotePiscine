@@ -93,13 +93,23 @@ const PageTransition = ({ children }: PageTransitionProps) => {
     return false;
   };
 
+  // Fonction pour déterminer si on navigue à l'intérieur de la section /services
+  const isServicesInternalNavigation = (from: string, to: string) => {
+    const normalizePath = (path: string) => path.replace('/KotePiscine', '');
+    const fromNormalized = normalizePath(from);
+    const toNormalized = normalizePath(to);
+    return fromNormalized.startsWith('/services') && toNormalized.startsWith('/services');
+  };
+
   // Surveiller les changements de location pour démarrer l'animation
   useEffect(() => {
     const isSamePage = location.pathname === displayLocation.pathname;
     const isProductModal = isProductModalNavigation(location.pathname, displayLocation.pathname);
+    const isServicesInternal = isServicesInternalNavigation(location.pathname, displayLocation.pathname);
     
-    // Ne pas déclencher de transition si on navigue entre catalogue et détail produit
-    if (!isSamePage && !transitioning && !isProductModal) {
+    // Ne pas déclencher de transition si on reste sur la même page,
+    // si c'est une nav catalogue/modal produit OU une nav interne aux services
+    if (!isSamePage && !transitioning && !isProductModal && !isServicesInternal) {
       // Sauvegarder la position de défilement actuelle
       scrollPositions.current[displayLocation.pathname] = window.scrollY;
       
@@ -144,9 +154,9 @@ const PageTransition = ({ children }: PageTransitionProps) => {
           }, ENTER_ANIMATION_DURATION + POST_ANIMATION_DELAY);
         }, 100);
       }, EXIT_ANIMATION_DURATION); // Durée de l'animation de sortie
-    } else if ((isSamePage || isProductModal) && !transitioning) {
-      // Si on reste sur la même page ou si c'est juste un modal produit, 
-      // simplement mettre à jour le contenu sans animation
+    } else if ((isSamePage || isProductModal || isServicesInternal) && !transitioning) {
+      // Si on reste sur la même page, si c'est un modal produit OU nav interne services,
+      // simplement mettre à jour le contenu sans animation globale
       setDisplayLocation(location);
       setCurrentContent(children);
     }

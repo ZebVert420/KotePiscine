@@ -39,14 +39,16 @@ const AppRouter = () => {
           {/* Page d'accueil */}
           <Route path="/" element={<MainLayout key="home"><PageTransition><HomePage /></PageTransition></MainLayout>} />
           
-          {/* Services */}
-          <Route path="/services" element={<MainLayout key="services"><PageTransition><ServicesPage /></PageTransition></MainLayout>} />
-          <Route element={<MainLayout key="services-layout"><PageTransition><ServicesLayout><Outlet /></ServicesLayout></PageTransition></MainLayout>}>
-            <Route path="/services/construction" element={<ConstructionPage />} />
-            <Route path="/services/renovation" element={<RenovationPage />} />
-            <Route path="/services/entretien" element={<EntretienPage />} />
-            <Route path="/services/reparation" element={<ReparationPage />} />
-            <Route path="/services/automatismes" element={<AutomatismesPage />} />
+          {/* Services - regroupés dans une seule section avec ServicesLayout */}
+          <Route element={<MainLayout key="services-section"><Outlet /></MainLayout>}>
+            {/* Page principale des services sans PageTransition */}
+            <Route path="/services" element={<ServicesLayout><ServicesPage /></ServicesLayout>} />
+            {/* Pages détaillées des services */}
+            <Route path="/services/construction-piscine" element={<ServicesLayout><ConstructionPage /></ServicesLayout>} />
+            <Route path="/services/renovation-piscine" element={<ServicesLayout><RenovationPage /></ServicesLayout>} />
+            <Route path="/services/entretien-piscine" element={<ServicesLayout><EntretienPage /></ServicesLayout>} />
+            <Route path="/services/reparation-piscine" element={<ServicesLayout><ReparationPage /></ServicesLayout>} />
+            <Route path="/services/automatismes-piscine" element={<ServicesLayout><AutomatismesPage /></ServicesLayout>} />
           </Route>
           
           {/* Catalogue avec filtres */}

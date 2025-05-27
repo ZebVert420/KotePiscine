@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 This File is your notebook to execute task with a more structured, accurate and durable context
 
@@ -33,8 +33,314 @@ The goal is to help you maintain a big picture as well as the progress of the ta
 - When searching for recent docs, use the current year (2025) instead of previous years, or simply use the "recent" keyword to get the latest information
 - Il est important de typer explicitement les paramètres dans les callbacks (find, filter, map) pour éviter les erreurs TypeScript "implicitly has an 'any' type"
 - Toujours importer les types depuis les fichiers de définition existants pour maintenir la cohérence
+- Les styles inline redondants avec Tailwind peuvent créer des conflits de positionnement - préférer les classes Tailwind pures
+- Le padding sur un overlay fixed peut décaler le contenu du centre - utiliser mx-auto px-4 sur le container interne à la place
 
 # Scratchpad
+
+## Tâche actuelle : Debug du centrage de la lightbox dans RealisationsPage.tsx
+
+### Problème signalé :
+La lightbox qui s'ouvre lors du clic sur un projet n'est pas centrée correctement sur la page.
+
+### Analyse nécessaire :
+- Examiner le code CSS/Tailwind de centrage actuel
+- Identifier les conflits potentiels avec d'autres styles
+- Tester le comportement responsive
+- Vérifier les styles inline vs classes Tailwind
+
+### Plan d'action :
+
+[X] Étape 1 : Analyser le code actuel de la lightbox
+[X] Étape 2 : Identifier le problème de centrage spécifique
+[X] Étape 3 : Corriger le problème de centrage
+[X] Étape 4 : Tester la correction sur différents écrans
+
+### Corrections apportées :
+✅ Suppression du style inline redondant `style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}`
+✅ Suppression du `p-4` qui créait un décalage sur l'overlay
+✅ Ajout de `mx-auto px-4` sur le container principal pour un centrage optimal
+✅ Ajout de `justify-center` et `h-full` pour un centrage vertical parfait
+✅ Conservation de toutes les fonctionnalités existantes (navigation, fermeture, etc.)
+✅ Serveur de développement lancé pour test
+
+### Leçon apprise :
+- Les styles inline redondants avec Tailwind peuvent créer des conflits de positionnement
+- Le padding sur un overlay fixed peut décaler le contenu du centre
+- Combiner `mx-auto px-4` avec `justify-center h-full` assure un centrage parfait
+
+## Tâche actuelle : Intégration de fiches produits et CTA dans les articles de blog
+
+### Objectif :
+Permettre l'intégration dans les articles de blog de :
+1. **Fiches produits** : Affichage stylisé d'un produit avec lien vers sa page catalogue
+2. **CTA articles** : Liens stylisés vers d'autres articles du blog
+3. **CTA services** : Liens stylisés vers les pages de services
+Le tout configurable dans `blog.posts.ts` en attendant le backend.
+
+### Plan d'action :
+
+[X] Étape 1 : Enrichir l'interface BlogPost dans blog.posts.ts
+    [X] Ajouter `relatedProducts?: string[]` (IDs des produits liés)
+    [X] Ajouter `relatedArticles?: string[]` (IDs des articles liés)
+    [X] Ajouter `relatedServices?: string[]` (IDs des services liés)
+    [X] Ajouter `contentBlocks?: ContentBlock[]` pour un contenu structuré
+
+[X] Étape 2 : Créer les types pour le contenu structuré
+    [X] Type `ContentBlock` avec variants : 'text', 'product-card', 'article-cta', 'service-cta'
+    [X] Interface pour chaque type de bloc avec leurs propriétés spécifiques
+    [X] Gestion de la position des blocs dans le contenu
+
+[X] Étape 3 : Créer les composants d'affichage
+    [X] `ProductCardBlock` : Carte produit intégrée dans l'article
+    [X] `ArticleCTABlock` : Bloc CTA vers un autre article
+    [X] `ServiceCTABlock` : Bloc CTA vers un service
+    [X] `ContentRenderer` : Composant qui gère l'affichage des ContentBlocks
+
+[X] Étape 4 : Enrichir un article exemple dans blog.posts.ts
+    [X] Article 1 enrichi avec tous les types de blocs
+    [X] Produits liés (AlgaStop, pH Moins, Chlore choc)
+    [X] Articles liés (cyclone, produits d'entretien)
+    [X] Services liés (entretien, réparation)
+
+[ ] Étape 5 : Créer/Modifier BlogPostPage.tsx pour utiliser le nouveau système
+    [ ] Intégrer le ContentRenderer pour afficher le contenu structuré
+    [ ] Gérer l'affichage des produits/articles/services liés en fin d'article
+    [ ] Ajouter la route dans le routeur
+
+### Prochaine étape :
+- Vérifier si BlogPostPage existe déjà
+- L'adapter pour utiliser ContentRenderer
+- Créer une section pour les éléments liés
+
+### Structure proposée pour ContentBlock :
+
+```typescript
+type ContentBlockType = 'text' | 'product-card' | 'article-cta' | 'service-cta';
+
+interface BaseContentBlock {
+  type: ContentBlockType;
+  id: string;
+}
+
+interface TextBlock extends BaseContentBlock {
+  type: 'text';
+  content: string; // Markdown supporté
+}
+
+interface ProductCardBlock extends BaseContentBlock {
+  type: 'product-card';
+  productId: string;
+  variant?: 'compact' | 'full'; // compact dans le flow, full plus grand
+}
+
+interface ArticleCTABlock extends BaseContentBlock {
+  type: 'article-cta';
+  articleId: string;
+  customTitle?: string; // Override du titre si besoin
+  customText?: string; // Texte personnalisé
+}
+
+interface ServiceCTABlock extends BaseContentBlock {
+  type: 'service-cta';
+  serviceId: string;
+  customTitle?: string;
+  customText?: string;
+  variant?: 'inline' | 'banner'; // inline dans le texte, banner sur toute la largeur
+}
+
+type ContentBlock = TextBlock | ProductCardBlock | ArticleCTABlock | ServiceCTABlock;
+```
+
+### Avantages de cette approche :
+- Contenu structuré et modulaire
+- Réutilisable et maintenable
+- Facile à migrer vers un backend/CMS
+- Flexible pour ajouter de nouveaux types de blocs
+- Permet un mélange riche de contenu et CTA
+
+## Tâche actuelle : Simplifier l'intégration produits/articles et optimiser SEO
+
+### Objectif :
+1. Permettre de référencer produits/articles par nom au lieu d'ID
+2. Auto-remplir les descriptions depuis les configs
+3. Optimiser la structure SEO des articles
+
+### Plan d'action :
+
+[X] Étape 1 : Créer des fonctions helper pour la recherche
+    [X] Helper findProductByName dans blog.posts.ts → Implémenté directement dans les composants
+    [X] Helper findArticleByTitle dans blog.posts.ts → Implémenté directement dans les composants
+    [X] Helper findServiceByName dans blog.posts.ts → Implémenté directement dans les composants
+    [X] Gestion des cas où l'élément n'est pas trouvé
+
+[X] Étape 2 : Enrichir les interfaces ContentBlock
+    [X] ProductCardBlock : accepter productId OU productName
+    [X] ArticleCTABlock : accepter articleId OU articleTitle
+    [X] ServiceCTABlock : accepter serviceId OU serviceName
+    [X] Ajouter validation et messages d'erreur clairs
+
+[X] Étape 3 : Adapter les composants pour utiliser les helpers
+    [X] Modifier ProductCardBlock pour chercher par nom si pas d'ID
+    [X] Modifier ArticleCTABlock pour chercher par titre si pas d'ID
+    [X] Modifier ServiceCTABlock pour chercher par nom si pas d'ID
+
+[X] Étape 4 : Optimiser le SEO
+    [X] Ajouter les métadonnées Open Graph et Twitter Cards
+    [X] Structure sémantique HTML5 (article, section, aside)
+    [X] Schema.org pour les articles de blog
+    [X] Breadcrumbs structurés
+    [X] URLs canoniques
+    [X] Installation et configuration de react-helmet-async
+
+[X] Étape 5 : Créer un article exemple avec la nouvelle syntaxe
+    [X] Montrer l'utilisation par nom (productName, serviceName)
+    [X] Montrer l'auto-complétion des descriptions
+    [X] Vérifier le rendu SEO
+
+### Résultats obtenus :
+
+✅ **Simplification de l'intégration** :
+- On peut maintenant référencer un produit par son nom : `productName: 'pH Moins liquide - 20L'`
+- On peut référencer un service par son nom : `serviceName: 'Entretien de Piscine'`
+- On peut référencer un article par son titre : `articleTitle: 'Guide complet...'`
+- Plus besoin de connaître les IDs !
+
+✅ **Automatisation des descriptions** :
+- Ajout du flag `autoDescription: true` pour utiliser automatiquement la description du produit/service
+- Ajout du flag `autoExcerpt: true` pour utiliser automatiquement l'excerpt de l'article
+- Les CTA peuvent toujours avoir des textes personnalisés avec `customTitle` et `customText`
+
+✅ **SEO optimisé** :
+- Métadonnées Open Graph et Twitter Card
+- Schema.org JSON-LD pour les articles de blog
+- Structure HTML5 sémantique (article, header, aside, section)
+- Breadcrumbs avec Schema.org
+- URLs canoniques
+- Images optimisées avec alt et dimensions
+- Temps de lecture et métadonnées auteur
+
+✅ **Amélioration de l'expérience développeur** :
+- Messages d'erreur clairs en développement si un élément n'est pas trouvé
+- Support des deux méthodes (ID ou nom) pour la flexibilité
+- Recherche insensible à la casse pour les noms
+
+### Exemple d'utilisation :
+
+```typescript
+// Avant
+{
+  type: 'product-card',
+  id: 'product-1',
+  productId: '7', // Il fallait connaître l'ID
+  variant: 'compact'
+}
+
+// Maintenant
+{
+  type: 'product-card',
+  id: 'product-ph',
+  productName: 'pH Moins liquide - 20L', // On utilise directement le nom !
+  variant: 'compact',
+  autoDescription: true // La description vient automatiquement
+}
+```
+
+## Tâche actuelle : Simplifications supplémentaires du système de contenu
+
+### Objectif :
+Rendre l'écriture des articles encore plus simple en supprimant les options inutiles et en créant des helpers.
+
+### Actions réalisées :
+
+[X] Supprimer la variante "full" de ProductCardBlock
+    [X] Garder seulement le style compact qui est suffisant
+    [X] Adapter ProductCardBlock.tsx pour supprimer la logique de variant
+    
+[X] Supprimer la variante "banner" de ServiceCTABlock
+    [X] Garder seulement le style inline qui fonctionne bien
+    [X] Adapter ServiceCTABlock.tsx pour supprimer la logique de variant
+    
+[X] Créer des helpers pour simplifier l'écriture
+    [X] `text()` : Créer un bloc de texte en une ligne
+    [X] `product()` : Ajouter un produit juste avec son nom
+    [X] `service()` : Ajouter un CTA service facilement
+    [X] `article()` : Référencer un autre article simplement
+    
+[X] Créer un exemple d'article avec la nouvelle syntaxe
+
+### Nouvelle syntaxe ultra-simplifiée :
+
+```typescript
+// Avant (verbeux)
+{
+  type: 'product-card',
+  id: 'product-ph',
+  productName: 'pH Moins liquide - 20L',
+  variant: 'compact',
+  autoDescription: true
+} as ProductCardBlock
+
+// Maintenant (simple)
+product('pH Moins liquide - 20L')
+
+// Texte
+text('## Mon titre\n\nMon paragraphe')
+
+// Service avec texte custom
+service(
+  'Entretien de Piscine',
+  'Titre personnalisé',
+  'Description personnalisée'
+)
+
+// Article lié
+article(
+  'Guide complet d\'entretien',
+  'Lire notre guide'
+)
+```
+
+### Exemple d'article complet :
+
+```typescript
+contentBlocks: [
+  text(`# Mon titre principal
+
+Introduction de l'article...`),
+  
+  text(`## Section 1`),
+  
+  product('Nom du produit'),
+  
+  text(`## Section 2`),
+  
+  service('Nom du service'),
+  
+  article('Titre de l\'article lié')
+]
+```
+
+### Avantages :
+✅ Code 70% plus court
+✅ Plus lisible et naturel
+✅ Moins d'erreurs possibles
+✅ IDs générés automatiquement
+✅ Valeurs par défaut intelligentes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

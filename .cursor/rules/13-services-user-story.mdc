@@ -1,0 +1,34 @@
+---
+description: Décrit l'expérience utilisateur attendue lors de la navigation et de la découverte des prestations dans la section Services du site Koté Piscine.
+globs: 
+  - frontend/src/pages/ServicesPage.tsx
+  - frontend/src/pages/services/**/*.tsx
+  - frontend/src/components/layout/ServicesLayout.tsx
+  - frontend/src/config/services.ts
+alwaysApply: true
+---
+# User Story - Navigation et Découverte des Services
+
+**En tant que visiteur intéressé par les prestations de Koté Piscine, lorsque je navigue dans la section "Services" :**
+
+1.  **J'accède facilement à une vue d'ensemble claire et professionnelle.**
+    *   En arrivant sur la page principale `/services`, je découvre une présentation **attrayante et structurée** (`ServicesPage.tsx`) qui résume l'étendue du savoir-faire de Koté Piscine.
+    *   Le design "patchwork" moderne, combinant des descriptions concises, des **statistiques rassurantes** (expérience, satisfaction client) et une **FAQ** utile, me donne une vision globale immédiate.
+    *   La **cohérence visuelle** avec le reste du site (charte graphique, arrondis premium, animations fluides `motion`) renforce le sentiment de **professionnalisme** et de **confiance**.
+    *   Je peux identifier rapidement les différents services proposés (Construction, Rénovation, Entretien, etc.) grâce aux cartes dédiées, chacune avec une **icône représentative**, une **image d'illustration de qualité** et un résumé des points clés.
+
+2.  **Je navigue de manière fluide et intuitive entre les différents services.**
+    *   Un **menu de navigation secondaire**, clairement visible en haut de la section (`ServicesLayout.tsx`), me permet de passer **instantanément** de la vue d'ensemble ("Tous nos services") à une page de service spécifique (ex: "Construction Piscine") et vice-versa, ou de passer directement d'un service à un autre (ex: de "Rénovation" à "Entretien").
+    *   Le **lien actif** dans ce menu est toujours **clairement indiqué** (fond bleu foncé, texte blanc), me permettant de savoir exactement où je me trouve dans la section.
+    *   La transition entre les pages de service est **rapide et visuellement fluide**. Lorsque je clique sur un autre service dans le menu secondaire, la page actuelle **glisse latéralement** hors de l'écran pendant que la nouvelle page arrive en **glissant depuis la direction opposée**, et le menu reste afficher, renforçant l'impression de continuité et de déplacement horizontal au sein de la section. (La direction du glissement – gauche ou droite – dépend de la position relative du service cliqué par rapport au service actuel dans le menu).
+
+3.  **J'obtiens des informations détaillées et pertinentes sur chaque service.**
+    *   En cliquant sur "En savoir plus" depuis la page d'accueil des services ou en utilisant le menu secondaire, j'accède à une page dédiée (`/services/[slug]`) pour chaque prestation.
+    *   Chaque page détaille les **spécificités**, les **avantages** et les **caractéristiques** du service concerné (ex: types de construction, étapes d'une rénovation, points de contrôle de l'entretien), des images s'intègre harmonieusement pour illustrer la page. Le contenu est présenté sur un **fond distinct**, légèrement **translucide avec un effet de verre dépoli**, qui laisse subtilement apparaître l'arrière-plan général du site tout en assurant une lisibilité parfaite.
+    *   Le contenu est **structuré**, facile à lire, et utilise un langage **clair et orienté client** ("vous", "votre projet").
+
+4.  **Je suis encouragé à passer à l'action de manière naturelle.**
+    *   Des **appels à l'action (CTA)** pertinents (`CtaButton`) sont présents à la fois sur la page d'ensemble et sur les pages détaillées (ex: "En savoir plus", "Nous contacter", "Appelez-nous pour un conseil", "Demander un devis").
+    *   Ces CTA sont **visuellement distincts** (couleur verte ou turquoise, icônes) et me guident naturellement vers l'étape suivante : prendre contact ou demander plus d'informations.
+    *   L'ensemble de l'expérience dans la section "Services", par sa **clarté**, sa **fluidité** et son **professionnalisme**, renforce ma **confiance** et m'incite à contacter Koté Piscine pour discuter de mon projet.
+

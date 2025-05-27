@@ -1,0 +1,728 @@
+# Instructions
+
+**IMPORTANT** : During your interaction with the user, if you find anything reusable in this project (e.g. version of a library, model name), especially about a fix to a mistake you made or a correction you received, you should take note in the `Lessons` section in this `.cursorrules` file so you will not make the same mistake again. 
+
+You should also use this `.cursorrules` file as a Scratchpad to organize your thoughts. Especially when you receive a new task, you should first review the content of the Scratchpad, clear old different task if necessary, first explain the task, and plan the big or/and little steps you need to take to complete the task. You can use todo markers to indicate the progress, e.g.
+[X] Task 1
+    [x] sub task 
+    [ ] sub task 
+[ ] Task 2
+[ ] Task 3
+
+Also update the progress of the task in the Scratchpad when you finish a subtask.
+Especially when you finished a milestone, it will help to improve your depth of task accomplishment to use the Scratchpad to reflect and plan.
+The goal is to help you maintain a big picture as well as the progress of the task. Always refer to the Scratchpad when you plan the next step.
+
+
+# Lessons
+
+## User Specified Lessons (very important)
+
+- Always chain commands together with ";;" (never use "&&")
+
+
+## Cursor learned
+
+- When searching for recent docs, use the current year (2025) instead of previous years, or simply use the "recent" keyword to get the latest information
+- Il est important de typer explicitement les paramètres dans les callbacks (find, filter, map) pour éviter les erreurs TypeScript "implicitly has an 'any' type"
+- Toujours importer les types depuis les fichiers de définition existants pour maintenir la cohérence
+- Les styles inline redondants avec Tailwind peuvent créer des conflits de positionnement - préférer les classes Tailwind pures
+- Le padding sur un overlay fixed peut décaler le contenu du centre - utiliser mx-auto px-4 sur le container interne à la place
+
+# Scratchpad
+
+## Tâche actuelle : Améliorer BlogPage avec le style sombre de RealisationsPage
+
+### Objectif :
+1. Améliorer les alignements et couleurs de texte pour la lisibilité
+2. Créer un composant BlogCard réutilisable
+3. Appliquer le style sombre de RealisationsPage
+4. Proposer des améliorations générales
+
+### Plan d'action :
+
+[X] Étape 1 : Créer le composant BlogCard
+    [X] Créer `frontend/src/components/blog/BlogCard.tsx`
+    [X] Style inspiré des cards de RealisationsPage (card-glass-opaque)
+    [X] Props pour article normal et article featured
+
+[X] Étape 2 : Refactoriser BlogPage avec le style sombre
+    [X] Appliquer section-dark-overlay avec bg-black/70
+    [X] Ajuster les couleurs de texte pour meilleure lisibilité sur fond sombre
+    [X] Utiliser le nouveau composant BlogCard
+
+[ ] Étape 3 : Améliorations de l'expérience utilisateur
+    [X] Améliorer le contraste des textes
+    [X] Ajuster les espacements et alignements
+    [X] Ajouter des indicateurs visuels de progression
+    [ ] Optimiser la hiérarchie visuelle
+
+### Points d'amélioration apportés :
+✅ Hero section : overlay sombre pour meilleure lisibilité (90% → 70%)
+✅ Catégories : boutons avec bg-white/20 et text-white
+✅ Cards : style card-glass-opaque avec texte blanc
+✅ Newsletter : thème sombre avec card-glass-opaque
+✅ Transitions : effets hover plus subtils et cohérents
+✅ Ajout de statistiques dans le hero
+✅ Indicateur de progression pour les articles chargés
+✅ Filtrage par tags avec indicateur visuel
+✅ Meilleur contraste général sur fond sombre
+
+### Nouvelles fonctionnalités :
+- Composant BlogCard réutilisable avec 2 variantes
+- Gestion des tags cliquables
+- Statistiques du blog (articles, catégories, temps de lecture)
+- Barre de progression visuelle
+- Section newsletter avec style premium sombre
+
+## Tâche actuelle : Refaire la page BlogPage.tsx avec une expérience utilisateur unique
+
+### Objectif :
+- Rendre le style cohérent avec le reste du site Koté Piscine
+- Créer une expérience utilisateur unique et premium
+- Créer un fichier de configuration pour les catégories d'articles (environ 8)
+- Créer un fichier de configuration pour les articles de blog (préparation backend)
+
+### Plan d'action :
+
+[X] Étape 1 : Créer les fichiers de configuration
+    [X] Créer `frontend/src/config/blog.categories.ts` avec 8 catégories pertinentes
+    [X] Créer `frontend/src/config/blog.posts.ts` avec des articles de blog détaillés
+
+[X] Étape 2 : Refaire complètement BlogPage.tsx
+    [X] Appliquer le style premium cohérent avec le site
+    [X] Hero section avec effet glassmorphism et animation
+    [X] Section de filtrage par catégories avec design unique
+    [X] Grid d'articles avec cartes premium et effets hover
+    [X] Pagination ou infinite scroll élégant (load more)
+    [X] Call-to-action cohérent avec le reste du site
+
+[ ] Étape 3 : Ajouter des animations et interactions premium
+    [X] Animations d'apparition des cartes (AnimatePresence)
+    [X] Effets hover sophistiqués
+    [X] Transitions fluides entre les filtres
+    [ ] Effet de parallaxe subtil
+
+[ ] Étape 4 : Optimiser l'expérience utilisateur
+    [X] Recherche instantanée avec debouncing
+    [X] Filtrage par catégories avec compteur d'articles
+    [X] Affichage du temps de lecture estimé
+    [X] Tags cliquables pour filtrage rapide
+
+### Éléments intégrés :
+✅ Effets glassmorphism (backdrop-blur-xl, bg-white/10, border-white/20)
+✅ Cartes avec rounded-2xl et shadows premium
+✅ Animations fluides avec transform-gpu et framer-motion
+✅ Couleurs cohérentes (kote-blue-dark, kote-turquoise, kote-green, kote-yellow)
+✅ Espacement généreux pour aspect premium
+✅ Recherche avec debouncing (300ms)
+✅ Compteur d'articles par catégorie
+✅ Articles mis en avant avec badge "À la une"
+✅ Section newsletter améliorée avec avantages
+✅ CTA contact avec numéro de téléphone
+
+### Fonctionnalités ajoutées :
+- Hero section avec bulles animées
+- Barre de recherche premium dans le hero
+- Catégories avec emojis et compteurs
+- Articles à la une avec design unique
+- Tags cliquables (préparation pour filtrage futur)
+- Bouton "Charger plus" au lieu de pagination classique
+- Newsletter avec avantages illustrés
+- Double CTA final (téléphone + contact)
+
+## Tâche actuelle : Ajout des liens sociaux dans la config contact et mise à jour navbar/footer
+
+### Objectif :
+Centraliser tous les liens sociaux (Instagram, Facebook, Maps) dans la configuration contact.ts et mettre à jour la navbar et le footer pour utiliser ces données.
+
+### Plan d'action :
+
+[X] Étape 1 : Ajouter les liens sociaux dans contact.ts
+    [X] Ajouter une section social avec Instagram, Facebook et Maps
+    [X] Utiliser l'adresse réelle pour générer le lien Google Maps
+
+[X] Étape 2 : Mettre à jour navbar.config.tsx
+    [X] Utiliser contact.social au lieu des liens hardcodés
+    [X] Ajouter Facebook dans socialLinks
+    [X] Simplifier la génération du lien Maps
+
+[X] Étape 3 : Mettre à jour Header.tsx
+    [X] Importer l'icône FaFacebook
+    [X] Ajouter Facebook dans la section desktop
+    [X] Ajouter Facebook dans la section mobile
+
+[X] Étape 4 : Mettre à jour Footer.tsx  
+    [X] Remplacer les liens hardcodés par contact.social
+    [X] Ajouter les aria-label pour l'accessibilité
+
+[ ] Étape 5 : Tester que tout fonctionne correctement
+    [ ] Vérifier tous les liens sociaux dans la navbar
+    [ ] Vérifier tous les liens sociaux dans le footer
+    [ ] Valider que les liens pointent vers les bonnes URL
+    [ ] Tester la responsivité
+
+### Avantages de cette refactorisation :
+✅ Centralisation de tous les liens sociaux dans un seul fichier
+✅ Cohérence entre navbar et footer
+✅ Maintenance simplifiée (un seul endroit à modifier)
+✅ Utilisation des vraies informations de contact
+✅ Ajout de Facebook sur tous les composants
+✅ Lien Google Maps généré automatiquement avec l'adresse réelle
+
+### Fichiers modifiés :
+- ✅ `frontend/src/config/contact.ts` (ajout section social)
+- ✅ `frontend/src/config/navbar.config.tsx` (utilisation contact.social)
+- ✅ `frontend/src/components/layout/Header.tsx` (ajout Facebook + utilisation config)
+- ✅ `frontend/src/components/layout/Footer.tsx` (utilisation contact.social)
+
+### Nouveaux liens configurés :
+- ✅ Instagram : "https://www.instagram.com/kotepiscine.guadeloupe/"
+- ✅ Facebook : "https://www.facebook.com/kotepiscine.guadeloupe/"
+- ✅ Maps : Lien Google Maps avec adresse "1 Route du Helleux, 97180 Sainte-Anne, Guadeloupe"
+- ✅ Téléphone : "+590590681662" (05 90 68 16 62)
+
+### Amélioration CTA :
+- ✅ Remplacement de "Appelez-nous" par le numéro de téléphone "05 90 68 16 62" dans tous les boutons CTA
+- ✅ Header desktop : bouton maintenant affiche le numéro
+- ✅ Header mobile : texte maintenant affiche le numéro  
+- ✅ CallToAction composant : utilise le numéro de la config contact
+
+## Tâche actuelle : Création d'un fichier config pour la navbar
+
+### Objectif :
+Séparer la configuration de la navbar du composant Header.tsx pour améliorer la maintenabilité et la structure du code.
+
+### Plan d'action :
+
+[X] Étape 1 : Créer le fichier de configuration `frontend/src/config/navbar.config.tsx`
+    [X] Définir les interfaces SubMenuItem et MenuItem
+    [X] Importer toutes les icônes nécessaires
+    [X] Importer les configurations (categories, services, realisationCategories)
+    [X] Créer la fonction getMenuItems() qui retourne la configuration des menus
+    [X] Ajouter la configuration des liens sociaux
+
+[X] Étape 2 : Modifier Header.tsx pour utiliser la nouvelle configuration
+    [X] Importer getMenuItems et socialLinks depuis navbar.config.tsx
+    [X] Supprimer les interfaces redondantes
+    [X] Supprimer les imports d'icônes et configurations maintenant dans le fichier config
+    [X] Utiliser getMenuItems() au lieu de la configuration locale
+    [X] Remplacer les liens sociaux hardcodés par socialLinks
+
+[X] Étape 3 : Utiliser la configuration contact.ts pour les vraies informations
+    [X] Importer contact depuis './contact'
+    [X] Remplacer le numéro de téléphone hardcodé par contact.phone.tel
+    [X] Générer le lien Google Maps avec l'adresse réelle encodée
+    [X] Conserver le lien Instagram existant
+
+[ ] Étape 4 : Tester que tout fonctionne correctement
+    [ ] Vérifier que la navbar s'affiche correctement
+    [ ] Tester les sous-menus desktop et mobile
+    [ ] Vérifier les liens sociaux avec les vraies données
+    [ ] Valider que les icônes s'affichent
+
+### Avantages de cette refactorisation :
+✅ Séparation des responsabilités (config vs logique d'affichage)
+✅ Maintenance plus facile de la structure de navigation
+✅ Réutilisabilité de la configuration si nécessaire
+✅ Code plus propre et organisé
+✅ Centralisation des liens sociaux
+✅ Réduction des imports redondants dans Header.tsx
+✅ Utilisation des vraies informations de contact
+
+### Fichiers modifiés :
+- ✅ `frontend/src/config/navbar.config.tsx` (créé et amélioré)
+- ✅ `frontend/src/components/layout/Header.tsx` (refactorisé)
+
+### Nouvelles données utilisées :
+- ✅ Téléphone : `+590590681662` (05 90 68 16 62)
+- ✅ Adresse Maps : "1 Route du Helleux, 97180 Sainte-Anne, Guadeloupe"
+- ✅ Instagram : "https://www.instagram.com/kotepiscine.guadeloupe/"
+
+## Tâche actuelle : Ajustements finaux pour la lightbox des réalisations
+
+### Ajustements demandés :
+1. Supprimer le bouton "voir le projet" des cartes et activer la lightbox au clic de la carte
+2. Dans la lightbox, agrandir le texte "Piscine auto nettoyante/traditionnelle" et ajouter un effet hover pour "auto nettoyante"
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier RealisationsPage - supprimer le bouton et ajouter onClick à la carte
+[X] Étape 2 : Modifier Lightbox - améliorer l'affichage du badge catégorie avec taille plus grande
+[X] Étape 3 : Ajouter effet hover spécial pour "auto nettoyante"
+
+### Problème signalé :
+La lightbox qui s'ouvre lors du clic sur un projet n'est pas centrée correctement sur la page.
+
+### Analyse du code :
+- La lightbox actuelle est imbriquée dans le JSX de RealisationsPage
+- Elle utilise `fixed inset-0 z-[100] bg-black/95 flex items-center justify-center`
+- Le container principal a `w-full max-w-3xl mx-auto px-4 flex flex-col justify-center items-center h-full`
+- Problème potentiel : les styles inline avec `position: fixed` pourraient créer des conflits
+
+### Corrections apportées :
+✅ Suppression du style inline redondant `style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}`
+✅ Suppression du `p-4` qui créait un décalage sur l'overlay
+✅ Ajout de `mx-auto px-4` sur le container principal pour un centrage optimal
+✅ Ajout de `justify-center` et `h-full` pour un centrage vertical parfait
+✅ Conservation de toutes les fonctionnalités existantes (navigation, fermeture, etc.)
+✅ Serveur de développement lancé pour test
+
+### Leçon apprise :
+- Les styles inline redondants avec Tailwind peuvent créer des conflits de positionnement
+- Le padding sur un overlay fixed peut décaler le contenu du centre
+- Combiner `mx-auto px-4` avec `justify-center h-full` assure un centrage parfait
+
+### Structure du nouveau composant :
+- Fichier : `frontend/src/components/common/Lightbox.tsx`
+- Props : realisation, isOpen, currentImageIndex, onClose, onNextImage, onPreviousImage
+- Positionnement : Portal ou fixed absolu par rapport au body 
+
+### Modifications apportées :
+✅ Suppression du bouton "Voir le projet" des cartes
+✅ Ajout du `cursor-pointer` et `onClick` sur la carte entière
+✅ Agrandissement du badge catégorie dans la lightbox (taille base au lieu de xs)
+✅ Ajout d'effets hover spéciaux pour "auto nettoyante" : rotation + scale de l'icône + changement de couleur du texte
+✅ Amélioration du style du badge avec border et backdrop-blur plus prononcé 
+
+## Tâche actuelle : Amélioration finale BlogPage avec vraies images et simplification interface
+
+### Objectif :
+1. Utiliser les images réelles du dossier illustrations pour les articles de blog
+2. Simplifier le Hero en supprimant les statistiques
+3. Améliorer l'alignement du texte dans la recherche
+4. Réduire la taille des pastilles de tri des blogs
+
+### Plan d'action :
+
+[X] Étape 1 : Mettre à jour blog.posts.ts avec les vraies images
+    [X] Mapper les images disponibles aux articles existants
+    [X] Utiliser les 7 images disponibles pour les 12 articles (répétition acceptée)
+    [X] Corriger les imports d'images (comme dans products.ts)
+
+[X] Étape 2 : Simplifier le Hero section de BlogPage.tsx
+    [X] Supprimer la section des statistiques (3 colonnes)
+    [X] Garder le titre en blanc explicite (text-white ajouté)
+    [X] Améliorer l'alignement du texte dans la barre de recherche (text-center ajouté)
+
+[X] Étape 3 : Réduire la taille des pastilles de tri
+    [X] Ajuster padding (px-6 py-3 → px-4 py-2) et font-size (text-sm ajouté)
+    [X] Réduire l'espacement entre les pastilles (gap-3 → gap-2)
+    [X] Réduire la taille des icônes et compteurs
+    [X] Maintenir la lisibilité tout en réduisant la taille
+
+### Modifications apportées :
+
+✅ **Images réelles** : Tous les articles utilisent maintenant les vraies images du dossier illustrations
+- Imports corrects au début du fichier (comme products.ts)
+- Variables importées utilisées dans la config au lieu de chemins strings
+- Articles Construction → constructionPiscine
+- Articles Entretien → entretienPiscine ou produitEntretien
+- Articles Rénovation → renovationLiner
+- Articles Équipements → reparationPompe2 ou reparationRobot2
+- Articles généraux → magasinIllustration
+
+✅ **Hero simplifié** :
+- Suppression complète des statistiques (12 articles, 8 catégories, 85 min de lecture)
+- Titre explicitement en blanc avec `text-white`
+- Texte de recherche centré avec `text-center`
+- Interface plus épurée et focalisée sur la recherche
+
+✅ **Pastilles de tri réduites** :
+- Padding réduit de `px-6 py-3` à `px-4 py-2`
+- Font-size des boutons : `text-sm`
+- Icônes plus petites : `text-sm` au lieu de `text-lg`
+- Compteurs en `text-xs` au lieu de `text-sm`
+- Espacement entre pastilles : `gap-2` au lieu de `gap-3`
+- Marges internes ajustées pour "text-center"
+
+✅ **Amélioration générale de l'UX** :
+- Interface plus compacte et moderne
+- Meilleure hiérarchie visuelle
+- Chargement plus rapide avec vraies images locales
+- Cohérence avec le design système du site
+- **Images maintenant fonctionnelles** avec imports corrects
+
+### Leçon apprise :
+- Les images doivent être importées comme variables au début du fichier TypeScript
+- Utiliser les variables importées au lieu des chemins en string pour que Vite puisse les traiter
+- Suivre le même pattern que products.ts pour la cohérence du projet 
+
+## Tâche actuelle : Correction du Header.tsx avec les modifications précédentes
+
+### Problème résolu :
+✅ Le Header.tsx avait perdu les modifications précédentes mais le footer et autres fichiers étaient OK
+
+### Corrections apportées :
+
+[X] Étape 1 : Intégrer la configuration navbar.config.tsx
+    [X] Importer getMenuItems et socialLinks depuis navbar.config.tsx
+    [X] Supprimer la configuration locale redondante
+    [X] Utiliser getMenuItems() au lieu de la configuration locale
+
+[X] Étape 2 : Intégrer la configuration contact.ts
+    [X] Importer contact depuis './config/contact'
+    [X] Utiliser contact.phone.tel pour les liens téléphone
+    [X] Utiliser contact.phone.display pour l'affichage du numéro
+
+[X] Étape 3 : Ajouter Facebook dans les liens sociaux
+    [X] Importer FaFacebook depuis react-icons/fa
+    [X] Ajouter Facebook dans la section desktop avec socialLinks.facebook
+    [X] Ajouter Facebook dans la section mobile avec socialLinks.facebook
+
+[X] Étape 4 : Remplacer "Appelez-nous" par le numéro de téléphone
+    [X] Desktop CTA : remplacer "Appelez-nous" par {contact.phone.display} ("05 90 68 16 62")
+    [X] Mobile section : afficher le numéro dans le bouton téléphone
+    [X] Améliorer la taille du texte (text-base au lieu de text-sm)
+
+[X] Étape 5 : Améliorer l'accessibilité mobile
+    [X] Bouton téléphone mobile agrandi : px-4 py-3 avec shadow-lg
+    [X] Texte du numéro visible : text-lg font-bold
+    [X] Aria-label amélioré : "Appeler maintenant"
+
+### Fonctionnalités restaurées :
+✅ Configuration centralisée via navbar.config.tsx et contact.ts
+✅ Liens sociaux réels (Instagram, Facebook, Maps)
+✅ Numéro de téléphone réel affiché partout (05 90 68 16 62)
+✅ Amélioration accessibility pour personnes âgées
+✅ Cohérence entre desktop et mobile
+✅ Suppression du code redondant
+
+### Liens configurés :
+- ✅ Instagram : "https://www.instagram.com/kotepiscine.guadeloupe/"
+- ✅ Facebook : "https://www.facebook.com/kotepiscine.guadeloupe/"  
+- ✅ Maps : Lien Google Maps avec "Koté Piscine"
+- ✅ Téléphone : "+590590681662" (affiché "05 90 68 16 62")
+
+### Leçon apprise :
+- Vérifier que toutes les modifications sont bien appliquées à tous les fichiers concernés
+- Utiliser les configurations centralisées pour maintenir la cohérence
+- Toujours vérifier les imports et supprimer le code redondant 
+
+## Tâche actuelle : Intégration des icônes React dans les catégories de blog et mise à jour navbar
+
+### Objectif :
+1. Remplacer les emojis par de vraies icônes React dans blog.categories.ts
+2. Utiliser blog.categories dans navbar.config.tsx pour le sous-menu "Nos Conseils"
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier blog.categories.ts
+    [X] Remplacer le type icon de string à React.ComponentType
+    [X] Importer les icônes React appropriées
+    [X] Mapper chaque catégorie avec sa vraie icône
+
+[X] Étape 2 : Modifier navbar.config.tsx
+    [X] Importer blogCategories depuis blog.categories.ts
+    [X] Remplacer le sous-menu hardcodé par la configuration dynamique
+    [X] Adapter les routes pour correspondre aux slugs des catégories
+
+### Modifications effectuées :
+
+✅ **blog.categories.ts** :
+- Import de toutes les icônes React nécessaires (FaHammer, MdCleaningServices, GiTrowel, TbTool, FaLightbulb, GiPalmTree, FaRocket, FaHeart)
+- Interface BlogCategory mise à jour : icon?: React.ComponentType
+- Remplacement des emojis par les vraies icônes :
+  - Construction : 🏗️ → FaHammer
+  - Entretien : 🧹 → MdCleaningServices
+  - Rénovation : 🔧 → GiTrowel
+  - Équipements : ⚙️ → TbTool
+  - Conseils Pro : 💡 → FaLightbulb
+  - Climat Tropical : 🌴 → GiPalmTree
+  - Innovations : 🚀 → FaRocket
+  - Témoignages : ❤️ → FaHeart
+
+✅ **navbar.config.tsx** :
+- Import de blogCategories et BlogCategory
+- Remplacement du sous-menu hardcodé par la génération dynamique
+- Routes adaptées au format `/blog/${cat.slug}`
+- Utilisation de React.createElement(cat.icon) pour les icônes
+
+### Avantages :
+✅ Configuration centralisée des catégories de blog
+✅ Icônes React cohérentes avec le design système
+✅ Maintenance simplifiée (un seul endroit à modifier)
+✅ Routes automatiquement synchronisées
+✅ Sous-menu navbar généré dynamiquement
+✅ Suppression des icônes emoji pour un look plus professionnel
+
+### Leçon apprise :
+- Les icônes React.ComponentType doivent être instanciées avec React.createElement() dans les maps
+- Centraliser les configurations permet une meilleure cohérence et maintenance
+- Suivre le même pattern que les autres sous-menus (categories, realisationCategories)
+- Dans JSX, les React.ComponentType doivent être instanciés avec React.createElement() et enveloppés dans un span pour les classes CSS
+
+## Tâche actuelle : Amélioration finale BlogPage avec vraies images et simplification interface
+
+### Objectif :
+1. Utiliser les images réelles du dossier illustrations pour les articles de blog
+2. Simplifier le Hero en supprimant les statistiques
+3. Améliorer l'alignement du texte dans la recherche
+4. Réduire la taille des pastilles de tri des blogs
+
+### Plan d'action :
+
+[X] Étape 1 : Mettre à jour blog.posts.ts avec les vraies images
+    [X] Mapper les images disponibles aux articles existants
+    [X] Utiliser les 7 images disponibles pour les 12 articles (répétition acceptée)
+    [X] Corriger les imports d'images (comme dans products.ts)
+
+[X] Étape 2 : Simplifier le Hero section de BlogPage.tsx
+    [X] Supprimer la section des statistiques (3 colonnes)
+    [X] Garder le titre en blanc explicite (text-white ajouté)
+    [X] Améliorer l'alignement du texte dans la barre de recherche (text-center ajouté)
+
+[X] Étape 3 : Réduire la taille des pastilles de tri
+    [X] Ajuster padding (px-6 py-3 → px-4 py-2) et font-size (text-sm ajouté)
+    [X] Réduire l'espacement entre les pastilles (gap-3 → gap-2)
+    [X] Réduire la taille des icônes et compteurs
+    [X] Maintenir la lisibilité tout en réduisant la taille
+
+### Modifications apportées :
+
+✅ **Images réelles** : Tous les articles utilisent maintenant les vraies images du dossier illustrations
+- Imports corrects au début du fichier (comme products.ts)
+- Variables importées utilisées dans la config au lieu de chemins strings
+- Articles Construction → constructionPiscine
+- Articles Entretien → entretienPiscine ou produitEntretien
+- Articles Rénovation → renovationLiner
+- Articles Équipements → reparationPompe2 ou reparationRobot2
+- Articles généraux → magasinIllustration
+
+✅ **Hero simplifié** :
+- Suppression complète des statistiques (12 articles, 8 catégories, 85 min de lecture)
+- Titre explicitement en blanc avec `text-white`
+- Texte de recherche centré avec `text-center`
+- Interface plus épurée et focalisée sur la recherche
+
+✅ **Pastilles de tri réduites** :
+- Padding réduit de `px-6 py-3` à `px-4 py-2`
+- Font-size des boutons : `text-sm`
+- Icônes plus petites : `text-sm` au lieu de `text-lg`
+- Compteurs en `text-xs` au lieu de `text-sm`
+- Espacement entre pastilles : `gap-2` au lieu de `gap-3`
+- Marges internes ajustées pour "text-center"
+
+✅ **Amélioration générale de l'UX** :
+- Interface plus compacte et moderne
+- Meilleure hiérarchie visuelle
+- Chargement plus rapide avec vraies images locales
+- Cohérence avec le design système du site
+- **Images maintenant fonctionnelles** avec imports corrects
+
+### Leçon apprise :
+- Les images doivent être importées comme variables au début du fichier TypeScript
+- Utiliser les variables importées au lieu des chemins en string pour que Vite puisse les traiter
+- Suivre le même pattern que products.ts pour la cohérence du projet 
+
+## Tâche actuelle : Correction du Header.tsx avec les modifications précédentes
+
+### Problème résolu :
+✅ Le Header.tsx avait perdu les modifications précédentes mais le footer et autres fichiers étaient OK
+
+### Corrections apportées :
+
+[X] Étape 1 : Intégrer la configuration navbar.config.tsx
+    [X] Importer getMenuItems et socialLinks depuis navbar.config.tsx
+    [X] Supprimer la configuration locale redondante
+    [X] Utiliser getMenuItems() au lieu de la configuration locale
+
+[X] Étape 2 : Intégrer la configuration contact.ts
+    [X] Importer contact depuis './config/contact'
+    [X] Utiliser contact.phone.tel pour les liens téléphone
+    [X] Utiliser contact.phone.display pour l'affichage du numéro
+
+[X] Étape 3 : Ajouter Facebook dans les liens sociaux
+    [X] Importer FaFacebook depuis react-icons/fa
+    [X] Ajouter Facebook dans la section desktop avec socialLinks.facebook
+    [X] Ajouter Facebook dans la section mobile avec socialLinks.facebook
+
+[X] Étape 4 : Remplacer "Appelez-nous" par le numéro de téléphone
+    [X] Desktop CTA : remplacer "Appelez-nous" par {contact.phone.display} ("05 90 68 16 62")
+    [X] Mobile section : afficher le numéro dans le bouton téléphone
+    [X] Améliorer la taille du texte (text-base au lieu de text-sm)
+
+[X] Étape 5 : Améliorer l'accessibilité mobile
+    [X] Bouton téléphone mobile agrandi : px-4 py-3 avec shadow-lg
+    [X] Texte du numéro visible : text-lg font-bold
+    [X] Aria-label amélioré : "Appeler maintenant"
+
+### Fonctionnalités restaurées :
+✅ Configuration centralisée via navbar.config.tsx et contact.ts
+✅ Liens sociaux réels (Instagram, Facebook, Maps)
+✅ Numéro de téléphone réel affiché partout (05 90 68 16 62)
+✅ Amélioration accessibility pour personnes âgées
+✅ Cohérence entre desktop et mobile
+✅ Suppression du code redondant
+
+### Liens configurés :
+- ✅ Instagram : "https://www.instagram.com/kotepiscine.guadeloupe/"
+- ✅ Facebook : "https://www.facebook.com/kotepiscine.guadeloupe/"  
+- ✅ Maps : Lien Google Maps avec "Koté Piscine"
+- ✅ Téléphone : "+590590681662" (affiché "05 90 68 16 62")
+
+### Leçon apprise :
+- Vérifier que toutes les modifications sont bien appliquées à tous les fichiers concernés
+- Utiliser les configurations centralisées pour maintenir la cohérence
+- Toujours vérifier les imports et supprimer le code redondant 
+
+## Tâche actuelle : Création d'une grille mosaic stylisée pour BlogPage
+
+### Objectif :
+Créer une grille plus dynamique avec des cartes de différentes tailles pour un effet visuel moderne et engageant.
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier BlogCard pour supporter différentes tailles
+    [X] Ajouter prop size ('small', 'medium', 'large')
+    [X] Créer des classes CSS dynamiques selon la taille
+    [X] Adapter aspect-ratio, padding, taille de texte selon size
+    [X] Corriger l'affichage des icônes avec React.createElement()
+
+[X] Étape 2 : Transformer la grille de BlogPage
+    [X] Passer d'une grille 3 colonnes uniforme à une grille 4 colonnes
+    [X] Créer une logique pour déterminer la taille selon l'index
+    [X] Implémenter un pattern de répartition (première carte large, alternance)
+
+### Modifications effectuées :
+
+✅ **BlogCard amélioré** :
+- Prop `size` avec 3 variantes : small, medium, large
+- Classes dynamiques pour container (col-span-2, row-span-2 pour large)
+- Aspect ratios adaptés : 16/10 pour large, 16/9 pour autres
+- Padding variable : p-6 md:p-8 pour large, p-4 md:p-5 pour small
+- Titres adaptatifs : text-xl md:text-2xl pour large
+- Plus de tags affichés sur cartes large (4 vs 3)
+
+✅ **Grille mosaic BlogPage** :
+- Grille adaptive selon le nombre d'articles :
+  - ≤2 articles : 1-2 colonnes (évite espaces vides)
+  - 3-4 articles : 1-2-3 colonnes 
+  - ≥5 articles : 1-2-4 colonnes (pattern complet)
+- Pattern de répartition intelligent adaptatif :
+  - ≤3 articles : toutes cartes medium (optimise l'espace)
+  - 4-6 articles : 1 large + reste medium
+  - >6 articles : pattern sophistiqué (large tous les 7, small occasionnels)
+- Gap optimisé (gap-4 md:gap-6)
+- auto-rows-max pour adaptation hauteur
+- Large cards : col-span-2 row-span-1 (moins d'espace vertical)
+
+### Avantages améliorés :
+✅ **Adaptation intelligente** au nombre d'articles filtrés
+✅ **Évite les espaces vides** avec peu d'articles
+✅ **Grille responsive** optimisée selon le contexte
+✅ **Pattern équilibré** qui s'adapte au contenu
+✅ **Expérience consistante** quelque soit le filtre appliqué
+
+### Leçon apprise :
+- Les grilles CSS Grid avec col-span/row-span permettent des layouts mosaic efficaces
+- L'utilisation de patterns mathématiques (modulo) crée des répartitions équilibrées
+- Les cartes de différentes tailles améliorent l'engagement utilisateur
+
+## Tâche actuelle : Utilisation de navbar.config pour les liens utiles du footer
+
+### Objectif :
+Remplacer les liens utiles hardcodés dans le Footer.tsx par la configuration centralisée de navbar.config.tsx pour maintenir la cohérence.
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier Footer.tsx
+    [X] Importer getMenuItems depuis navbar.config.tsx
+    [X] Remplacer les liens hardcodés par la génération dynamique
+    [X] Adapter l'affichage pour montrer les sections principales du menu
+    [X] Maintenir la structure grid 2 colonnes existante
+
+### Avantages :
+✅ Cohérence entre navbar et footer
+✅ Maintenance simplifiée (un seul endroit pour modifier les liens)
+✅ Ajout automatique de nouveaux liens dans les deux endroits
+✅ Structure standardisée
+
+### Modifications effectuées :
+✅ Footer.tsx : import de getMenuItems depuis navbar.config.tsx
+✅ Remplacement des 6 liens hardcodés par une génération dynamique
+✅ Conservation du style existant (text-white/80 hover:text-kote-turquoise)
+✅ Maintien de la structure grid grid-cols-2 gap-2
+✅ Tous les liens du menu principal maintenant disponibles dans le footer
+
+### Liens maintenant générés automatiquement :
+- ✅ Accueil (/)
+- ✅ Nos Services (/services) 
+- ✅ Notre Gamme (/catalogue)
+- ✅ Nos Travaux (/realisations)
+- ✅ Nos Conseils (/blog)
+- ✅ Notre Magasin (/contact)
+
+### Leçon apprise :
+- Centraliser les configurations de navigation améliore la cohérence
+- Un seul changement dans navbar.config.tsx met à jour navbar et footer
+- La génération dynamique évite la duplication de code et les erreurs
+
+## Tâche actuelle : Suppression des sous-menus pour Nos Travaux, Nos Conseils et Notre Magasin
+
+### Objectif :
+Simplifier la navigation en supprimant les sous-menus pour trois sections spécifiques tout en conservant les liens principaux.
+
+### Plan d'action :
+
+[X] Étape 1 : Modifier navbar.config.tsx
+    [X] Supprimer le sous-menu de "Nos Travaux" (réalisations)
+    [X] Supprimer le sous-menu de "Nos Conseils" (blog)
+    [X] Supprimer le sous-menu de "Notre Magasin" (contact)
+    [X] Conserver les icônes et liens principaux
+
+### Modifications effectuées :
+✅ navbar.config.tsx : suppression des 3 sous-menus spécifiés
+✅ Conservation des liens principaux vers les pages /realisations, /blog et /contact
+✅ Conservation des icônes principales
+✅ Simplification de l'expérience utilisateur en réduisant les options de navigation
+
+### Structure de navigation maintenant :
+- Accueil (/) : aucun sous-menu
+- Nos Services (/services) : sous-menu conservé avec les différents services
+- Notre Gamme (/catalogue) : sous-menu conservé avec les catégories de produits 
+- Nos Travaux (/realisations) : lien direct sans sous-menu
+- Nos Conseils (/blog) : lien direct sans sous-menu
+- Notre Magasin (/contact) : lien direct sans sous-menu
+
+### Avantages :
+- Interface utilisateur plus légère et directe
+- Expérience de navigation simplifiée pour l'utilisateur
+- Moins d'options potentiellement confuses
+- Accès direct aux sections principales du site
+- Focalisation sur les contenus les plus importants
+
+## Tâche actuelle : Correction du bug d'affichage du lien actif dans la navbar
+
+### Problème identifié :
+Le soulignement bleu n'apparaissait pas sur les liens avec sous-menu lorsqu'on était sur une page associée à ce menu.
+
+### Solution :
+Modifier la classe du soulignement pour qu'elle s'adapte à l'état actif du lien, même pour les liens avec sous-menu.
+
+### Plan d'action :
+
+[X] Étape 1 : Corriger les liens du menu desktop avec sous-menu
+    [X] Modifier le span du soulignement pour utiliser une classe conditionnelle
+    [X] Appliquer `w-full` lorsque `location.pathname.startsWith(item.to)`
+    [X] Conserver l'effet hover uniquement lorsque le lien n'est pas actif
+
+[X] Étape 2 : Corriger les liens du menu mobile avec sous-menu
+    [X] Appliquer la même logique que pour la version desktop
+    [X] Maintenir l'opacité à 70% pour conserver le style existant
+    [X] Assurer la cohérence visuelle entre desktop et mobile
+
+### Modifications effectuées :
+✅ Remplacement de la classe statique `w-0` par une classe conditionnelle
+✅ Utilisation de l'interpolation de chaîne avec des backticks et ${} pour insérer la logique
+✅ Maintien de tous les autres styles et transitions existants
+✅ Cohérence visuelle entre tous les types de liens (avec/sans sous-menu)
+
+### Problème résolu :
+- Les liens avec sous-menu affichent maintenant correctement le soulignement bleu lorsqu'on navigue sur une page qui fait partie de leur section
+- La transition au survol reste fonctionnelle pour les liens non-actifs
+- L'expérience utilisateur est améliorée par une meilleure indication visuelle de la navigation actuelle
+
+### Leçon apprise :
+- Il est important de gérer de manière cohérente les styles conditionnels à travers tous les composants similaires
+- Les éléments avec et sans sous-menu doivent suivre la même logique d'affichage des états actifs

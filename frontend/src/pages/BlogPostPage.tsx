@@ -1,203 +1,40 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import CtaButton from '../components/common/CtaButton';
-
-// Données de test à remplacer par API
-const mockPostData = {
-  _id: '1',
-  title: 'Comment choisir la pompe à chaleur idéale pour votre piscine',
-  slug: 'comment-choisir-pompe-chaleur-ideale-piscine',
-  content: `
-# Comment choisir la pompe à chaleur idéale pour votre piscine
-
-Investir dans une pompe à chaleur est l'une des meilleures décisions que vous puissiez prendre pour profiter pleinement de votre piscine. Cet équipement vous permettra de prolonger votre saison de baignade et d'atteindre une température de l'eau parfaite, tout en maîtrisant votre consommation énergétique.
-
-## Comprendre le fonctionnement d'une pompe à chaleur
-
-Une pompe à chaleur fonctionne en captant les calories présentes dans l'air ambiant pour les transférer à l'eau de votre piscine. Ce processus est particulièrement efficace et écologique, puisqu'il utilise majoritairement une énergie renouvelable : l'air !
-
-Le coefficient de performance (COP) est un indicateur essentiel lors du choix de votre équipement. Plus le COP est élevé, plus la pompe est efficace. Un bon COP se situe généralement au-dessus de 5, ce qui signifie que pour 1 kWh d'électricité consommée, la pompe restitue 5 kWh de chaleur à votre piscine.
-
-## Les critères essentiels à considérer
-
-### La puissance adaptée à votre bassin
-
-La puissance nécessaire dépend principalement de la taille de votre piscine. Pour une estimation rapide, comptez environ 1,2 kW pour 10 m³ d'eau à chauffer. D'autres facteurs entrent également en jeu :
-
-- L'exposition de votre piscine au vent
-- La présence d'une couverture isolante
-- Votre région et son climat
-- La température souhaitée pour l'eau
-
-### La technologie Full Inverter
-
-Les pompes à chaleur Full Inverter représentent ce qui se fait de mieux actuellement sur le marché. Contrairement aux modèles ON/OFF qui fonctionnent à pleine puissance puis s'arrêtent, la technologie Inverter adapte sa puissance en fonction des besoins.
-
-Avantages de l'Inverter :
-- Économies d'énergie significatives (jusqu'à 30%)
-- Niveau sonore réduit
-- Durée de vie prolongée des composants
-- Montée en température plus rapide
-
-### Le niveau sonore
-
-Cet aspect est souvent négligé mais peut devenir problématique, surtout si votre pompe est installée près d'une terrasse ou des chambres. Privilégiez les modèles proposant un mode "silence" ou indiquant clairement leur niveau sonore en décibels.
-
-## Installation et entretien
-
-L'emplacement de votre pompe à chaleur joue un rôle crucial dans son efficacité. Quelques règles d'or :
-
-- Prévoir un espace suffisant autour de l'appareil (minimum 50 cm)
-- Éviter de l'installer sous un arbre ou près d'une zone poussiéreuse
-- Respecter une distance minimale du bassin selon les recommandations du fabricant
-- Prévoir une évacuation pour les condensats
-
-L'entretien est relativement simple mais essentiel. Un nettoyage régulier de l'évaporateur et une vérification annuelle par un professionnel garantiront la longévité de votre équipement.
-
-## Les meilleures marques du marché
-
-Plusieurs fabricants se démarquent par la qualité et la fiabilité de leurs produits :
-
-- Pentair : réputée pour ses innovations technologiques et la robustesse de ses équipements
-- Hayward : offre un excellent rapport qualité-prix et une gamme complète
-- Zodiac : propose des modèles particulièrement silencieux et économes
-
-N'hésitez pas à venir en magasin pour bénéficier des conseils personnalisés de nos experts, qui vous aideront à choisir la pompe à chaleur parfaitement adaptée à votre configuration.
-  `,
-  author: 'Marc Durand',
-  image: '/images/illustrations/reparation-pompe2.webp',
-  tags: ['Équipement', 'Chauffage', 'Économie d\'énergie'],
-  createdAt: '2023-04-15T08:30:00Z',
-  relatedProducts: [
-    {
-      _id: '1',
-      name: 'Pompe à chaleur Pentair UltraTemp',
-      image: '/images/illustrations/reparation-pompe2.webp',
-      price: 2499,
-      category: 'Chauffage'
-    },
-    {
-      _id: '2',
-      name: 'Pompe à chaleur Hayward EnergyLine Pro',
-      image: '/images/illustrations/entretien-piscine.webp',
-      price: 1899,
-      category: 'Chauffage'
-    },
-    {
-      _id: '3',
-      name: 'Couverture isothermique Premium',
-      image: '/images/illustrations/renovation-liner.webp',
-      price: 129,
-      category: 'Accessoires'
-    }
-  ]
-};
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import ContentRenderer from '../components/blog/ContentRenderer';
+import ProductCardBlock from '../components/blog/ProductCardBlock';
+import CallToAction from '../components/home/CallToAction';
+import { blogPosts } from '../config/blog.posts';
+import { blogCategories } from '../config/blog.categories';
+import { services } from '../config/services';
+import React from 'react';
+import { FaArrowRight, FaClock, FaCalendar, FaUser, FaTag, FaHome, FaChevronRight, FaArrowLeft } from 'react-icons/fa';
+import logoBlancRond from '../images/logo/Blanc Rond.png';
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<typeof blogPosts[0] | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Simulation chargement article
+  // Chargement de l'article
   useEffect(() => {
-    // Remplacer par un vrai appel API
     setLoading(true);
+    // Simuler un délai de chargement
     setTimeout(() => {
-      setPost(mockPostData);
+      const foundPost = blogPosts.find(p => p.slug === slug);
+      setPost(foundPost || null);
       setLoading(false);
-    }, 500);
+    }, 300);
   }, [slug]);
 
-  // Formatage de la date
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    };
-    return new Date(dateString).toLocaleDateString('fr-FR', options);
-  };
-
-  // Rendu riche du contenu avec style Markdown
-  const renderContent = (content: string) => {
-    const sections = content.split(/\n## |\n# /);
-    
-    return (
-      <div className="prose prose-lg max-w-none">
-        {sections.map((section, index) => {
-          if (index === 0) return <p key={index} className="text-lg leading-relaxed">{section.trim()}</p>;
-          
-          const [title, ...contentParts] = section.split('\n');
-          const sectionContent = contentParts.join('\n');
-          
-          // Traitement des sous-sections (###)
-          const subSections = sectionContent.split('\n### ');
-          
-          return (
-            <div key={index} className="mb-8">
-              <h2 className="text-2xl font-bold text-kote-blue-dark mb-4">{title}</h2>
-              
-              {subSections.map((subSection, subIdx) => {
-                if (subIdx === 0) {
-                  // Premier élément (texte avant sous-section ou section entière sans sous-section)
-                  return (
-                    <div key={`${index}-${subIdx}`} className="mb-4">
-                      {subSection.split('\n').map((paragraph, pIdx) => {
-                        if (paragraph.trim().startsWith('- ')) {
-                          return (
-                            <div key={`p-${pIdx}`} className="flex items-start mb-2">
-                              <span className="text-kote-turquoise mr-2">•</span>
-                              <span>{paragraph.replace('- ', '')}</span>
-                            </div>
-                          );
-                        }
-                        return paragraph.trim() ? <p key={`p-${pIdx}`} className="mb-4">{paragraph}</p> : null;
-                      })}
-                    </div>
-                  );
-                } else {
-                  // Sous-sections
-                  const [subTitle, ...subContentParts] = subSection.split('\n');
-                  const subSectionContent = subContentParts.join('\n');
-                  
-                  return (
-                    <div key={`${index}-${subIdx}`} className="mb-6">
-                      <h3 className="text-xl font-bold text-kote-blue-dark mb-3">{subTitle}</h3>
-                      {subSectionContent.split('\n').map((paragraph, pIdx) => {
-                        if (paragraph.trim().startsWith('- ')) {
-                          return (
-                            <div key={`subp-${pIdx}`} className="flex items-start mb-2">
-                              <span className="text-kote-turquoise mr-2">•</span>
-                              <span>{paragraph.replace('- ', '')}</span>
-                            </div>
-                          );
-                        }
-                        return paragraph.trim() ? <p key={`subp-${pIdx}`} className="mb-3">{paragraph}</p> : null;
-                      })}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  // Formatage du prix
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(price);
-  };
 
   if (loading) {
     return (
-      <div className="container-kote py-32">
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-kote-turquoise"></div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-kote-turquoise mx-auto"></div>
+          <p className="mt-4 text-gray-600">Chargement...</p>
         </div>
       </div>
     );
@@ -205,154 +42,317 @@ const BlogPostPage = () => {
 
   if (!post) {
     return (
-      <div className="container-kote py-32">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl text-kote-blue-dark font-bold mb-4">Article non trouvé</h2>
-          <p className="mb-8">Désolé, nous n'avons pas pu trouver l'article que vous recherchez.</p>
-          <CtaButton 
-            to="/blog"
-            text="Retourner au blog"
-            color="blue"
-            size="default"
-            icon="arrow"
-          />
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">Article non trouvé</h1>
+          <p className="text-gray-600 mb-8">L'article que vous recherchez n'existe pas.</p>
+          <Link to="/blog" className="text-kote-turquoise hover:text-kote-turquoise/80 underline">
+            Retour au blog
+          </Link>
         </div>
       </div>
     );
   }
 
+  const relatedPosts = blogPosts.filter(p => 
+    p._id !== post._id && (
+      p.categoryId === post.categoryId || 
+      p.tags.some(tag => post.tags.includes(tag))
+    )
+  ).slice(0, 3);
+
+  // Générer l'URL absolue pour les métadonnées
+  const currentUrl = `https://www.kotepiscine-guadeloupe.com/blog/article/${post.slug}`;
+  const imageUrl = post.image.startsWith('http') ? post.image : `https://www.kotepiscine-guadeloupe.com${post.image}`;
+
+  // Schéma JSON-LD pour SEO
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": imageUrl,
+    "datePublished": post.createdAt,
+    "dateModified": post.updatedAt || post.createdAt,
+    "author": {
+      "@type": "Person",
+      "name": post.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Koté Piscine",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.kotepiscine-guadeloupe.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": currentUrl
+    }
+  };
+
   return (
-    <div className="py-32">
-      <div className="container-kote">
-        {/* Fil d'Ariane */}
-        <div className="mb-8">
-          <nav className="flex" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <Link to="/" className="text-kote-blue-dark hover:text-kote-turquoise">
-                  Accueil
+    <>
+      {/* Métadonnées SEO */}
+      <Helmet>
+        <title>{post.title} - Conseils Koté Piscine</title>
+        <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={currentUrl} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="article:published_time" content={post.createdAt} />
+        <meta property="article:author" content={post.author} />
+        {post.tags.map(tag => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={imageUrl} />
+        
+        {/* Schéma JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(articleSchema)}
+        </script>
+      </Helmet>
+
+      <article>
+        {/* Hero avec section-dark-overlay */}
+        <section 
+          className="section-dark-overlay min-h-[600px] flex items-center justify-center"
+          style={{
+            backgroundImage: `url(${post.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          {/* Overlay sombre avec gradient */}
+          <div className="absolute inset-0 z-0 bg-black/70"></div>
+          
+          {/* Breadcrumb en haut à gauche */}
+          <nav aria-label="Breadcrumb" className="absolute top-8 left-8 z-20">
+            <ol className="flex items-center gap-2 text-sm text-white/80">
+              <li>
+                <Link to="/" className="hover:text-white transition-colors flex items-center gap-1">
+                  <FaHome />
+                  <span>Accueil</span>
                 </Link>
               </li>
+              <li><FaChevronRight className="text-xs text-white/60" /></li>
               <li>
-                <div className="flex items-center">
-                  <span className="mx-2 text-gray-400">/</span>
-                  <Link to="/blog" className="text-kote-blue-dark hover:text-kote-turquoise">
-                    Conseils d'Experts
+                <Link to="/blog" className="hover:text-white transition-colors">
+                  Blog
                   </Link>
-                </div>
               </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <span className="mx-2 text-gray-400">/</span>
-                  <span className="text-gray-500 truncate max-w-[250px]">{post.title}</span>
-                </div>
-              </li>
+              <li><FaChevronRight className="text-xs text-white/60" /></li>
+              <li className="text-white font-medium">{post.title}</li>
             </ol>
           </nav>
-        </div>
+          
+          {/* Contenu du hero */}
+          <div className="relative z-10 container mx-auto px-4 pb-16">
+            <div className="max-w-4xl mx-auto text-center">
+              {/* Logo Koté Piscine au-dessus du titre */}
+              <div className="flex justify-center mb-6">
+                <img src={logoBlancRond} alt="Koté Piscine" className="h-40 w-auto" />
+              </div>
+              
+              {/* Titre avec animation */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-fade-in-up">
+                {post.title}
+              </h1>
+              
+              {/* Métadonnées */}
+              <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/90 mb-4">
+                <div className="flex items-center gap-2">
+                  <FaUser className="text-kote-turquoise" />
+                  <span>{post.author}</span>
+                </div>
+                <div className="h-4 w-px bg-white/30"></div>
+                <div className="flex items-center gap-2">
+                  <FaCalendar className="text-kote-turquoise" />
+                  <time dateTime={post.createdAt}>
+                    {new Date(post.createdAt).toLocaleDateString('fr-FR', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </time>
+                </div>
+                <div className="h-4 w-px bg-white/30"></div>
+                <div className="flex items-center gap-2">
+                  <FaClock className="text-kote-turquoise" />
+                  <span>{post.readingTime} min de lecture</span>
+                </div>
+              </div>
 
-        <article className="bg-white rounded-xl shadow-md overflow-hidden">
-          {/* Image principale */}
-          <div className="h-96 overflow-hidden relative">
-            <img 
-              src={post.image} 
-              alt={post.title} 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
-              <div className="p-8 text-white">
-                <h1 className="text-3xl md:text-4xl font-bold mb-3 text-white">{post.title}</h1>
-                <div className="flex flex-wrap items-center text-sm">
-                  <span className="mr-4">{formatDate(post.createdAt)}</span>
-                  <span className="mr-4">Par {post.author}</span>
-                  <div className="flex flex-wrap mt-2 md:mt-0">
-                    {post.tags.map((tag: string, index: number) => (
-                      <span 
-                        key={index} 
-                        className="bg-kote-turquoise bg-opacity-20 text-white px-2 py-1 rounded-full text-xs mr-2 mb-1"
-                      >
+              {/* Tags */}
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2 mb-2">
+                  {post.tags.map(tag => (
+                    <span key={tag} className="inline-flex items-center gap-1 text-xs bg-white/10 text-white px-3 py-1.5 rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300">
+                      <FaTag className="text-kote-turquoise text-[10px]" />
                         {tag}
                       </span>
                     ))}
-                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
-          {/* Contenu de l'article */}
-          <div className="p-8 md:p-12">
-            {renderContent(post.content)}
-          </div>
-        </article>
-
-        {/* Produits associés */}
-        <section className="mt-16">
-          <h2 className="section-title">Produits associés à cet article</h2>
-          <p className="text-center text-gray-600 mb-8">
-            Découvrez notre sélection de produits en lien avec cet article
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {post.relatedProducts.map((product: any) => (
-              <Link 
-                to={`/catalogue/${product._id}`} 
-                key={product._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              >
-                <div className="h-64 overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <p className="text-sm text-kote-turquoise mb-1">{product.category}</p>
-                  <h3 className="text-xl font-bold text-kote-blue-dark mb-2">{product.name}</h3>
-                  {product.price && (
-                    <p className="text-lg font-bold text-kote-blue-dark">
-                      {formatPrice(product.price)}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-          
-          <div className="text-center mt-10">
-            <CtaButton
-              to="/catalogue"
-              text="Découvrir tous nos produits"
-              color="blue"
-              size="large"
-              icon="arrow"
-            />
+          {/* Indicateur de scroll */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white/50 rounded-full mt-2"></div>
+            </div>
           </div>
         </section>
 
-        {/* CTA Conseil */}
-        <div className="mt-16 bg-gradient-to-r from-kote-blue-dark to-kote-blue-light rounded-xl shadow-lg text-white p-8 md:p-10">
-          <div className="md:flex items-center justify-between">
-            <div className="md:w-2/3">
-              <h3 className="text-2xl font-bold mb-3">Besoin de conseils personnalisés ?</h3>
-              <p className="mb-6 md:mb-0">
-                Nos experts sont à votre disposition pour répondre à toutes vos questions et vous accompagner dans votre projet piscine.
-              </p>
+        {/* Contenu principal */}
+        <section className="section-dark-overlay">
+          <div className="absolute inset-0 z-0 bg-black/70"></div>
+          <div className="container-kote relative z-10">
+            {/* Bouton retour */}
+            <button 
+              onClick={() => navigate(-1)} 
+              className="flex items-center gap-2 bg-transparent hover:bg-white/10 text-white border border-white/50 hover:border-white px-6 py-2 rounded-full font-medium transition-all duration-300 shadow-md"
+            >
+              <FaArrowLeft className="text-kote-turquoise" />
+              <span>Retour</span>
+            </button>
+            
+            {/* Contenu de l'article */}
+            <div className="rounded-2xl px-6 md:px-8">
+              {post.contentBlocks ? (
+                <ContentRenderer blocks={post.contentBlocks} />
+              ) : (
+                <div className="prose prose-lg max-w-none prose-invert">
+                  <p className="text-white/90 leading-relaxed whitespace-pre-line">
+                    {post.content || post.excerpt}
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="md:w-1/3 text-center md:text-right">
-              <CtaButton 
-                to="/contact"
-                text="Contactez-nous"
-                color="turquoise"
-                size="default"
-                icon="arrow"
+
+            {/* Section des produits liés */}
+            {post.relatedProducts && post.relatedProducts.length > 0 && (
+              <aside className="mb-8">
+                <h2 className="text-2xl font-bold text-white mb-4">Produits mentionnés</h2>
+                <div className="space-y-6">
+                  {post.relatedProducts.map((productId, index) => {
+                    const layout = ['left', 'right', 'top'][index % 3] as 'left' | 'right' | 'top';
+                    return (
+                      <ProductCardBlock 
+                        key={productId}
+                        productId={productId}
+                        layout={layout}
+                      />
+                    );
+                  })}
+                </div>
+              </aside>
+            )}
+
+            {/* Section des services liés */}
+            {post.relatedServices && post.relatedServices.length > 0 && (
+              <aside className="mb-8">
+                <h2 className="text-2xl font-bold text-white mb-4">Services associés</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {post.relatedServices.map(serviceId => {
+                    const service = services.find(s => s.id === serviceId);
+                    if (!service) return null;
+                    
+                    return (
+                      <Link
+                        key={service.id}
+                        to={`/services/${service.slug}`}
+                        className="flex items-center gap-4 bg-kote-turquoise/5 border border-kote-turquoise/20 rounded-xl p-4 hover:bg-kote-turquoise/10 transition-colors group"
+                      >
+                        <div className="w-12 h-12 rounded-lg bg-kote-turquoise/20 flex items-center justify-center">
+                          <span className="text-kote-turquoise text-xl">
+                            {React.createElement(service.icon)}
+                          </span>
+                        </div>
+                        <div className="flex-grow">
+                          <h3 className="font-medium text-white group-hover:text-kote-turquoise transition-colors">
+                            {service.title}
+                          </h3>
+                        </div>
+                        <FaArrowRight className="text-kote-turquoise flex-shrink-0 transform group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </aside>
+            )}
+          </div>
+        </section>
+
+        {/* Articles similaires */}
+        <section className="section-dark-overlay">
+          <div className="absolute inset-0 z-0 bg-black/70"></div>
+          <div className="container-kote relative z-10">
+            {relatedPosts.length > 0 && (
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-6 text-center">
+                  Articles similaires
+                </h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {relatedPosts.map(relatedPost => {
+                    const relatedCategory = blogCategories.find(c => c.id === relatedPost.categoryId);
+                    return (
+                      <Link
+                        key={relatedPost._id}
+                        to={`/blog/article/${relatedPost.slug}`}
+                        className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 group"
+                      >
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <img
+                            src={relatedPost.image}
+                            alt={relatedPost.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                        <div className="p-6">
+                          {relatedCategory && (
+                            <p className="text-kote-turquoise text-sm font-medium mb-2 flex items-center gap-1">
+                              {relatedCategory.icon && <span className="text-xs">{React.createElement(relatedCategory.icon)}</span>}
+                              {relatedCategory.name}
+                            </p>
+                          )}
+                          <h3 className="font-bold text-white mb-2 group-hover:text-kote-turquoise transition-colors line-clamp-2">
+                            {relatedPost.title}
+                          </h3>
+                          <p className="text-white/80 text-sm line-clamp-3">{relatedPost.excerpt}</p>
+                          <div className="flex items-center gap-3 mt-3 text-xs text-white/70">
+                            <span className="flex items-center gap-1">
+                              <FaClock />
+                              {relatedPost.readingTime} min
+                            </span>
+                            <span>{new Date(relatedPost.createdAt).toLocaleDateString('fr-FR')}</span>
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+              )}
+            </div>
+        </section>
+      </article>
+      {/* CTA Contact */}
+      <CallToAction />
+    </>
   );
 };
 

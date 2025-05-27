@@ -1,0 +1,63 @@
+---
+description: 
+globs: frontend/src/pages/CataloguePage.tsx,frontend/src/components/products/**/*.tsx,frontend/src/config/products.ts,frontend/src/config/categories.ts,frontend/src/pages/HomePage.tsx
+alwaysApply: false
+---
+---
+description: Définit l'expérience utilisateur spécifique attendue lors de l'exploration de la page Catalogue et de l'interaction avec les fiches produits via le modal.
+globs: 
+  - "frontend/src/pages/HomePage.tsx"
+  - "frontend/src/pages/CataloguePage.tsx"
+  - "frontend/src/components/products/**/*.tsx"
+  - "frontend/src/config/products.ts"
+  - "frontend/src/config/categories.ts"
+alwaysApply: true
+---
+## US7 - Exploration Fluide et Intuitive du Catalogue Produits
+
+En tant que visiteur :
+- J'accède à une page catalogue moderne et épurée, introduite par une section "Notre Gamme" claire et des appels à l'action directs ("Demander conseil", "Itinéraire").
+- Je peux naviguer facilement entre les différentes catégories de produits grâce à :
+    - Sur **desktop** : un menu latéral élégant avec effet "glassmorphisme", qui reste visible lorsque je fais défiler la page (`sticky`).
+    - Sur **mobile** : un menu déroulant simple et efficace, également stylisé avec un effet "glassmorphisme".
+- La sélection d'une catégorie met à jour la grille de produits **instantanément et sans rechargement de la page**, ce qui rend l'exploration très fluide et agréable. L'URL du navigateur se met également à jour pour refléter la catégorie consultée (`/catalogue/[categorie-slug]`).
+- Les produits sont présentés dans une grille aérée (`ProductGrid`), dont la mise en page s'adapte automatiquement à la taille de mon écran (2 colonnes sur mobile, 3 sur desktop).
+- Un encart "Besoin d'information ?" est judicieusement placé (dans le menu latéral sur desktop, et en élément séparé sur mobile) pour m'inciter à contacter le magasin facilement si j'ai des questions.
+- Lorsque je clique sur un produit dans la grille (`ProductGrid`), une **fiche produit détaillée, en diférentes cartes, s'ouvre de manière fluide via un modal**. Ce modal :
+    - Apparaît en **superposition**, occupant une large partie de l'écran (largeur adaptable), avec la **page catalogue assombrie en arrière-plan**.
+    - Possède des **bords arrondis généreux** et une **ombre portée subtile**, renforçant l'effet premium "flottant".
+    - Inclut un **bouton de fermeture clair et accessible** (ex: icône 'X').
+    - Présente son contenu organisé en **Cartes distinctes** de haut en bas, les backgroud des cartes sont bien séparées, entre les cartes on voit la **page catalogue assombrie en arrière-plan**, ci-suit le détail:
+
+        1.  **Carte Principale : Fiche Produit Détaillée**
+            *   Prend environ 3/4 de la page en hauteur
+            *   Contient la **fiche complète** du produit affiché (probablement en 2 colonnes sur écran large : **Galerie d'images interactive** à gauche, **informations textuelles** à droite).
+            *   Inclut : Le **Nom du Produit**, sa **Référence**, la **Catégorie**, la **Description complète** et les **Points forts**, le **Prix indicatif** (si renseigné), et un indicateur de **Disponibilité** en magasin.
+            *   Met en évidence **deux boutons d'action** principaux : **"Nous contacter"** et **"Nous localiser"**.
+
+        2.  **Cartes Intermédiaire : Produits Recommandés**
+            *   Située sous la fiche produit, précédée d'un titre clair (ex: "Produits complémentaires").
+            *   Affiche une **ligne horizontale de trois cartes produits** plus petites.
+            *   Chaque carte montre une **miniature du produit**, son **nom**, et permet potentiellement d'ouvrir sa propre fiche modale.
+                *   **Transition Fluide :** Si je clique sur une de ces cartes recommandées, l'arrière-plan assombri reste fixe. Le modal actuel **glisse hors de l'écran vers la gauche** pendant que le nouveau modal du produit sélectionné **glisse en place depuis la droite**. Cette transition horizontale est **rapide et fluide**, assurant une continuité sans recharger la page.
+            *   Le style des cartes est **cohérent** avec le design global (arrondis, ombres légères, survol subtil).
+
+        3.  **Cartes Inférieure : Conseils Pertinents (Blog)**
+            *   Située sous les produits recommandés, précédée d'un titre clair (ex: "Nos conseils pour ce produit").
+            *   Affiche une **ligne horizontale de trois cartes articles** similaires en taille aux cartes produits.
+            *   Chaque carte montre l'**image d'illustration** de l'article, son **titre**, et redirige vers la page de l'article sur le blog.
+            *   Le style des cartes est **cohérent**, éventuellement avec une distinction visuelle mineure (ex: icône "blog").
+
+    - Le **contenu à l'intérieur du modal est scrollable** si nécessaire (si les détails, produits recommandés et articles dépassent la hauteur définie), tandis que le **défilement de la page catalogue en arrière-plan est bloqué**.
+    - L'URL du navigateur est mise à jour pour inclure le slug du produit consulté (`/catalogue/[categorie-slug]/[produit-slug]` si j'étais sur une catégorie, ou `/catalogue/[produit-slug]` si j'étais sur "Tous les produits"), permettant le partage ou le retour direct à ce produit spécifique.
+    - Le titre de la page et sa description (meta tags) sont mis à jour dynamiquement pour refléter le produit affiché, optimisant le SEO et l'information contextuelle.
+    - À la fermeture du modal (via le bouton dédié ou en cliquant en dehors), je retourne **en douceur** à l'état précédent de la page catalogue. L'URL correspondante est restaurée (`/catalogue` ou `/catalogue/[categorie-slug]`), **sans perdre ma position de défilement ni le filtre de catégorie précédemment actif**, assurant une continuité parfaite de la navigation.
+- L'expérience globale, marquée par les transitions animées (`animate-fade-in-up`), les effets visuels soignés (fond dynamique sombre adaptant sa hauteur, glassmorphisme, modal intégré) et la réactivité de l'interface, renforce l'image **premium** et professionnelle de Koté Piscine. 
+
+- **Cas d'accès depuis une autre page (Blog, Accueil...)** :
+    - Si je clique sur un lien vers un produit depuis une page *extérieure* au catalogue (par exemple, un article de blog ou la page d'accueil), je suis d'abord **redirigé vers la page Catalogue correspondante** (ex: `/catalogue/robots-piscine`).
+    - **Immédiatement après l'affichage de la page Catalogue**, le **modal du produit spécifique s'ouvre automatiquement** par-dessus cette page.
+    - L'arrière-plan visible derrière le modal est donc celui de la **page Catalogue**, me fournissant un contexte pertinent.
+    - À la fermeture du modal, je **reste sur la page Catalogue** (à l'URL `/catalogue` ou `/catalogue/[categorie-slug]`), prêt à explorer d'autres produits si je le souhaite.
+
+- L'expérience globale, marquée par les transitions animées (`animate-fade-in-up`), les effets visuels soignés (fond dynamique sombre adaptant sa hauteur, glassmorphisme, modal intégré) et la réactivité de l'interface, renforce l'image **premium** et professionnelle de Koté Piscine. 

@@ -15,7 +15,7 @@ const AnimatedElement = ({
   children, 
   delay = 0, 
   className = '',
-  threshold = 0.1
+  threshold = 0.05
 }: AnimatedElementProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -27,7 +27,7 @@ const AnimatedElement = ({
 
     // Forcer l'état initial pour éviter le flash pendant les transitions
     element.style.opacity = '0';
-    element.style.transform = 'translateY(25px)';
+    element.style.transform = 'translateY(15px)';
     
     // Observer pour déclencher l'animation au scroll
     observerRef.current = new IntersectionObserver(
@@ -37,7 +37,7 @@ const AnimatedElement = ({
           // Déclencher l'animation avec délai
           setTimeout(() => {
             setIsVisible(true);
-          }, delay * 1000);
+          }, delay * 1000 * 0.5);
           
           // Arrêter d'observer après le déclenchement
           if (observerRef.current) {
@@ -47,8 +47,8 @@ const AnimatedElement = ({
       },
       {
         root: null,
-        rootMargin: '10px',
-        threshold, // Déclencher quand un pourcentage de l'élément est visible
+        rootMargin: '0px 0px -5% 0px',
+        threshold,
       }
     );
 
@@ -67,9 +67,9 @@ const AnimatedElement = ({
       className={`transition-all ${className}`}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(25px)',
-        transition: 'opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1), transform 1.2s cubic-bezier(0.23, 1, 0.32, 1)',
-        transitionDelay: `${delay}s`,
+        transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+        transition: 'opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)',
+        transitionDelay: `${delay * 0.5}s`,
         willChange: 'opacity, transform',
       }}
     >

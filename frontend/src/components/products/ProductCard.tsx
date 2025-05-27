@@ -488,7 +488,7 @@ const ProductCard = memo(({
   return (
     <div
       ref={cardRef}
-      className={`product-card backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl p-0 overflow-hidden transition-all duration-500`}
+      className={`product-card card-glass-opaque p-0 overflow-hidden transition-all duration-500`}
       style={{ 
         opacity: fadeOut ? 0 : 1,
         transform: fadeOut ? 'translateY(20px)' : 'translateY(0)',

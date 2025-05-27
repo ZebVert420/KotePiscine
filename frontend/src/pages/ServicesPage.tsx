@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaSwimmingPool, FaTools, FaRegSmile } from 'react-icons/fa';
 import { services } from '../config/services';
-import ServicesLayout from '../components/layout/ServicesLayout';
 import { assetService } from '../services/assetService';
 import AnimatedElement from '../components/common/AnimatedElement';
 import CtaButton from '../components/common/CtaButton';
+import { contact } from '../config/contact';
 
 // Données des statistiques
 const stats = [
@@ -46,7 +46,7 @@ const faqs = [
 
 const ServicesPage = () => {
   return (
-    <ServicesLayout>
+    <>
       {/* Section principale avec patchwork d'informations et services */}
       <section className="relative pt-4 pb-16 overflow-hidden">
         <div className="container-kote relative z-10">
@@ -54,7 +54,7 @@ const ServicesPage = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="text-center mb-12"
         >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -69,15 +69,12 @@ const ServicesPage = () => {
           {/* Patchwork unifié des cartes, statistiques et services */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Grande carte de présentation */}
-            <AnimatedElement delay={0.2} className="md:col-span-6 lg:col-span-8">
+            <AnimatedElement delay={0.05} className="md:col-span-6 lg:col-span-8">
               <div className="relative h-full">
                 {/* Effet d'ombre projetée */}
-                <div 
-                  className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.98] translate-y-1 opacity-50"
-                  aria-hidden="true"
-                ></div>
+                <div className="card-shadow-projected" aria-hidden="true"></div>
                 
-                <div className="relative h-full p-6 md:p-8 backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden">
+                <div className="relative h-full p-6 md:p-8 card-glass-transparent card-glass-reflect overflow-hidden">
                   {/* Effet de reflet en haut */}
                   <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                   
@@ -96,14 +93,11 @@ const ServicesPage = () => {
 
             {/* Statistiques */}
             {stats.slice(0, 2).map((stat, index) => (
-              <AnimatedElement key={stat.label} delay={0.3 + index * 0.1} className="md:col-span-6 lg:col-span-2">
+              <AnimatedElement key={stat.label} delay={0.1 + index * 0.1} className="md:col-span-6 lg:col-span-2">
                 <div className="relative h-full">
-                  <div 
-                    className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.98] translate-y-1 opacity-50"
-                    aria-hidden="true"
-                  ></div>
+                  <div className="card-shadow-projected" aria-hidden="true"></div>
                   
-                  <div className="relative h-full p-5 backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden">
+                  <div className="relative h-full p-5 card-glass-transparent card-glass-reflect overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                     
                     <div className="relative z-10 flex flex-col items-center text-center h-full">
@@ -119,12 +113,9 @@ const ServicesPage = () => {
             ))}
 
             {/* Configurateur de devis amélioré - design plus attractif */}
-            <AnimatedElement delay={0.5} className="md:col-span-6 lg:col-span-4">
+            <AnimatedElement delay={0.4} className="md:col-span-6 lg:col-span-4">
               <div className="relative h-full">
-                <div 
-                  className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.98] translate-y-1 opacity-50"
-                  aria-hidden="true"
-                ></div>
+                <div className="card-shadow-projected" aria-hidden="true"></div>
                 
                 <div className="relative h-full overflow-hidden backdrop-blur-xl bg-gradient-to-br from-kote-turquoise/80 to-kote-blue-light/70 border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.2)] rounded-2xl">
                   {/* Effet de bulle d'eau */}
@@ -193,14 +184,11 @@ const ServicesPage = () => {
             </AnimatedElement>
 
             {/* Dernière statistique */}
-            <AnimatedElement delay={0.6} className="md:col-span-6 lg:col-span-4">
+            <AnimatedElement delay={0.5} className="md:col-span-6 lg:col-span-4">
               <div className="relative h-full">
-                <div 
-                  className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.98] translate-y-1 opacity-50"
-                  aria-hidden="true"
-                ></div>
+                <div className="card-shadow-projected" aria-hidden="true"></div>
                 
-                <div className="relative h-full p-5 backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden">
+                <div className="relative h-full p-5 card-glass-transparent card-glass-reflect overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                   
                   <div className="relative z-10 h-full flex flex-col justify-center items-center text-center">
@@ -211,17 +199,14 @@ const ServicesPage = () => {
                     <p className="text-white/90 font-medium mb-2">{stats[2].label}</p>
                     <p className="text-white/80 text-sm">{stats[2].description}</p>
                   </div>
-          </div>
-        </div>
+                </div>
+              </div>
             </AnimatedElement>
 
             {/* Image de piscine */}
-            <AnimatedElement delay={0.7} className="md:col-span-6 lg:col-span-4">
+            <AnimatedElement delay={0.6} className="md:col-span-6 lg:col-span-4">
               <div className="relative h-full">
-                <div 
-                  className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.98] translate-y-1 opacity-50"
-                  aria-hidden="true"
-                ></div>
+                <div className="card-shadow-projected" aria-hidden="true"></div>
                 
                 <div className="relative h-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden">
                   <img 
@@ -249,16 +234,13 @@ const ServicesPage = () => {
               return (
                 <AnimatedElement 
                   key={service.id}
-                  delay={0.8 + index * 0.1} 
+                  delay={0.15} 
                   className="md:col-span-12"
                 >
                   <div className="relative h-full">
-                    <div 
-                      className="absolute -z-10 inset-0 rounded-2xl bg-black/40 blur-md transform scale-[0.98] translate-y-1 opacity-50"
-                      aria-hidden="true"
-                    ></div>
+                    <div className="card-shadow-projected" aria-hidden="true"></div>
                     
-                    <div className="relative h-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden">
+                    <div className="relative h-full card-glass-transparent card-glass-reflect overflow-hidden">
                       <div className="flex flex-col lg:flex-row">
                         {/* Image */}
                         <div className={`w-full lg:w-1/2 relative ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
@@ -278,9 +260,9 @@ const ServicesPage = () => {
                           <div className="flex items-center gap-4 mb-4">
                             <div className="p-3 rounded-xl bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-light/20">
                               <ServiceIcon className="text-3xl text-white" />
-                    </div>
+                            </div>
                             <h2 className="text-2xl md:text-3xl font-bold text-white">{service.title}</h2>
-                  </div>
+                          </div>
 
                           {service.id === 'construction' && (
                             <p className="text-white/90 mb-6">
@@ -315,23 +297,23 @@ const ServicesPage = () => {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
                             {service.features.map((feature, idx) => (
                               <div key={idx} className="flex items-start gap-3">
-                          <FaCheckCircle className="text-kote-turquoise mt-1 flex-shrink-0" />
+                                <FaCheckCircle className="text-kote-turquoise mt-1 flex-shrink-0" />
                                 <span className="text-white/90 text-sm">{feature}</span>
                               </div>
-                      ))}
-                    </div>
+                            ))}
+                          </div>
 
                           <div className="flex flex-col sm:flex-row gap-3 mt-6">
                             <CtaButton 
-                      to={`/services/${service.slug}`}
+                              to={`/services/${service.slug}`}
                               text="En savoir plus"
                               color="green"
                               size="slim"
                               icon="arrow"
                             />
                             <CtaButton 
-                              to="tel:+33123456789"
-                              text="05 90 68 16 62"
+                              to={`tel:${contact.phone.tel}`}
+                              text={contact.phone.display}
                               external={true}
                               color="turquoise"
                               size="slim"
@@ -362,7 +344,8 @@ const ServicesPage = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.02 }}
                 className="bg-white/20 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <details className="group">
@@ -405,7 +388,8 @@ const ServicesPage = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5 }}
             className="max-w-3xl mx-auto"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -424,8 +408,8 @@ const ServicesPage = () => {
                 icon="arrow"
               />
               <CtaButton 
-                to="tel:+33123456789"
-                text="Appelez-nous"
+                to={`tel:${contact.phone.tel}`}
+                text={contact.phone.display}
                 external={true}
                 color="turquoise"
                 size="default"
@@ -435,7 +419,7 @@ const ServicesPage = () => {
           </motion.div>
         </div>
       </section>
-    </ServicesLayout>
+    </>
   );
 };
 

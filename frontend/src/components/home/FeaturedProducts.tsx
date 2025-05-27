@@ -52,7 +52,9 @@ const featuredProducts: Product[] = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-16 relative overflow-hidden bg-black/30 backdrop-blur-sm">
+    <section className="section-dark-overlay overflow-hidden">
+      <div className="absolute inset-0 bg-black/70 z-0"></div>
+      
       <div className="container-kote relative z-10">
         <h2 className="section-title text-white">Produits à la une</h2>
         <p className="text-center text-white/90 max-w-3xl mx-auto mb-12">

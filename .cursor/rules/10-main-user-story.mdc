@@ -1,0 +1,36 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Définit l'expérience utilisateur principale et transversale attendue sur l'ensemble du site Koté Piscine. Sert de fondation pour les User Stories spécifiques. 
+globs:
+alwaysApply: true
+---
+# User Story Principale - L'Expérience Koté Piscine
+
+En tant que visiteur du site Koté Piscine, dès mon arrivée et tout au long de ma navigation :
+
+1.  **Je suis immergé dans une expérience premium, rassurante et professionnelle.**
+    *   La **charte graphique** (couleurs #244F82, #0099D9, #40C0F0, #B0C852, police Arboria) est appliquée **harmonieusement** sur l'ensemble des pages, créant une identité visuelle **cohérente, élégante** et reconnaissable.
+    *   Le **header** fixe en dégradé bleu premium (`kote-blue-light` à `kote-blue-dark`) et le **footer** moderne avec effet de flou en arrière-plan (`backdrop-blur`) renforcent cette impression dès le premier regard.
+    *   Les **images** sont de **haute qualité**, inspirantes et professionnelles.
+    *   La mise en page est **claire, aérée**, avec des **espaces généreux** et une attention constante aux **détails** (formes arrondies premium, ombres subtiles, etc.).
+
+2.  **Je navigue de manière fluide, intuitive et sans effort.**
+    *   La **structure** du site est logique et la **navigation principale via le header** (menus, sous-menus déroulants au clic, liens clairs) est **simple** à comprendre et à utiliser, sur ordinateur comme sur mobile (responsive design impeccable).
+    *   Le **header** se masque intelligemment lors du défilement vers le bas et réapparaît en remontant, optimisant l'espace d'affichage sans gêner la navigation.
+    *   Les **interactions** (survols, clics) sont améliorées par des **micro-animations discrètes** et des **transitions douces** qui rendent l'expérience agréable sans être distrayantes.
+    *   Le site est **rapide** et **réactif**, sans temps de chargement frustrants.
+
+3.  **Je trouve facilement l'information dont j'ai besoin et je me sens guidé.**
+    *   Le **contenu** (textes, descriptions) est **clair, précis**, bien structuré et rédigé dans un ton **proche du client** ("nous", "vous").
+    *   Les **informations essentielles** (produits, services, conseils) sont bien mises en valeur.
+    *   L'accès aux **informations de contact** (téléphone cliquable `tel:`, adresse, horaires, plan d'accès Google Maps intuitif) est **immédiat** et **facile** depuis n'importe quelle page, notamment via les icônes dédiées dans le **header** et les informations complètes et structurées dans le **footer**.
+
+4.  **Je suis subtilement encouragé à interagir avec l'entreprise.**
+    *   Des **appels à l'action clairs** ("Nous contacter", "Nous localiser", "Demander conseil", bouton "Appelez-nous" dans le header) sont présents aux endroits stratégiques, sans être agressifs.
+    *   L'ensemble de l'expérience inspire **confiance** et me donne naturellement envie de **contacter Koté Piscine** ou de **visiter le magasin** pour concrétiser mon projet.
+
+Cette User Story principale sert de **référence incontournable** pour le développement et l'évaluation de chaque fonctionnalité et page du site. Toutes les User Stories spécifiques (catalogue, blog, contact, etc.) doivent découler de ces principes fondamentaux et contribuer à cette expérience globale.

@@ -1,38 +1,25 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaInstagram, FaPhone } from 'react-icons/fa';
+import { FaInstagram, FaPhone, FaFacebook } from 'react-icons/fa';
 import { FaMapLocationDot, FaCircleChevronRight } from 'react-icons/fa6';
 import { 
-  MdConstruction, 
   MdOutlineMiscellaneousServices, 
-  MdOutlineSettingsRemote,
   MdCleaningServices
 } from 'react-icons/md';
 import { 
   GiPoolDive,
-  GiWaveSurfer,
 } from 'react-icons/gi';
 import { TbCards, TbPool, TbTool } from "react-icons/tb";
-import { GiTrowel, GiWaterSplash } from 'react-icons/gi';
+import { GiTrowel } from 'react-icons/gi';
 import { categories, Category } from '../../config/categories';
+import { services } from '../../config/services';
+import { realisationCategories, RealisationCategory } from '../../config/realisations.config';
+import { getServiceSubMenuItems } from '../../utils/servicesMenu';
+import { getMenuItems, socialLinks, MenuItem, SubMenuItem } from '../../config/navbar.config';
+import contact from '../../config/contact';
 
 // Importer le logo
 import LogoHorizontal from '../../images/logo/Blanc Horizontal.png';
-
-// Interface pour les éléments du sous-menu
-interface SubMenuItem {
-  name: string;
-  to: string;
-  icon?: React.ReactNode;
-}
-
-// Interface pour les éléments du menu principal qui peuvent avoir des sous-menus
-interface MenuItem {
-  name: string;
-  to: string;
-  icon?: React.ReactNode;
-  submenu?: SubMenuItem[];
-}
 
 const Header = () => {
   const [isHidden, setIsHidden] = useState(false);
@@ -42,65 +29,10 @@ const Header = () => {
   const location = useLocation();
   const submenuRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  // Configuration des menus et sous-menus avec icônes
-  const menuItems: MenuItem[] = [
-    { name: 'Accueil', to: '/' },
-    { 
-      name: 'Nos Services', 
-      to: '/services',
-      icon: <MdOutlineMiscellaneousServices />,
-      submenu: [
-        { name: 'Construction', to: '/services/construction', icon: <TbPool /> },
-        { name: 'Rénovation', to: '/services/renovation', icon: <GiTrowel /> },
-        { name: 'Entretien', to: '/services/entretien', icon: <GiWaterSplash /> },
-        { name: 'Réparation', to: '/services/reparation', icon: <TbTool /> },
-        { name: 'Automatismes', to: '/services/automatismes', icon: <MdOutlineSettingsRemote /> }
-      ]
-    },
-    { 
-      name: 'Notre Gamme', 
-      to: '/catalogue',
-      icon: <TbCards />,
-      submenu: categories.map((cat: Category) => ({
-        name: cat.name,
-        to: `/catalogue/${cat.slug}`,
-        icon: <cat.icon />
-      }))
-    },
-    { 
-      name: 'Nos Piscines', 
-      to: '/realisations',
-      icon: <GiPoolDive />,
-      submenu: [
-        { name: 'Piscines auto-nettoyantes', to: '/realisations/auto-nettoyantes', icon: <GiPoolDive /> },
-        { name: 'Piscines traditionnelles', to: '/realisations/traditionnelles', icon: <GiWaveSurfer /> },
-        { name: 'Spas', to: '/realisations/spas', icon: <GiWaterSplash /> },
-        { name: 'Projets en cours', to: '/realisations/en-cours', icon: <MdConstruction /> }
-      ]
-    },
-    { 
-      name: 'Nos Conseils', 
-      to: '/blog',
-      icon: <TbCards />,
-      submenu: [
-        { name: 'Entretien & Maintenance', to: '/blog/entretien-maintenance', icon: <MdCleaningServices /> },
-        { name: 'Construction', to: '/blog/construction', icon: <TbPool /> },
-        { name: 'Rénovation', to: '/blog/renovation', icon: <GiTrowel /> },
-        { name: 'Équipements', to: '/blog/equipements', icon: <TbTool /> },
-        { name: 'Actualités', to: '/blog/actualites', icon: <FaCircleChevronRight /> }
-      ]
-    },
-    { 
-      name: 'Notre Magasin', 
-      to: '/contact',
-      icon: <FaMapLocationDot />,
-      submenu: [
-        { name: 'Nous trouver', to: '/contact/localisation', icon: <FaMapLocationDot /> },
-        { name: 'Horaires', to: '/contact/horaires', icon: <FaCircleChevronRight /> },
-        { name: 'Contact', to: '/contact/formulaire', icon: <FaPhone /> }
-      ]
-    }
-  ];
+  const serviceSubMenu = getServiceSubMenuItems(services);
+
+  // Utiliser la configuration des menus
+  const menuItems = getMenuItems();
 
   // Gestion du comportement de la navbar au scroll
   useEffect(() => {
@@ -157,6 +89,7 @@ const Header = () => {
 
   return (
     <header 
+      id="main-navbar"
       className={`fixed w-full z-50 transition-all duration-500 py-3 bg-gradient-to-r from-kote-blue-light to-kote-blue-dark shadow-lg ${
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
@@ -187,10 +120,14 @@ const Header = () => {
                     className="relative"
                   >
                     <button
+                      id={`desktop-menu-${item.name.replace(/\s+/g, '-').toLowerCase()}-trigger`}
                       onClick={() => toggleSubmenu(item.name)}
                       className={`flex items-center text-kote-white transition-all duration-300 relative group ${
                         location.pathname.startsWith(item.to) ? 'font-bold text-kote-turquoise' : ''
                       }`}
+                      aria-haspopup="true"
+                      aria-expanded={activeSubmenu === item.name}
+                      aria-controls={`desktop-submenu-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
                     >
                       {item.name}
                       <svg 
@@ -202,11 +139,16 @@ const Header = () => {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                       </svg>
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-kote-turquoise transition-all duration-300 group-hover:w-full"></span>
+                      <span className={`absolute -bottom-1 left-0 h-0.5 bg-kote-turquoise transition-all duration-300 ${
+                        location.pathname.startsWith(item.to) ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}></span>
                     </button>
                     
                     {/* Sous-menu avec animation */}
                     <div 
+                      id={`desktop-submenu-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
+                      role="menu"
+                      aria-labelledby={`desktop-menu-${item.name.replace(/\s+/g, '-').toLowerCase()}-trigger`}
                       className={`absolute top-full left-0 mt-2 bg-white rounded-lg shadow-xl py-3 w-72 transition-all duration-300 origin-top-left overflow-hidden
                         ${activeSubmenu === item.name 
                           ? 'transform scale-100 opacity-100 pointer-events-auto' 
@@ -243,6 +185,7 @@ const Header = () => {
                           <Link
                             key={subItem.name}
                             to={subItem.to}
+                            role="menuitem"
                             className="block px-4 py-3 text-sm text-kote-blue-dark hover:text-kote-turquoise hover:bg-blue-50 transition-all duration-200 relative group flex items-center"
                             onClick={() => setActiveSubmenu(null)}
                             style={{ 
@@ -266,7 +209,7 @@ const Header = () => {
                     {item.name}
                   </NavLink>
                 )}
-            </li>
+              </li>
             ))}
           </ul>
         </nav>
@@ -274,7 +217,7 @@ const Header = () => {
         {/* Icônes sociales - desktop */}
         <div className="hidden lg:flex items-center space-x-7">
           <a 
-            href="https://www.instagram.com/kotepiscine.guadeloupe/" 
+            href={socialLinks.instagram}
             target="_blank" 
             rel="noopener noreferrer"
             className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-2xl"
@@ -283,7 +226,16 @@ const Header = () => {
             <FaInstagram />
           </a>
           <a 
-            href="https://maps.google.com/?q=Koté+Piscine" 
+            href={socialLinks.facebook}
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-2xl"
+            aria-label="Facebook"
+          >
+            <FaFacebook />
+          </a>
+          <a 
+            href={socialLinks.maps}
             target="_blank" 
             rel="noopener noreferrer"
             className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-2xl"
@@ -292,56 +244,57 @@ const Header = () => {
             <FaMapLocationDot />
           </a>
           <a 
-            href="tel:+33123456789" 
+            href={socialLinks.phone}
             className="flex items-center bg-kote-turquoise text-white px-5 py-2.5 rounded-full hover:bg-kote-blue-light transition-all duration-300 shadow-md hover:shadow-lg hover:transform hover:-translate-y-1 font-arboria"
           >
             <FaPhone className="mr-2.5 text-lg" /> 
-            <span className="font-semibold uppercase tracking-wide text-sm">Appelez-nous</span>
+            <span className="font-semibold uppercase tracking-wide text-base text-shadow-sm">{contact.phone.display}</span>
           </a>
         </div>
 
         {/* Bouton menu mobile */}
         <div className="lg:hidden flex items-center space-x-4">
-          {/* Icône téléphone mobile */}
+          {/* Icône téléphone mobile - amélioré pour accessibilité elderly */}
           <a 
-            href="tel:+33123456789" 
+            href={socialLinks.phone}
             className="flex items-center text-kote-white hover:text-kote-turquoise transition-colors duration-300"
-            aria-label="Appeler"
+            aria-label="Appeler maintenant"
           >
-            <div className="bg-kote-turquoise p-1.5 rounded-full text-white shadow-sm">
-              <FaPhone className="text-sm" /> 
+            <div className="bg-kote-turquoise px-4 py-3 rounded-full text-white shadow-lg flex items-center">
+              <FaPhone className="text-lg mr-2" /> 
+              <span className="text-lg font-bold">{contact.phone.display}</span>
             </div>
           </a>
           
-        <button 
+          <button 
             className="text-kote-white"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
-            {mobileMenuOpen ? (
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M6 18L18 6M6 6l12 12" 
-              />
-            ) : (
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M4 6h16M4 12h16M4 18h16" 
-              />
-            )}
-          </svg>
-        </button>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {mobileMenuOpen ? (
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M6 18L18 6M6 6l12 12" 
+                />
+              ) : (
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M4 6h16M4 12h16M4 18h16" 
+                />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -358,8 +311,12 @@ const Header = () => {
                 {item.submenu ? (
                   <div className="space-y-1">
                     <button
+                      id={`mobile-menu-${item.name.replace(/\s+/g, '-').toLowerCase()}-trigger`}
                       onClick={() => toggleSubmenu(item.name)}
                       className="flex items-center justify-between w-full text-kote-white py-2 relative group"
+                      aria-haspopup="true"
+                      aria-expanded={activeSubmenu === item.name}
+                      aria-controls={`mobile-submenu-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
                     >
                       <span className={`transition-colors duration-300 ${location.pathname.startsWith(item.to) ? 'font-bold text-kote-turquoise text-shadow-glow' : ''}`}>
                         {item.name}
@@ -373,10 +330,17 @@ const Header = () => {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                       </svg>
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-kote-turquoise transition-all duration-300 group-hover:w-full opacity-70"></span>
+                      <span className={`absolute bottom-0 left-0 h-0.5 bg-kote-turquoise transition-all duration-300 ${
+                        location.pathname.startsWith(item.to) ? 'w-full' : 'w-0 group-hover:w-full'
+                      } opacity-70`}></span>
                     </button>
                     
-                    <div className={`pl-4 space-y-1 ${activeSubmenu === item.name ? 'block' : 'hidden'}`}>
+                    <div 
+                      id={`mobile-submenu-${item.name.replace(/\s+/g, '-').toLowerCase()}`}
+                      role="menu"
+                      aria-labelledby={`mobile-menu-${item.name.replace(/\s+/g, '-').toLowerCase()}-trigger`}
+                      className={`pl-4 space-y-1 ${activeSubmenu === item.name ? 'block' : 'hidden'}`}
+                    >
                       {/* Lien vers la page principale de la section */}
                       <Link
                         to={item.to}
@@ -394,6 +358,7 @@ const Header = () => {
                           <Link
                             key={subItem.name}
                             to={subItem.to}
+                            role="menuitem"
                             className="block py-2 text-kote-white opacity-80 hover:opacity-100 hover:translate-x-1 transition-all duration-200 flex items-center"
                             onClick={() => setMobileMenuOpen(false)}
                           >
@@ -414,16 +379,16 @@ const Header = () => {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
-              </NavLink>
+                  </NavLink>
                 )}
-            </li>
+              </li>
             ))}
           </ul>
           
           {/* Icônes sociales en mobile */}
           <div className="flex items-center space-x-6 mt-6 pt-4 border-t border-kote-blue-light">
             <a 
-              href="https://www.instagram.com/kotepiscine/" 
+              href={socialLinks.instagram}
               target="_blank" 
               rel="noopener noreferrer"
               className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-2xl"
@@ -432,7 +397,16 @@ const Header = () => {
               <FaInstagram />
             </a>
             <a 
-              href="https://maps.google.com/?q=Koté+Piscine" 
+              href={socialLinks.facebook}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-2xl"
+              aria-label="Facebook"
+            >
+              <FaFacebook />
+            </a>
+            <a 
+              href={socialLinks.maps}
               target="_blank" 
               rel="noopener noreferrer"
               className="text-kote-white hover:text-kote-turquoise transition-colors duration-300 text-2xl"
@@ -441,13 +415,13 @@ const Header = () => {
               <FaMapLocationDot />
             </a>
             <a 
-              href="tel:+33123456789" 
+              href={socialLinks.phone}
               className="flex items-center text-kote-white hover:text-kote-turquoise transition-colors duration-300 group"
             >
               <div className="bg-kote-turquoise p-2 rounded-full mr-2.5 text-white shadow-sm group-hover:bg-kote-blue-light transition-all duration-300">
                 <FaPhone className="text-lg" /> 
               </div>
-              <span className="font-semibold group-hover:text-kote-turquoise">Nous appeler</span>
+              <span className="font-semibold group-hover:text-kote-turquoise">{contact.phone.display}</span>
             </a>
           </div>
         </nav>

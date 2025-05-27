@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-import heroBg from '../../images/illustrations/entretien-piscine.webp';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CtaButton from '../common/CtaButton';
 import AnimatedElement from '../common/AnimatedElement';
-import { MdOutlineSettingsRemote } from 'react-icons/md';
 import { GiWaterSplash, GiTrowel } from 'react-icons/gi';
 import { TbPool, TbTool } from 'react-icons/tb';
+import logoKote from '../../images/logo/Couleur Vertical.png';
 
 // Reprise des données de service pour les intégrer dans le Hero
 const heroServicesData = [
@@ -18,76 +17,113 @@ const heroServicesData = [
     title: 'Construction',
     description: 'Piscines sur-mesure parfaitement adaptées à votre terrain',
     icon: <TbPool className="h-10 w-10 text-white" />,
-    link: '/services/construction'
+    link: '/services/construction-piscine'
   },
   {
     id: 2,
     title: 'Entretien',
     description: 'Maintenez votre piscine en parfait état toute l\'année',
     icon: <GiWaterSplash className="h-10 w-10 text-white" />,
-    link: '/services/entretien'
+    link: '/services/entretien-piscine'
   },
   {
     id: 3,
     title: 'Rénovation',
     description: 'Redonnez une seconde vie à votre espace aquatique',
     icon: <GiTrowel className="h-10 w-10 text-white" />,
-    link: '/services/renovation'
+    link: '/services/renovation-piscine'
   },
   {
     id: 4,
-    title: 'Automatismes',
-    description: 'Simplifiez la gestion quotidienne de votre piscine',
-    icon: <MdOutlineSettingsRemote className="h-10 w-10 text-white" />,
-    link: '/services/automatismes'
-  },
-  {
-    id: 5,
     title: 'Réparation',
     description: 'Service technique pour vos robots et pompes de piscine',
     icon: <TbTool className="h-10 w-10 text-white" />,
-    link: '/services/reparation'
+    link: '/services/reparation-piscine'
   }
-];
+].filter(service => service.title !== 'Automatismes');
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [heroHeight, setHeroHeight] = useState<number | null>(null);
+  const [isFullHeight, setIsFullHeight] = useState(false);
+  const logoContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const calculateHeroHeight = () => {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const navbar = document.getElementById('main-navbar');
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
+      
+      // Vérifie si les deux conditions sont remplies pour la hauteur pleine écran
+      if (windowWidth >= 1280 && windowHeight >= 840) {
+        setHeroHeight(windowHeight - navbarHeight);
+        setIsFullHeight(true);
+      } else {
+        // Si l'une des conditions n'est pas remplie, on laisse la hauteur s'adapter au contenu
+        setHeroHeight(null);
+        setIsFullHeight(false);
+      }
+    };
+    
+    calculateHeroHeight();
+    window.addEventListener('resize', calculateHeroHeight);
+    return () => window.removeEventListener('resize', calculateHeroHeight);
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   return (
     <section 
-      className="relative pt-40 pb-28 bg-cover bg-center overflow-hidden" 
-      style={{ 
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${heroBg})`,
+      className="section-base relative bg-cover bg-center overflow-hidden" 
+      style={{
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        minHeight: '800px'
+        height: heroHeight ? `${heroHeight}px` : undefined,
       }}
     >
-      {/* Overlay dégradé animé avec particules */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-r from-kote-blue-dark/80 via-kote-blue-dark/60 to-transparent"
-        style={{ 
-          animation: 'gradientShift 8s ease-in-out infinite alternate',
-        }}
-        aria-hidden="true"
-      />
+
       
-      <div className="container-kote relative z-10 flex flex-col justify-center h-full">
+      <div className="container-kote relative z-10 flex flex-col h-full lg:justify-start">
+        {/* Logo Koté Piscine - avec marges responsives */}
+        <div 
+          ref={logoContainerRef}
+          className={`flex justify-center items-center ${isFullHeight ? 'lg:flex-grow' : ''} min-h-[100px] mt-2 sm:mt-3 md:mt-4 lg:mt-6 mb-2 sm:mb-3 md:mb-4 lg:mb-2 relative z-[2000]`}
+        >
+          <div className={`relative ${isFullHeight ? 'lg:h-full' : ''} max-w-[200px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-[400px] xl:max-w-[500px] transform transition-all duration-700 md:w-auto`}>
+            {/* Couches multiples pour un halo lumineux prononcé mais diffus */}
+            <div className="absolute -inset-8 sm:-inset-12 md:-inset-16 lg:-inset-20 -z-10 rounded-[180px] bg-white/10 blur-3xl"></div>
+            <div className="absolute -inset-6 sm:-inset-10 md:-inset-12 lg:-inset-16 -z-10 rounded-[180px] bg-white/15 blur-3xl"></div>
+            <div className="absolute -inset-4 sm:-inset-6 md:-inset-8 lg:-inset-10 -z-10 rounded-[180px] bg-white/20 blur-2xl"></div>
+            <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 lg:-inset-5 -z-10 rounded-[180px] bg-white/15 blur-xl"></div>
+            
+            {/* Nouveau wrapper pour l'image avec overflow-hidden */}
+            <div className="relative h-full w-full overflow-hidden">
+              <img 
+                src={logoKote} 
+                alt="Koté Piscine - Spécialiste à vos côtés" 
+                className="w-auto mx-auto object-contain object-top relative z-10 drop-shadow-xl"
+                style={{ height: 'calc(100% + 10%)' }}
+              />
+            </div>
+          </div>
+        </div>
+        
         {/* Titre discret au-dessus des cartes */}
         <AnimatedElement delay={0}>
-          <h1 className="text-center text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-16 mt-8 opacity-90">
-            Votre piscine, notre expertise
+          <h1 className="text-center text-white text-3xl md:text-4xl lg:text-4xl font-bold mt-4 md:mt-2 lg:mt-2 pb-12  opacity-90">
+            Spécialiste à vos côtés
+            <div className="absolute h-1 w-56 bg-kote-turquoise rounded-full bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-10"></div>
           </h1>
         </AnimatedElement>
         
@@ -118,24 +154,26 @@ const Hero = () => {
                           className="relative block h-full will-change-transform"
                         >
                           {/* Couche de verre principale */}
-                          <div className="relative p-6 lg:p-7 h-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
+                          <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
+                            <div className="card-shadow-projected" aria-hidden="true"></div>
                             {/* Effet de reflet en haut de la carte */}
                             <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                             
                             {/* Effet de brillance au survol */}
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-kote-turquoise/20 via-white/5 to-transparent"></div>
 
-                            <div className="p-4 relative z-10">
-                              {/* Container de l'icône avec fond brillant */}
-                              <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 mb-5 w-fit transform group-hover:scale-110 group-hover:shadow-lg transition-all duration-500 will-change-transform">
-                                <div className="transform transition-transform duration-700 group-hover:rotate-6 will-change-transform">
-                                  {service.icon}
+                            <div className=" p-4 relative z-10 flex flex-col h-full">
+                              {/* Header horizontal : icône + titre */}
+                              <div className="flex items-center gap-4 mb-4">
+                                <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 w-fit transform group-hover:scale-110 group-hover:shadow-lg transition-all duration-500 will-change-transform">
+                                  <div className="transform transition-transform duration-700 group-hover:rotate-6 will-change-transform">
+                                    {service.icon}
+                                  </div>
                                 </div>
+                                <h3 className="text-1xl md:text-2xl lg:text-2xl font-bold text-white group-hover:text-kote-turquoise transition-colors duration-500 text-shadow-sm m-0">
+                                  {service.title}
+                                </h3>
                               </div>
-                              
-                              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white group-hover:text-kote-turquoise transition-colors duration-500 text-shadow-sm">
-                                {service.title}
-                              </h3>
                               
                               <p className="text-base md:text-lg text-white/80 mb-5 flex-grow text-shadow-sm">
                                 {service.description}
@@ -178,24 +216,26 @@ const Hero = () => {
                         className="relative block h-full will-change-transform"
                       >
                         {/* Couche de verre principale */}
-                        <div className="relative p-6 lg:p-7 h-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
+                        <div className="card-glass-transparent card-glass-reflect h-[260px] overflow-hidden transition-all duration-500 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.2)] group-hover:bg-white/15">
+                          <div className="card-shadow-projected" aria-hidden="true"></div>
                           {/* Effet de reflet en haut de la carte */}
                           <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                           
                           {/* Effet de brillance au survol */}
                           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-tr from-kote-turquoise/20 via-white/5 to-transparent"></div>
 
-                          <div className="p-4 relative z-10">
-                            {/* Container de l'icône avec fond brillant */}
-                            <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 mb-5 w-fit transform group-hover:scale-110 group-hover:shadow-lg transition-all duration-500 will-change-transform">
-                              <div className="transform transition-transform duration-700 group-hover:rotate-6 will-change-transform">
-                                {service.icon}
+                          <div className="p-4 relative z-10 flex flex-col h-full">
+                            {/* Header horizontal : icône + titre */}
+                            <div className="flex items-center gap-4 mb-4">
+                              <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 w-fit transform group-hover:scale-110 group-hover:shadow-lg transition-all duration-500 will-change-transform">
+                                <div className="transform transition-transform duration-700 group-hover:rotate-6 will-change-transform">
+                                  {service.icon}
+                                </div>
                               </div>
+                              <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-kote-turquoise transition-colors duration-500 text-shadow-sm m-0">
+                                {service.title}
+                              </h3>
                             </div>
-                            
-                            <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white group-hover:text-kote-turquoise transition-colors duration-500 text-shadow-sm">
-                              {service.title}
-                            </h3>
                             
                             <p className="text-base md:text-lg text-white/80 mb-5 flex-grow text-shadow-sm">
                               {service.description}

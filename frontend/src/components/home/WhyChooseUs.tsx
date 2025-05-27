@@ -25,10 +25,7 @@ const reasons = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-16 relative">
-      {/* Filtre léger */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
-      
+    <section className="section-dark-overlay relative">
       <div className="container-kote relative z-10">
         <h2 className="section-title text-white">Pourquoi nous choisir ?</h2>
         

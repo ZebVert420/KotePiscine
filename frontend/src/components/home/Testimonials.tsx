@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import logoKote from '../../images/logo/Couleur Vertical.png'; // Import du logo Koté Piscine
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -411,7 +410,7 @@ const Testimonials = () => {
 
   return (
     <section 
-      className="py-20 relative overflow-hidden"
+      className="pb-20 pt-4 relative overflow-hidden"
       aria-label="Témoignages clients"
     >
       {/* Intégrer les styles d'animation */}
@@ -421,23 +420,8 @@ const Testimonials = () => {
 
       
       <div className="container-kote relative z-10 mx-auto">
-        {/* Logo Koté Piscine - avec marges responsives */}
-        <div className="flex justify-center mt-2 sm:mt-3 md:mt-4 lg:mt-6 mb-2 sm:mb-3 md:mb-4 lg:mb-5 relative z-[2000]">
-          <div className="relative max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-md transform transition-all duration-700">
-            {/* Couches multiples pour un halo lumineux prononcé mais diffus */}
-            <div className="absolute -inset-20 -z-10 rounded-[180px] bg-white/10 blur-3xl"></div>
-            <div className="absolute -inset-16 -z-10 rounded-[180px] bg-white/15 blur-3xl"></div>
-            <div className="absolute -inset-10 -z-10 rounded-[180px] bg-white/20 blur-2xl"></div>
-            <div className="absolute -inset-5 -z-10 rounded-[180px] bg-white/15 blur-xl"></div>
-            <img 
-              src={logoKote} 
-              alt="Koté Piscine - Spécialiste à vos côtés" 
-              className="w-full relative z-10 drop-shadow-xl"
-            />
-          </div>
-        </div>
         
-        <h2 className="section-title relative z-10 text-white pb-1 mb-8 sm:mb-10 md:mb-12 mt-4 sm:mt-8 md:mt-12 lg:mt-16">
+        <h2 className="section-title relative z-10 text-white pb-1 mb-8 sm:mb-10 md:mb-12 mt-4">
           Avis clients
           <div className="absolute h-1 w-24 bg-kote-turquoise rounded-full bottom-0 left-1/2 transform -translate-x-1/2"></div>
         </h2>

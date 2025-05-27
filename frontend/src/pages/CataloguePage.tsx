@@ -5,6 +5,7 @@ import { categories, Category } from '../config/categories';
 import { productsData } from '../config/products';
 import { urlService } from '../services/urlService';
 import { Product } from '../types';
+import { contact } from '../config/contact';
 
 const CataloguePage = () => {
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
@@ -175,7 +176,7 @@ const CataloguePage = () => {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <a 
-                  href="tel:0590681662" 
+                  href={`tel:${contact.phone.tel}`} 
                   className="w-full sm:w-56 btn-primary bg-kote-blue-light text-white py-3 px-6 rounded-full flex items-center justify-center hover:bg-opacity-90 transition-all duration-300 group"
                 >
                   <svg 
@@ -360,7 +361,7 @@ const CataloguePage = () => {
                       N'hésitez pas a nous appeler !
                     </p>
                     <a
-                      href="tel:0590681662"
+                      href={`tel:${contact.phone.tel}`}
                       className="text-kote-turquoise font-bold hover:text-white flex items-center transition-colors duration-300"
                     >
                       <svg 
@@ -377,7 +378,7 @@ const CataloguePage = () => {
                           d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
                         />
                       </svg>
-                      05 90 68 16 62
+                      {contact.phone.display}
                     </a>
                   </div>
                 </div>
@@ -395,7 +396,7 @@ const CataloguePage = () => {
                         </p>
                       </div>
                       <a
-                        href="tel:0590681662"
+                        href={`tel:${contact.phone.tel}`}
                         className="bg-kote-turquoise text-white py-2 px-4 rounded-full flex items-center justify-center hover:bg-opacity-90 transition-all duration-300 text-sm font-semibold"
                       >
                         <svg 

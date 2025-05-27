@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   content: [
     "./index.html",
@@ -39,6 +41,9 @@ module.exports = {
           '100%': { opacity: '1' },
         },
       },
+      boxShadow: {
+        'card-standard': '0 8px 32px rgba(0,0,0,0.1)',
+      },
       transitionProperty: {
         'height': 'height',
         'spacing': 'margin, padding',
@@ -55,6 +60,39 @@ module.exports = {
     },
   },
   plugins: [
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        '.section-base': {
+          '@apply py-16 px-5 mb-10': {},
+        },
+        '.section-dark-overlay': {
+          '@apply relative py-16 px-5': {},
+        },
+        '.card-glass-transparent': {
+          '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
+          boxShadow: theme('boxShadow.card-standard'),
+        },
+        '.card-glass-opaque': {
+          '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
+          boxShadow: theme('boxShadow.card-standard'),
+        },
+        '.card-glass-reflect': {
+          position: 'relative',
+          'z-index': '0',
+        },
+        '.card-shadow-projected': {
+          position: 'absolute',
+          inset: '0',
+          'z-index': '-5',
+          'border-radius': theme('borderRadius.2xl'),
+          background: 'rgba(0,0,0,0.2)',
+          filter: 'blur(20px)',
+          transform: 'scale(0.98) translateY(4px)',
+          opacity: '0.5',
+          'pointer-events': 'none',
+        },
+      })
+    }),
     function ({ addUtilities }) {
       const newUtilities = {
         '.text-shadow-glow': {
@@ -77,6 +115,24 @@ module.exports = {
         },
       }
       addUtilities(newUtilities)
-    }
+    },
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.card-glass-reflect::before': {
+          content: '""',
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          right: '0',
+          height: '24%',
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 60%, transparent 100%)',
+          'border-top-left-radius': theme('borderRadius.2xl'),
+          'border-top-right-radius': theme('borderRadius.2xl'),
+          'pointer-events': 'none',
+          'z-index': '1',
+          
+        },
+      })
+    }),
   ],
 } 

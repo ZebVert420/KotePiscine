@@ -1,0 +1,51 @@
+---
+description: 
+globs: frontend/src/components/magasin/**/*.tsx,frontend/src/config/contact.ts,frontend/src/config/team.ts
+alwaysApply: false
+---
+---
+description: Définit l'expérience utilisateur attendue sur la page "Notre Magasin" ("Contact") , conçue pour présenter les informations pratiques et l'équipe de Koté Piscine.
+globs:
+  - "frontend/src/components/contact/**/*.tsx"
+  - "frontend/src/config/contact.ts"
+  - "frontend/src/config/team.ts"
+alwaysApply: true
+---
+# User Story - Découverte de Notre Magasin
+
+**En tant que visiteur souhaitant en savoir plus sur Koté Piscine, son emplacement et son équipe, lorsque je visite la page "Notre Magasin" :**
+
+1.  **Je découvre une page dynamique et informative, organisée en plusieurs cartes distinctes.**
+    *   La mise en page utilise un **agencement de cartes de différentes tailles**, créant un design **moderne et engageant**, similaire à un tableau de bord d'informations.
+    *   Chaque carte adopte un **style "verre dépoli"** : un fond **distinct, légèrement translucide avec un effet de flou**, laissant subtilement transparaître l'arrière-plan général du site tout en assurant une **lisibilité parfaite** du contenu de la carte.
+    *   Cette structure me permet d'identifier et d'accéder rapidement aux différentes informations pratiques que je recherche.
+    *   L'ensemble respecte la **charte graphique premium** du site (couleurs, typographie Arboria, arrondis généreux, ombres subtiles), renforçant le **professionnalisme** et la **proximité** de l'entreprise.
+
+2.  **Je trouve immédiatement les informations de contact essentielles.**
+    *   Une **carte dédiée aux informations de contact** est bien visible. Elle présente clairement :
+        *   L'**adresse complète** du magasin.
+        *   Le **numéro de téléphone principal**, cliquable (`tel:`) pour un appel facile depuis mobile.
+        *   L'**adresse e-mail** de contact, cliquable (`mailto:`).
+        *   Les **horaires d'ouverture** actualisés.
+
+3.  **Je peux facilement accéder aux réseaux sociaux.**
+    *   Une autre **carte met en avant les liens vers les profils réseaux sociaux** de Koté Piscine (ex: Facebook, Instagram), me permettant de suivre l'actualité de l'entreprise sur mes plateformes préférées.
+
+4.  **Je visualise l'emplacement et planifie mon itinéraire sans effort.**
+    *   Une **carte intègre une vue Google Maps interactive**, centrée sur l'emplacement exact du magasin.
+    *   Je peux zoomer, dézoomer et obtenir directement un **itinéraire** depuis ma position actuelle, simplifiant grandement la planification de ma visite.
+
+5.  **J'ai un aperçu visuel du magasin.**
+    *   Une **carte dédiée affiche une galerie de photos extérieures** du magasin.
+    *   Les photos défilent via des contrôles manuels, me donnant un **aperçu réaliste et accueillant** des lieux avant même de m'y rendre.
+
+6.  **Je fais connaissance avec l'équipe.**
+    *   Une **grande carte située en bas de page présente les membres de l'équipe**.
+    *   Chaque membre est présenté avec sa **photo**, son **nom** et son **rôle** au sein de Koté Piscine, ajoutant une touche **humaine et personnalisée**.
+    *   Cette présentation renforce la **confiance** et souligne l'aspect **proche et accessible** de l'entreprise.
+
+7.  **Je suis naturellement encouragé à visiter ou contacter le magasin.**
+    *   La clarté des informations (adresse, horaires, plan) et la présentation accueillante (photos, équipe) m'incitent à **me rendre sur place** ou à **prendre contact** facilement grâce aux informations dédiées.
+
+---
+Cette User Story vise à remplacer l'expérience actuelle de la page "Notre Magasin" par une version plus structurée, informative et engageante, alignée sur les objectifs de clarté et de confiance définis dans la User Story Principale (`10-main-user-story.md`). 

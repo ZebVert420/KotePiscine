@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaPhone, FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
+import { FaPhone, FaMapMarkerAlt, FaArrowRight, FaEnvelope } from 'react-icons/fa';
 
 interface CtaButtonProps {
   to: string;
@@ -9,7 +9,7 @@ interface CtaButtonProps {
   color?: 'green' | 'blue' | 'turquoise';
   size?: 'default' | 'large' | 'slim';
   fullWidth?: boolean;
-  icon?: 'arrow' | 'phone' | 'map';
+  icon?: 'arrow' | 'phone' | 'map' | 'envelope';
   outline?: boolean;
 }
 
@@ -70,6 +70,8 @@ const CtaButton: React.FC<CtaButtonProps> = ({
         return <FaPhone className="w-4 h-4 mt-0.5 ml-2.5 transform transition-transform duration-500 ease-out group-hover:translate-x-1" />;
       case 'map':
         return <FaMapMarkerAlt className="w-4 h-4 mt-0.5 ml-2.5 transform transition-transform duration-500 ease-out group-hover:translate-x-1" />;
+      case 'envelope':
+        return <FaEnvelope className="w-4 h-4 mt-0.5 ml-2.5 transform transition-transform duration-500 ease-out group-hover:translate-x-1" />;
       case 'arrow':
       default:
         return <FaArrowRight className="w-4 h-4 mt-0.5 ml-2.5 transform transition-transform duration-500 ease-out group-hover:translate-x-1" />;

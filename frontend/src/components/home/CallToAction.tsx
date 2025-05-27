@@ -1,4 +1,5 @@
 import CtaButton from '../common/CtaButton';
+import contact from '../../config/contact';
 
 const CallToAction = () => {
   return (
@@ -17,8 +18,8 @@ const CallToAction = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CtaButton 
-              to="tel:+590590838509"
-              text="Appelez-nous"
+              to={`tel:${contact.phone.tel}`}
+              text={contact.phone.display}
               external={true}
               color="turquoise"
               size="large"
@@ -26,7 +27,7 @@ const CallToAction = () => {
             />
             <CtaButton 
               to="/contact"
-              text="Nous contacter"
+              text="Notre Magasin"
               color="green"
               size="large"
               icon="arrow"
