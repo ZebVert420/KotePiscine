@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import { assetService } from '../../services/assetService';
+import backgroundImage from '../../images/backgrounds/eau.jpg';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   // Forcer le chargement de l'image d'arrière-plan immédiatement
   useEffect(() => {
     const bgImage = new Image();
-    bgImage.src = assetService.getBackgroundPath('eau.jpg');
+    bgImage.src = backgroundImage;
   }, []);
 
   // Gestion du scroll et des transitions
@@ -42,7 +42,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <div 
         className="fixed inset-0 z-0" 
         style={{ 
-          backgroundImage: `url('${assetService.getBackgroundPath('eau.jpg')}')`,
+          backgroundImage: `url('${backgroundImage}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',

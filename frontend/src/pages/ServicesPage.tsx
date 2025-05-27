@@ -1,10 +1,37 @@
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaSwimmingPool, FaTools, FaRegSmile } from 'react-icons/fa';
 import { services } from '../config/services';
-import { assetService } from '../services/assetService';
 import AnimatedElement from '../components/common/AnimatedElement';
 import CtaButton from '../components/common/CtaButton';
 import { contact } from '../config/contact';
+
+// Import des images
+import backgroundImage from '../images/backgrounds/eau.jpg';
+import magasinIllustration from '../images/illustrations/magasin illustration.jpg';
+import serviceDefaultImage from '../images/placeholders/service-default.svg';
+import constructionPiscine from '../images/illustrations/construction-piscine.webp';
+import renovationLiner from '../images/illustrations/renovation-liner.webp';
+import entretienPiscine from '../images/illustrations/entretien-piscine.webp';
+import reparationPompe from '../images/illustrations/reparation-pompe2.webp';
+import reparationRobot from '../images/illustrations/reparation-robot2.webp';
+
+// Fonction pour obtenir l'image du service par son ID
+const getServiceImage = (serviceId: string) => {
+  switch (serviceId) {
+    case 'construction':
+      return constructionPiscine;
+    case 'renovation':
+      return renovationLiner;
+    case 'entretien':
+      return entretienPiscine;
+    case 'reparation':
+      return reparationPompe;
+    case 'automatisme':
+      return reparationRobot;
+    default:
+      return serviceDefaultImage;
+  }
+};
 
 // Données des statistiques
 const stats = [
@@ -210,13 +237,9 @@ const ServicesPage = () => {
                 
                 <div className="relative h-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden">
                   <img 
-                    src={assetService.getImagePath('illustrations/piscine-prestique.webp')} 
+                    src={magasinIllustration} 
                     alt="Piscine de luxe" 
                     className="absolute inset-0 w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = assetService.getImagePath('illustrations/magasin illustration.jpg');
-                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-kote-blue-dark/90 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -245,12 +268,12 @@ const ServicesPage = () => {
                         {/* Image */}
                         <div className={`w-full lg:w-1/2 relative ${imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
                         <img
-                          src={assetService.getImagePath(service.image)}
+                          src={getServiceImage(service.id)}
                           alt={service.title}
-                            className="w-full h-96 object-cover object-[25%_75%]"
+                          className="w-full h-96 object-cover object-[25%_75%]"
                           onError={(e) => {
                             e.currentTarget.onerror = null;
-                            e.currentTarget.src = assetService.getImagePath('placeholders/service-default.svg');
+                            e.currentTarget.src = serviceDefaultImage;
                           }}
                         />
                       </div>
@@ -382,7 +405,7 @@ const ServicesPage = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-kote-blue-dark to-kote-blue-light" />
         <div 
           className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${assetService.getBackgroundPath('eau.jpg')})` }}
+          style={{ backgroundImage: `url(${backgroundImage})` }}
         />
         <div className="container-kote relative z-10 text-center">
           <motion.div

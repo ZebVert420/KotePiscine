@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import AnimatedElement from '../../components/common/AnimatedElement';
 import CtaButton from '../../components/common/CtaButton';
 import { contact } from '../../config/contact';
-import { assetService } from '../../services/assetService';
+import entretienPiscine from '../../images/illustrations/entretien-piscine.webp';
+import serviceDefaultImage from '../../images/placeholders/service-default.svg';
 
 const EntretienPage = () => {
   useEffect(() => {
@@ -14,11 +15,11 @@ const EntretienPage = () => {
     // Mise à jour de la meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Services d\'entretien professionnel pour votre piscine en Guadeloupe. Nettoyage, équilibre de l\'eau et maintenance.');
+      metaDescription.setAttribute('content', 'Service d\'entretien régulier ou ponctuel pour votre piscine en Guadeloupe. Traitement de l\'eau, nettoyage et maintenance par des experts.');
     } else {
       const meta = document.createElement('meta');
       meta.name = 'description';
-      meta.content = 'Services d\'entretien professionnel pour votre piscine en Guadeloupe. Nettoyage, équilibre de l\'eau et maintenance.';
+      meta.content = 'Service d\'entretien régulier ou ponctuel pour votre piscine en Guadeloupe. Traitement de l\'eau, nettoyage et maintenance par des experts.';
       document.head.appendChild(meta);
     }
   }, []);
@@ -30,12 +31,12 @@ const EntretienPage = () => {
         <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
         <AnimatedElement className="relative z-10">
           <img 
-            src={assetService.getImagePath('illustrations/entretien-piscine.webp')}
-            alt="Entretien de piscine professionnel"
+            src={entretienPiscine}
+            alt="Entretien professionnel de piscine"
             className="rounded-t-xl h-64 w-full object-cover mb-8"
             onError={(e) => {
               e.currentTarget.onerror = null;
-              e.currentTarget.src = assetService.getImagePath('placeholders/service-default.svg');
+              e.currentTarget.src = serviceDefaultImage;
             }}
           />
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 px-6 md:px-8">

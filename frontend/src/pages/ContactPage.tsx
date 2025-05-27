@@ -3,15 +3,23 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaInstagram, FaFacebook, 
 import contact from '../config/contact';
 import AnimatedElement from '../components/common/AnimatedElement';
 import CtaButton from '../components/common/CtaButton';
-import { assetService } from '../services/assetService';
 import { motion } from 'framer-motion';
+
+// Import des images
+import magasinIllustration from '../images/illustrations/magasin illustration.jpg';
+import constructionPiscine from '../images/illustrations/construction-piscine.webp';
+import entretienPiscine from '../images/illustrations/entretien-piscine.webp';
+import produitEntretien from '../images/illustrations/produit-entretien.webp';
+import reparationPompe from '../images/illustrations/reparation-pompe2.webp';
+import renovationLiner from '../images/illustrations/renovation-liner.webp';
+import reparationRobot from '../images/illustrations/reparation-robot2.webp';
 
 // Images de la galerie du magasin
 const magasinImages = [
-  assetService.getImagePath('illustrations/magasin illustration.jpg'),
-  assetService.getImagePath('illustrations/construction-piscine.webp'),
-  assetService.getImagePath('illustrations/entretien-piscine.webp'),
-  assetService.getImagePath('illustrations/produit-entretien.webp'),
+  magasinIllustration,
+  constructionPiscine,
+  entretienPiscine,
+  produitEntretien,
 ];
 
 // Données de l'équipe Koté Piscine
@@ -20,42 +28,42 @@ const teamMembers = [
     id: 1,
     name: 'Philippe',
     role: 'Fondateur & Gérant',
-    image: assetService.getImagePath('illustrations/construction-piscine.webp'),
+    image: constructionPiscine,
     description: 'Plus de 20 ans d\'expérience dans la construction et l\'entretien de piscines en Guadeloupe.'
   },
   {
     id: 2,
     name: 'Julien',
     role: 'Technicien Spécialiste',
-    image: assetService.getImagePath('illustrations/reparation-pompe2.webp'),
+    image: reparationPompe,
     description: 'Expert en maintenance et réparation de pompes et d\'équipements de filtration.'
   },
   {
     id: 3,
     name: 'Sophie',
     role: 'Conseillère Commerciale',
-    image: assetService.getImagePath('illustrations/entretien-piscine.webp'),
+    image: entretienPiscine,
     description: 'Spécialiste des produits d\'entretien et des équipements pour piscine.'
   },
   {
     id: 4,
     name: 'Marc',
     role: 'Technicien Installation',
-    image: assetService.getImagePath('illustrations/renovation-liner.webp'),
+    image: renovationLiner,
     description: 'Expert en installation et rénovation de systèmes de filtration et d\'automatismes.'
   },
   {
     id: 5,
     name: 'Laura',
     role: 'Responsable Administration',
-    image: assetService.getImagePath('illustrations/produit-entretien.webp'),
+    image: produitEntretien,
     description: 'Gestion administrative et relation client pour tous vos projets piscine.'
   },
   {
     id: 6,
     name: 'Thomas',
     role: 'Technicien Entretien',
-    image: assetService.getImagePath('illustrations/reparation-robot2.webp'),
+    image: reparationRobot,
     description: 'Spécialiste de l\'entretien régulier et du traitement de l\'eau pour piscines.'
   }
 ];

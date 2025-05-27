@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, memo } from 'react';
 import { Product } from '../../types';
-import { assetService } from '../../services/assetService';
 import { useParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { categories, Category } from '../../config/categories';
+import backgroundImage from '../../images/backgrounds/eau.jpg';
 
 interface ProductCardProps {
   product: Product;
@@ -268,7 +268,7 @@ const ProductCard = memo(({
               : 'opacity-0 scale-95 translate-y-8'
           }`}
           style={{ 
-            backgroundImage: `url(${assetService.getBackgroundPath('eau.jpg')})`,
+            backgroundImage: `url(${backgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'brightness(0.85)',

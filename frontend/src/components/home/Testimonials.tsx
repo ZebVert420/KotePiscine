@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { assetService } from '../../services/assetService';
 
 // Définir le style global pour les animations
 const animationStyles = `
@@ -272,13 +271,13 @@ const Testimonials = () => {
     ));
   };
 
-  // Dans le rendu des avatars, remplacer les chemins d'images
+  // Fonction pour rendre l'avatar
   const renderAvatar = (avatar: string) => {
-    const avatarPath = assetService.getAvatarPath(avatar);
-    const placeholderPath = assetService.getAvatarPath('avatar-placeholder.svg');
+    const avatarPath = `/KotePiscine/images/avatars/${avatar}`;
+    const placeholderPath = `/KotePiscine/images/avatars/avatar-placeholder.svg`;
     
     return (
-      <img 
+      <img
         src={avatarPath}
         alt="Avatar du client"
         className="w-full h-full object-cover"
