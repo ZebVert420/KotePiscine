@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Koté Piscine - Redirection</title>
+  <script type="text/javascript">
+    // Récupérer le chemin actuel (URL après le domaine)
+    var path = window.location.pathname;
+    var baseUrl = '/KotePiscine';
+    
+    // Si le chemin commence par le baseUrl, on le garde intact
+    // Sinon, on construit le chemin complet
+    if (path.indexOf(baseUrl) === 0) {
+      sessionStorage.setItem('redirect', path);
+    } else {
+      sessionStorage.setItem('redirect', baseUrl + path);
+    }
+    
+    // Rediriger vers la page d'index
+    window.location.href = baseUrl + '/';
+  </script>
+</head>
+<body>
+  <h1>Redirection...</h1>
+  <p>Si vous n'êtes pas redirigé automatiquement, <a href="/KotePiscine/">cliquez ici</a>.</p>
+</body>
+</html> 
