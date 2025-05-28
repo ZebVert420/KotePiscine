@@ -115,7 +115,7 @@ const ServicesPage = () => {
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                     
                     <AnimatedElement key={stat.label} delay={0.1 + index * 0.1} className="relative z-10 flex flex-col items-center text-center h-full">
-                      <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 mb-3">
+                      <div className="p-3  mb-3">
                   {stat.icon}
                       </div>
                       <h3 className="text-3xl md:text-4xl font-bold text-white">{stat.value}</h3>

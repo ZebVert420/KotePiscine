@@ -4,21 +4,27 @@ globs:
 alwaysApply: false
 ---
 
-## OBJECTIF
-- Réparer les erreurs typescript lors du "npm run build" afin de push github a la fin
-- Si un object est déclarer mais non utiliser, le supprimer de préférence si c'est un ancienne fonction qui n'est plus utilisée, sauf si c'est une fonction utile pour la bonne structure du projet qui n'est pas implémentée correctement.
-- Ne jamais casser/modifier le styles et les fonctionnalités du site.
+# OBJECTIF
+## Obectif principal :
+ Effectuer un push github
+ 
+## Obectifs contectuels:
+- Si il y a des erreurs typescript lors du "npm run build" : tout réparer/debbuger
+- Si une erreur viens d'un object qui est déclarer mais non utiliser, le supprimer de préférence si c'est un ancienne fonction qui n'est plus utilisée, sauf si c'est une fonction utile pour la bonne structure du projet qui n'est pas implémentée correctement.
+- SI modification il y a : ne jamais casser/modifier le styles et les fonctionnalités du site.
 
-## REGLES IMPORTANTE POUR LA SUITE DE LA CONVERSTATION
-- **Demande imperativement** a l'utilisateur **avant de push**
+# REGLES IMPORTANTE POUR LA SUITE DE LA CONVERSTATION
 - Test toujours d'abord "npm run build" avant de commencer le push
 - Utilise toujours "git add ." pour etre sur d'ajouter tout les fichier utilise bien status
 - FAIT EXCATEMENT CE QUE JE TE DEMANDE, PAS PLUS
+
+
+## Lorsqu'il y a un debuggage a faire :
+
 - Ne **JAMAIS** supprimer les fonctionnalités et styles existants.
 - Code le plus proprement possible, supprime les code mort/obsoletes, ne surcharge pas le code avec des redondances, tout doit etre clean
-- **Lors qu'on débug**, tu code uniquement dans le but de résoutre le problème, ne jamais ajouter d'amélioration superflu qui ne va pas résoudre le probleme 
-
+- code uniquement dans le but de résoutre le problème, ne jamais ajouter d'amélioration superflu qui ne va pas résoudre le probleme 
 - **Utilise imperativement le scratchpad du fichier .cursor/rules/.cursorrules.mdc**
 - Fait une liste des erreurs a réparer et occupe toi en un par un 
 
-## Début de la CONVERSTATION
+# Début de la CONVERSTATION
