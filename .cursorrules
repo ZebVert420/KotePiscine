@@ -452,277 +452,217 @@ La lightbox qui s'ouvre lors du clic sur un projet n'est pas centrée correcteme
 - Suivre le même pattern que les autres sous-menus (categories, realisationCategories)
 - Dans JSX, les React.ComponentType doivent être instanciés avec React.createElement() et enveloppés dans un span pour les classes CSS
 
-## Tâche actuelle : Amélioration finale BlogPage avec vraies images et simplification interface
+## Tâche actuelle : Intégrer des articles de blog et le CTA sur ServicesPage
 
 ### Objectif :
-1. Utiliser les images réelles du dossier illustrations pour les articles de blog
-2. Simplifier le Hero en supprimant les statistiques
-3. Améliorer l'alignement du texte dans la recherche
-4. Réduire la taille des pastilles de tri des blogs
+1. Remplacer la section FAQ par un composant affichant 3 ou 6 articles de blog.
+2. Utiliser le composant CallToAction.tsx pour le CTA final.
+3. Assurer la cohérence stylistique avec les pages BlogPage et RealisationsPage.
 
 ### Plan d'action :
 
-[X] Étape 1 : Mettre à jour blog.posts.ts avec les vraies images
-    [X] Mapper les images disponibles aux articles existants
-    [X] Utiliser les 7 images disponibles pour les 12 articles (répétition acceptée)
-    [X] Corriger les imports d'images (comme dans products.ts)
+[X] Étape 1 : Créer le composant BlogArticlesSection.tsx
+    [X] Créer `frontend/src/components/common/BlogArticlesSection.tsx`
+    [X] Définir les props pour recevoir une liste de slugs/IDs d'articles.
+    [X] Importer `blogPosts` depuis `blog.posts.ts`.
+    [X] Filtrer les articles de blog correspondants.
+    [X] Rendre une grille de 3 ou 6 articles en 3 colonnes.
+    [X] Appliquer les styles `section-dark-overlay` et `card-glass-opaque`.
+    [X] Utiliser le composant `BlogCard` pour chaque article.
+    [X] Corriger l'erreur de prop dans BlogArticlesSection (`article` -> `post`).
 
-[X] Étape 2 : Simplifier le Hero section de BlogPage.tsx
-    [X] Supprimer la section des statistiques (3 colonnes)
-    [X] Garder le titre en blanc explicite (text-white ajouté)
-    [X] Améliorer l'alignement du texte dans la barre de recherche (text-center ajouté)
+[X] Étape 2 : Modifier ServicesPage.tsx
+    [X] Supprimer la section FAQ existante.
+    [X] Importer `BlogArticlesSection` et `CallToAction`.
+    [X] Ajouter `BlogArticlesSection` sous la section des services, en lui passant des slugs d'articles (à définir, par exemple 3 articles récents ou pertinents pour les services).
+    [X] Ajouter `CallToAction` en bas de page.
 
-[X] Étape 3 : Réduire la taille des pastilles de tri
-    [X] Ajuster padding (px-6 py-3 → px-4 py-2) et font-size (text-sm ajouté)
-    [X] Réduire l'espacement entre les pastilles (gap-3 → gap-2)
-    [X] Réduire la taille des icônes et compteurs
-    [X] Maintenir la lisibilité tout en réduisant la taille
+[X] Étape 3 : Créer le composant RealisationsSection.tsx
+    [X] Créer `frontend/src/components/common/RealisationsSection.tsx`
+    [X] Importer les données depuis `fictiveRealisations.config.ts`
+    [X] Afficher une grille de réalisations en 3 colonnes
+    [X] Ajouter un bouton "Voir toutes nos réalisations"
+    [X] Intégrer le composant dans ServicesPage.tsx
+
+[X] Étape 4 : Ajouter Swiper pour les écrans mobiles
+    [X] Dans BlogArticlesSection, ajouter Swiper pour afficher les articles en mode carrousel sur mobile
+    [X] Dans RealisationsSection, ajouter Swiper pour afficher les réalisations en mode carrousel sur mobile
+    [X] S'assurer que la transition entre vue desktop et mobile est fluide
+    [X] Ajouter la pagination et l'autoplay pour une meilleure expérience utilisateur
+
+[X] Étape 5 : Uniformiser la taille des cartes et l'affichage de la description
+    [X] Modifier BlogCard et RealisationCard pour limiter la description à 3 lignes avec '...'
+    [X] Ajouter des classes pour fixer la hauteur des cartes dans BlogArticlesSection et RealisationsSection (h-full).
+
+[X] Étape 6 : Ajouter BlogArticlesSection et RealisationsSection à HomePage.tsx
+    [X] Importer les composants
+    [X] Les ajouter au JSX de HomePage.tsx
 
 ### Modifications apportées :
+✅ BlogArticlesSection : Composant réutilisable pour afficher des articles de blog avec vue adaptative (grid ou swiper)
+✅ RealisationsSection : Composant réutilisable pour afficher des réalisations avec vue adaptative
+✅ Integration sur ServicesPage : Remplacement de la FAQ par ces composants
+✅ Vue Mobile : Swiper avec autoplay et pagination pour une meilleure expérience sur petits écrans
+✅ CTA : Bouton "Voir tous nos conseils" et "Voir toutes nos réalisations" 
+✅ Cohérence stylistique : Tous les composants utilisent le même style section-dark-overlay et card-glass-opaque
+✅ Expérience utilisateur : Amélioration de l'expérience sur tous les appareils
+✅ Uniformisation des cartes : Taille et affichage des descriptions cohérents
+✅ Intégration sur HomePage : Ajout des sections Articles de Blog et Réalisations
 
-✅ **Images réelles** : Tous les articles utilisent maintenant les vraies images du dossier illustrations
-- Imports corrects au début du fichier (comme products.ts)
-- Variables importées utilisées dans la config au lieu de chemins strings
-- Articles Construction → constructionPiscine
-- Articles Entretien → entretienPiscine ou produitEntretien
-- Articles Rénovation → renovationLiner
-- Articles Équipements → reparationPompe2 ou reparationRobot2
-- Articles généraux → magasinIllustration
+### Améliorations futures possibles:
+- Fonctionnalité de filtrage des articles/réalisations
+- Ajout d'une lightbox pour les réalisations (comme sur RealisationsPage)
+- Possibilité de charger des articles/réalisations supplémentaires via un bouton "Charger plus"
+- Animation au défilement pour une apparition progressive des éléments
 
-✅ **Hero simplifié** :
-- Suppression complète des statistiques (12 articles, 8 catégories, 85 min de lecture)
-- Titre explicitement en blanc avec `text-white`
-- Texte de recherche centré avec `text-center`
-- Interface plus épurée et focalisée sur la recherche
-
-✅ **Pastilles de tri réduites** :
-- Padding réduit de `px-6 py-3` à `px-4 py-2`
-- Font-size des boutons : `text-sm`
-- Icônes plus petites : `text-sm` au lieu de `text-lg`
-- Compteurs en `text-xs` au lieu de `text-sm`
-- Espacement entre pastilles : `gap-2` au lieu de `gap-3`
-- Marges internes ajustées pour "text-center"
-
-✅ **Amélioration générale de l'UX** :
-- Interface plus compacte et moderne
-- Meilleure hiérarchie visuelle
-- Chargement plus rapide avec vraies images locales
-- Cohérence avec le design système du site
-- **Images maintenant fonctionnelles** avec imports corrects
-
-### Leçon apprise :
-- Les images doivent être importées comme variables au début du fichier TypeScript
-- Utiliser les variables importées au lieu des chemins en string pour que Vite puisse les traiter
-- Suivre le même pattern que products.ts pour la cohérence du projet 
-
-## Tâche actuelle : Correction du Header.tsx avec les modifications précédentes
-
-### Problème résolu :
-✅ Le Header.tsx avait perdu les modifications précédentes mais le footer et autres fichiers étaient OK
-
-### Corrections apportées :
-
-[X] Étape 1 : Intégrer la configuration navbar.config.tsx
-    [X] Importer getMenuItems et socialLinks depuis navbar.config.tsx
-    [X] Supprimer la configuration locale redondante
-    [X] Utiliser getMenuItems() au lieu de la configuration locale
-
-[X] Étape 2 : Intégrer la configuration contact.ts
-    [X] Importer contact depuis './config/contact'
-    [X] Utiliser contact.phone.tel pour les liens téléphone
-    [X] Utiliser contact.phone.display pour l'affichage du numéro
-
-[X] Étape 3 : Ajouter Facebook dans les liens sociaux
-    [X] Importer FaFacebook depuis react-icons/fa
-    [X] Ajouter Facebook dans la section desktop avec socialLinks.facebook
-    [X] Ajouter Facebook dans la section mobile avec socialLinks.facebook
-
-[X] Étape 4 : Remplacer "Appelez-nous" par le numéro de téléphone
-    [X] Desktop CTA : remplacer "Appelez-nous" par {contact.phone.display} ("05 90 68 16 62")
-    [X] Mobile section : afficher le numéro dans le bouton téléphone
-    [X] Améliorer la taille du texte (text-base au lieu de text-sm)
-
-[X] Étape 5 : Améliorer l'accessibilité mobile
-    [X] Bouton téléphone mobile agrandi : px-4 py-3 avec shadow-lg
-    [X] Texte du numéro visible : text-lg font-bold
-    [X] Aria-label amélioré : "Appeler maintenant"
-
-### Fonctionnalités restaurées :
-✅ Configuration centralisée via navbar.config.tsx et contact.ts
-✅ Liens sociaux réels (Instagram, Facebook, Maps)
-✅ Numéro de téléphone réel affiché partout (05 90 68 16 62)
-✅ Amélioration accessibility pour personnes âgées
-✅ Cohérence entre desktop et mobile
-✅ Suppression du code redondant
-
-### Liens configurés :
-- ✅ Instagram : "https://www.instagram.com/kotepiscine.guadeloupe/"
-- ✅ Facebook : "https://www.facebook.com/kotepiscine.guadeloupe/"  
-- ✅ Maps : Lien Google Maps avec "Koté Piscine"
-- ✅ Téléphone : "+590590681662" (affiché "05 90 68 16 62")
-
-### Leçon apprise :
-- Vérifier que toutes les modifications sont bien appliquées à tous les fichiers concernés
-- Utiliser les configurations centralisées pour maintenir la cohérence
-- Toujours vérifier les imports et supprimer le code redondant 
-
-## Tâche actuelle : Création d'une grille mosaic stylisée pour BlogPage
+## Tâche actuelle : Ajout du container-kote aux pages de services individuelles
 
 ### Objectif :
-Créer une grille plus dynamique avec des cartes de différentes tailles pour un effet visuel moderne et engageant.
+Assurer que le contenu de chaque page de service individuelle (`frontend/src/pages/services/*.tsx`) est centré avec `container-kote`, tout en permettant au fond de prendre toute la largeur.
 
 ### Plan d'action :
 
-[X] Étape 1 : Modifier BlogCard pour supporter différentes tailles
-    [X] Ajouter prop size ('small', 'medium', 'large')
-    [X] Créer des classes CSS dynamiques selon la taille
-    [X] Adapter aspect-ratio, padding, taille de texte selon size
-    [X] Corriger l'affichage des icônes avec React.createElement()
+[X] Étape 1 : Supprimer `container-kote` du layout principal `ServicesLayout.tsx`
+    [X] Modifier `ServicesLayout.tsx` pour retirer la div `container-kote` englobante.
 
-[X] Étape 2 : Transformer la grille de BlogPage
-    [X] Passer d'une grille 3 colonnes uniforme à une grille 4 colonnes
-    [X] Créer une logique pour déterminer la taille selon l'index
-    [X] Implémenter un pattern de répartition (première carte large, alternance)
+[X] Étape 2 : Ajouter `container-kote` aux sections des pages de services individuelles
+    [X] Modifier `frontend/src/pages/services/ConstructionPage.tsx`
+    [X] Modifier `frontend/src/pages/services/EntretienPage.tsx`
+    [X] Modifier `frontend/src/pages/services/RenovationPage.tsx`
+    [X] Modifier `frontend/src/pages/services/ReparationPage.tsx`
+    [X] Modifier `frontend/src/pages/services/AutomatismesPage.tsx`
+    [X] Pour chaque page, ajouter une div avec `className="container-kote mx-auto"` juste à l'intérieur de la div principale avec `className="relative w-full"`.
 
-### Modifications effectuées :
+[X] Étape 3 : Vérifier les autres composants utilisés sur ServicesPage
+    [X] Vérifier `BlogArticlesSection.tsx` pour s'assurer qu'il gère son propre `container-kote`.
+    [X] Vérifier `RealisationsSection.tsx` pour s'assurer qu'il gère son propre `container-kote`.
+    [X] Vérifier `CallToAction.tsx` pour s'assurer qu'il gère son propre `container-kote`.
 
-✅ **BlogCard amélioré** :
-- Prop `size` avec 3 variantes : small, medium, large
-- Classes dynamiques pour container (col-span-2, row-span-2 pour large)
-- Aspect ratios adaptés : 16/10 pour large, 16/9 pour autres
-- Padding variable : p-6 md:p-8 pour large, p-4 md:p-5 pour small
-- Titres adaptatifs : text-xl md:text-2xl pour large
-- Plus de tags affichés sur cartes large (4 vs 3)
-
-✅ **Grille mosaic BlogPage** :
-- Grille adaptive selon le nombre d'articles :
-  - ≤2 articles : 1-2 colonnes (évite espaces vides)
-  - 3-4 articles : 1-2-3 colonnes 
-  - ≥5 articles : 1-2-4 colonnes (pattern complet)
-- Pattern de répartition intelligent adaptatif :
-  - ≤3 articles : toutes cartes medium (optimise l'espace)
-  - 4-6 articles : 1 large + reste medium
-  - >6 articles : pattern sophistiqué (large tous les 7, small occasionnels)
-- Gap optimisé (gap-4 md:gap-6)
-- auto-rows-max pour adaptation hauteur
-- Large cards : col-span-2 row-span-1 (moins d'espace vertical)
-
-### Avantages améliorés :
-✅ **Adaptation intelligente** au nombre d'articles filtrés
-✅ **Évite les espaces vides** avec peu d'articles
-✅ **Grille responsive** optimisée selon le contexte
-✅ **Pattern équilibré** qui s'adapte au contenu
-✅ **Expérience consistante** quelque soit le filtre appliqué
+### Modifications apportées :
+✅ ServicesLayout.tsx : Suppression du container-kote global.
+✅ Pages de services individuelles : Ajout du container-kote pour centrer le contenu spécifique à chaque service.
+✅ Composants : Vérification confirmant que BlogArticlesSection, RealisationsSection et CallToAction gèrent déjà leur propre container-kote.
+✅ Cohérence : Le fond des sections peut maintenant prendre toute la largeur de l'écran, tandis que le contenu reste centré.
 
 ### Leçon apprise :
-- Les grilles CSS Grid avec col-span/row-span permettent des layouts mosaic efficaces
-- L'utilisation de patterns mathématiques (modulo) crée des répartitions équilibrées
-- Les cartes de différentes tailles améliorent l'engagement utilisateur
+- Le positionnement des classes `container-kote` doit être cohérent : soit au niveau du layout si tout le contenu de la page doit être centré, soit au niveau de chaque section si les sections ont des fonds pleine largeur et que seul le contenu interne doit être centré.
 
-## Tâche actuelle : Utilisation de navbar.config pour les liens utiles du footer
+## Tâche actuelle : Améliorer UX des flèches de navigation (cartes et lightbox)
 
 ### Objectif :
-Remplacer les liens utiles hardcodés dans le Footer.tsx par la configuration centralisée de navbar.config.tsx pour maintenir la cohérence.
+1. Utiliser les mêmes icônes de flèches (`FaChevronLeft`, `FaChevronRight`) dans `RealisationCard.tsx` que dans `Lightbox.tsx`.
+2. Corriger le centrage vertical des flèches de navigation dans `Lightbox.tsx`.
 
 ### Plan d'action :
 
-[X] Étape 1 : Modifier Footer.tsx
-    [X] Importer getMenuItems depuis navbar.config.tsx
-    [X] Remplacer les liens hardcodés par la génération dynamique
-    [X] Adapter l'affichage pour montrer les sections principales du menu
-    [X] Maintenir la structure grid 2 colonnes existante
+[X] Étape 1 : Mettre à jour `RealisationCard.tsx`
+    [X] Remplacer les imports et utilisations des icônes `FaArrow` par `FaChevron`.
+[X] Étape 2 : Mettre à jour `Lightbox.tsx`
+    [X] Identifier le conteneur de l'image pour le positionnement des flèches.
+    [X] Ajuster les classes ou la structure pour centrer verticalement les flèches par rapport à l'image.
+[ ] Étape 3 : Tester la fonctionnalité
+    [ ] Vérifier que les icônes de flèches sont uniformes sur les cartes.
+    [ ] Vérifier que les flèches sont correctement centrées verticalement dans la lightbox.
 
-### Avantages :
-✅ Cohérence entre navbar et footer
-✅ Maintenance simplifiée (un seul endroit pour modifier les liens)
-✅ Ajout automatique de nouveaux liens dans les deux endroits
-✅ Structure standardisée
-
-### Modifications effectuées :
-✅ Footer.tsx : import de getMenuItems depuis navbar.config.tsx
-✅ Remplacement des 6 liens hardcodés par une génération dynamique
-✅ Conservation du style existant (text-white/80 hover:text-kote-turquoise)
-✅ Maintien de la structure grid grid-cols-2 gap-2
-✅ Tous les liens du menu principal maintenant disponibles dans le footer
-
-### Liens maintenant générés automatiquement :
-- ✅ Accueil (/)
-- ✅ Nos Services (/services) 
-- ✅ Notre Gamme (/catalogue)
-- ✅ Nos Travaux (/realisations)
-- ✅ Nos Conseils (/blog)
-- ✅ Notre Magasin (/contact)
-
-### Leçon apprise :
-- Centraliser les configurations de navigation améliore la cohérence
-- Un seul changement dans navbar.config.tsx met à jour navbar et footer
-- La génération dynamique évite la duplication de code et les erreurs
-
-## Tâche actuelle : Suppression des sous-menus pour Nos Travaux, Nos Conseils et Notre Magasin
+## Tâche actuelle : Supprimer la fonctionnalité de zoom dans la Lightbox
 
 ### Objectif :
-Simplifier la navigation en supprimant les sous-menus pour trois sections spécifiques tout en conservant les liens principaux.
+Supprimer complètement la fonctionnalité de zoom et tout le code associé du composant Lightbox.tsx.
 
 ### Plan d'action :
 
-[X] Étape 1 : Modifier navbar.config.tsx
-    [X] Supprimer le sous-menu de "Nos Travaux" (réalisations)
-    [X] Supprimer le sous-menu de "Nos Conseils" (blog)
-    [X] Supprimer le sous-menu de "Notre Magasin" (contact)
-    [X] Conserver les icônes et liens principaux
+[X] Étape 1 : Supprimer l'état et la logique du zoom dans Lightbox.tsx
+    [X] Retirer les états `isZoomed`, `zoomPosition`, `zoomLevel`.
+    [X] Retirer les fonctions `handleMouseMove`, `toggleZoom`, `adjustZoomLevel`.
+[X] Étape 2 : Supprimer les références au zoom
+    [X] Retirer `imageRef`.
+    [X] Supprimer les cas pour les touches '+', '-' dans le `useEffect`.
+    [X] Supprimer la condition `if (isZoomed)` dans le `changeImage`.
+[X] Étape 3 : Supprimer les éléments UI liés au zoom
+    [X] Retirer les boutons avec `FaSearchMinus` et `FaSearchPlus`.
+    [X] Retirer l'indicateur "Cliquez pour zoomer".
+[X] Étape 4 : Simplifier le comportement au clic de l'image
+    [X] Supprimer le `onClick` de la div `.relative rounded-xl ...` ou le vider.
+    [X] S'assurer que les flèches de navigation ne sont pas masquées par une condition `!isZoomed`.
+[X] Étape 5 : Nettoyer les styles et classes conditionnelles
+    [X] Supprimer les classes dépendant de `isZoomed` (ex: `cursor-zoom-out`, `cursor-zoom-in`).
+    [X] Supprimer le style `overflow` conditionnel sur la `motion.div` interne.
+[ ] Étape 6 : Tester et vérifier
+    [ ] Vérifier que le zoom a disparu.
+    [ ] Vérifier que la navigation par flèches fonctionne toujours.
+    [ ] Vérifier que la lightbox se ferme toujours correctement au clic de l'overlay ou de la croix.
 
-### Modifications effectuées :
-✅ navbar.config.tsx : suppression des 3 sous-menus spécifiés
-✅ Conservation des liens principaux vers les pages /realisations, /blog et /contact
-✅ Conservation des icônes principales
-✅ Simplification de l'expérience utilisateur en réduisant les options de navigation
+## Tâche actuelle : Restaurer la galerie de miniatures dans la Lightbox
 
-### Structure de navigation maintenant :
-- Accueil (/) : aucun sous-menu
-- Nos Services (/services) : sous-menu conservé avec les différents services
-- Notre Gamme (/catalogue) : sous-menu conservé avec les catégories de produits 
-- Nos Travaux (/realisations) : lien direct sans sous-menu
-- Nos Conseils (/blog) : lien direct sans sous-menu
-- Notre Magasin (/contact) : lien direct sans sous-menu
-
-### Avantages :
-- Interface utilisateur plus légère et directe
-- Expérience de navigation simplifiée pour l'utilisateur
-- Moins d'options potentiellement confuses
-- Accès direct aux sections principales du site
-- Focalisation sur les contenus les plus importants
-
-## Tâche actuelle : Correction du bug d'affichage du lien actif dans la navbar
-
-### Problème identifié :
-Le soulignement bleu n'apparaissait pas sur les liens avec sous-menu lorsqu'on était sur une page associée à ce menu.
-
-### Solution :
-Modifier la classe du soulignement pour qu'elle s'adapte à l'état actif du lien, même pour les liens avec sous-menu.
+### Objectif :
+Réinsérer la galerie de miniatures qui a été supprimée dans le composant Lightbox.tsx.
 
 ### Plan d'action :
 
-[X] Étape 1 : Corriger les liens du menu desktop avec sous-menu
-    [X] Modifier le span du soulignement pour utiliser une classe conditionnelle
-    [X] Appliquer `w-full` lorsque `location.pathname.startsWith(item.to)`
-    [X] Conserver l'effet hover uniquement lorsque le lien n'est pas actif
+[X] Étape 1 : Réinsérer la structure HTML/JSX de la galerie de miniatures dans Lightbox.tsx
+    [X] Retrouver le code de la galerie de miniatures dans l'historique ou les fichiers précédents.
+    [X] Placer le code de la galerie de miniatures dans la div avec `id="image-container"`, positionnée en bas.
+[X] Étape 2 : Vérifier les dépendances et les props
+    [X] S'assurer que les variables (`realisation`, `currentImageIndex`, `setDirection`, `onNextImage`, `onPreviousImage`, `isChanging`) utilisées dans la galerie sont disponibles et correctement utilisées.
+[ ] Étape 3 : Tester et vérifier
+    [ ] Vérifier que la galerie de miniatures s'affiche correctement.
+    [ ] Vérifier que cliquer sur les miniatures change bien l'image principale.
+    [ ] S'assurer que les styles et les animations de la galerie fonctionnent comme avant.
+    [ ] Vérifier que la galerie n'interfère pas avec les autres éléments de la lightbox (flèches, fermeture, informations du projet).
 
-[X] Étape 2 : Corriger les liens du menu mobile avec sous-menu
-    [X] Appliquer la même logique que pour la version desktop
-    [X] Maintenir l'opacité à 70% pour conserver le style existant
-    [X] Assurer la cohérence visuelle entre desktop et mobile
+## Tâche actuelle : Ajout d'un menu déroulant pour les catégories sur mobile dans RealisationsPage et BlogPage
 
-### Modifications effectuées :
-✅ Remplacement de la classe statique `w-0` par une classe conditionnelle
-✅ Utilisation de l'interpolation de chaîne avec des backticks et ${} pour insérer la logique
-✅ Maintien de tous les autres styles et transitions existants
-✅ Cohérence visuelle entre tous les types de liens (avec/sans sous-menu)
+### Objectif :
+Améliorer l'expérience utilisateur sur mobile en remplaçant les boutons de filtrage par catégories par un menu déroulant, comme dans CataloguePage.
 
-### Problème résolu :
-- Les liens avec sous-menu affichent maintenant correctement le soulignement bleu lorsqu'on navigue sur une page qui fait partie de leur section
-- La transition au survol reste fonctionnelle pour les liens non-actifs
-- L'expérience utilisateur est améliorée par une meilleure indication visuelle de la navigation actuelle
+### Plan d'action :
 
-### Leçon apprise :
-- Il est important de gérer de manière cohérente les styles conditionnels à travers tous les composants similaires
-- Les éléments avec et sans sous-menu doivent suivre la même logique d'affichage des états actifs
+[X] Étape 1 : Modifier RealisationsPage.tsx
+    [X] Ajouter l'état pour détecter si on est sur mobile (`isMobile`)
+    [X] Ajouter l'état pour contrôler l'ouverture du menu mobile (`mobileMenuOpen`)
+    [X] Ajouter la fonction de toggle du menu mobile
+    [X] Modifier la fonction de changement de catégorie pour fermer le menu mobile
+    [X] Implémenter le menu mobile déroulant avec effet d'animation
+    [X] Masquer les boutons originaux sur mobile avec `hidden md:flex`
+    [X] Conserver l'apparence et les fonctionnalités existantes
+    [X] Afficher l'icône du choix sélectionné dans le bouton du menu déroulant.
+
+[X] Étape 2 : Modifier BlogPage.tsx
+    [X] Ajouter l'état pour détecter si on est sur mobile (`isMobile`)
+    [X] Ajouter l'état pour contrôler l'ouverture du menu mobile (`mobileMenuOpen`)
+    [X] Ajouter la fonction de toggle du menu mobile
+    [X] Ajouter une fonction `handleCategorySelect` pour gérer la sélection et fermer le menu
+    [X] Implémenter le menu mobile déroulant avec effet d'animation
+    [X] Masquer les boutons originaux sur mobile avec `hidden md:flex`
+    [X] Gérer correctement l'affichage des icônes dans le menu mobile
+    [X] Conserver l'apparence et les fonctionnalités existantes
+    [X] Si il y a plus de 4 choix, mettre le menu deroulan pour les ecrans moyen aussi.
+    [X] Afficher l'icône du choix selectionner dans le bouton du menu déroulant.
+
+### Améliorations apportées :
+✅ Expérience utilisateur mobile améliorée grâce au menu déroulant plus compact
+✅ Interface plus claire et accessible sur petits écrans
+✅ Animations fluides à l'ouverture/fermeture du menu (max-height, opacity)
+✅ Style glassmorphique cohérent avec le reste du site (backdrop-blur-xl, bg-white/10)
+✅ Conservation de toutes les fonctionnalités existantes (filtrage par catégories)
+✅ Compteurs de réalisations/articles conservés dans le menu mobile
+✅ Icônes des catégories affichées dans le menu mobile
+✅ Mise en évidence de la catégorie active cohérente (bg-kote-turquoise)
+✅ Le menu déroulant de BlogPage s'affiche maintenant sur les écrans md et lg (car plus de 4 catégories).
+✅ L'icône de la catégorie sélectionnée (ou l'icône par défaut pour "Tous les articles") s'affiche dans le bouton du menu déroulant de BlogPage.
+✅ L'icône de la catégorie sélectionnée s'affiche dans le bouton du menu déroulant de RealisationsPage.
+
+### Points techniques notables :
+- Ajout de détection de la taille d'écran avec un eventListener sur resize
+- Utilisation de classes conditionnelles pour l'animation du menu
+- Implémentation du même modèle de menu déroulant que CataloguePage
+- Adaptation aux spécificités de chaque page (tags pour BlogPage, lightbox pour RealisationsPage)
+- Modification de la condition d'affichage du menu déroulant dans BlogPage en fonction du nombre de catégories (plus de 4).
+- Ajustement de la hauteur maximale du menu déroulant mobile de BlogPage (`max-h-96` à `max-h-screen`) pour afficher tout le contenu.
+- Ajustement de la hauteur maximale du menu déroulant mobile de RealisationsPage (`max-h-96` à `max-h-screen`) pour afficher tout le contenu.
+- L'icône de la catégorie sélectionnée dans le menu déroulant mobile de RealisationsPage est maintenant blanche.
+- Appliquer les mêmes marges à l'icône dans le bouton du menu déroulant mobile de RealisationsPage (`mr-6 ml-3`).
+- Ajouter l'icône `TbPool` pour "Toutes nos réalisations" dans la liste du menu déroulant mobile de RealisationsPage.
+- Utiliser l'icône `TbPool` comme icône par défaut dans le bouton principal du menu déroulant mobile de RealisationsPage lorsque "Toutes nos réalisations" est sélectionné.
+- Ajouter l'icône `MdPhotoLibrary` pour "Toutes nos réalisations" dans la liste du menu déroulant mobile de RealisationsPage.
+- Utiliser l'icône `MdPhotoLibrary` comme icône par défaut dans le bouton principal du menu déroulant mobile de RealisationsPage lorsque "Toutes nos réalisations" est sélectionné.

@@ -8,6 +8,7 @@ module.exports = {
   ],
   theme: {
     screens: {
+      xs: '320px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -117,17 +118,6 @@ module.exports = {
     plugin(function({ addComponents, theme }) {
       addComponents({
         '.card-glass-reflect::before': {
-          content: '""',
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          right: '0',
-          height: '24%',
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.04) 60%, transparent 100%)',
-          'border-top-left-radius': theme('borderRadius.2xl'),
-          'border-top-right-radius': theme('borderRadius.2xl'),
-          'pointer-events': 'none',
-          'z-index': '1',
           
         },
       })
