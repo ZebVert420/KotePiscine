@@ -90,9 +90,9 @@ const ServicesLayout: React.FC<ServicesLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen">
-      <div className="container-kote py-8">
+      <div className="py-8">
         {/* Menu de navigation entre services */}
-        <div className="relative mb-8">
+        <div className="container-kote relative mb-8">
           <div className="card-shadow-projected" aria-hidden="true"></div>
           <div className="relative card-glass-transparent card-glass-reflect overflow-hidden rounded-xl">
             <div className="absolute top-0 left-0 right-0 h-2/3 bg-gradient-to-b from-white/10 to-transparent rounded-t-xl"></div>

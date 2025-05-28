@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { categories, Category } from '../../config/categories';
 import backgroundImage from '../../images/backgrounds/eau.jpg';
+import contact from '../../config/contact';
 
 interface ProductCardProps {
   product: Product;
@@ -356,7 +357,7 @@ const ProductCard = memo(({
                       </p>
                       <div className="flex flex-col gap-2">
                         <a 
-                          href="https://goo.gl/maps/PVn9oQwTHN5ZuDLZ9" 
+                          href={contact.social.maps}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center justify-center bg-[#B0C852] text-white py-2 px-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group text-sm focus:outline-none focus:ring-2 focus:ring-[#B0C852]/50"
@@ -384,7 +385,7 @@ const ProductCard = memo(({
                           Nous localiser
                         </a>
                         <a 
-                          href="tel:0590681662" 
+                          href={`tel:${contact.phone.tel}`}
                           className="flex items-center justify-center bg-gradient-to-r from-kote-turquoise via-kote-blue-light to-kote-blue-dark text-white py-2 px-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group text-sm focus:outline-none focus:ring-2 focus:ring-kote-turquoise/50"
                         >
                           <svg 

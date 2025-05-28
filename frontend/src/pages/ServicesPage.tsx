@@ -4,9 +4,11 @@ import { services } from '../config/services';
 import AnimatedElement from '../components/common/AnimatedElement';
 import CtaButton from '../components/common/CtaButton';
 import { contact } from '../config/contact';
+import BlogArticlesSection from '../components/common/BlogArticlesSection';
+import CallToAction from '../components/home/CallToAction';
+import RealisationsSection from '../components/common/RealisationsSection';
 
 // Import des images
-import backgroundImage from '../images/backgrounds/eau.jpg';
 import magasinIllustration from '../images/illustrations/magasin illustration.jpg';
 import serviceDefaultImage from '../images/placeholders/service-default.svg';
 import constructionPiscine from '../images/illustrations/construction-piscine.webp';
@@ -55,27 +57,12 @@ const stats = [
   }
 ];
 
-// Questions fréquentes
-const faqs = [
-  {
-    question: 'Quels types de piscines construisez-vous ?',
-    answer: 'Nous construisons tous types de piscines : béton, système autonettoyant et piscines à débordement. Chaque projet est unique et adapté à votre terrain et vos besoins.'
-  },
-  {
-    question: 'Combien coûte l\'entretien régulier d\'une piscine ?',
-    answer: 'Le coût varie selon la taille de votre piscine et la fréquence d\'entretien souhaitée. Nous proposons des forfaits adaptés à tous les budgets. Contactez-nous pour un devis personnalisé.'
-  },
-  {
-    question: 'Quels sont les délais pour une rénovation complète ?',
-    answer: 'Les délais varient selon l\'ampleur des travaux, généralement entre 1 et 3 semaines. Nous vous fournissons un planning précis lors du devis pour vous permettre de vous organiser.'
-  }
-];
 
 const ServicesPage = () => {
   return (
     <>
       {/* Section principale avec patchwork d'informations et services */}
-      <section className="relative pt-4 pb-16 overflow-hidden">
+      <section className="relative pt-4 pb-16 overflow-hidden w-full">
         <div className="container-kote relative z-10">
           {/* Titre intégré plus subtilement */}
         <motion.div 
@@ -140,7 +127,7 @@ const ServicesPage = () => {
             ))}
 
             {/* Configurateur de devis amélioré - design plus attractif */}
-            <AnimatedElement delay={0.4} className="md:col-span-6 lg:col-span-4">
+            <div className="md:col-span-6 lg:col-span-4">
               <div className="relative h-full">
                 <div className="card-shadow-projected" aria-hidden="true"></div>
                 
@@ -149,7 +136,7 @@ const ServicesPage = () => {
                   <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/20 -mr-10 -mt-10"></div>
                   <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/10 -ml-10 -mb-10"></div>
                   
-                  <div className="relative z-10 h-full flex flex-col items-center justify-center text-center p-6">
+                  <AnimatedElement delay={0.4} className="relative z-10 h-full flex flex-col items-center justify-center text-center p-6">
                     <div className="p-3 bg-white/20 rounded-2xl mb-5">
                       <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 5.25H3C2.59 5.25 2.25 5.59 2.25 6V18C2.25 18.41 2.59 18.75 3 18.75H21C21.41 18.75 21.75 18.41 21.75 18V6C21.75 5.59 21.41 5.25 21 5.25Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -205,10 +192,10 @@ const ServicesPage = () => {
                       outline={true}
                       fullWidth={true}
                     />
-                  </div>
+                  </AnimatedElement>
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* Dernière statistique */}
             <div className="md:col-span-6 lg:col-span-4">
@@ -231,7 +218,7 @@ const ServicesPage = () => {
             </div>
 
             {/* Image de piscine */}
-            <AnimatedElement delay={0.6} className="md:col-span-6 lg:col-span-4">
+            <div className="md:col-span-6 lg:col-span-4">
               <div className="relative h-full">
                 <div className="card-shadow-projected" aria-hidden="true"></div>
                 
@@ -242,12 +229,12 @@ const ServicesPage = () => {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-kote-blue-dark/90 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                  <AnimatedElement delay={0.6} className="absolute bottom-0 left-0 right-0 p-4 text-white">
                     <p className="font-semibold text-sm uppercase tracking-wider">Magasin Koté Piscine</p>
-                  </div>
+                  </AnimatedElement>
                 </div>
               </div>
-            </AnimatedElement>
+            </div>
 
             {/* SERVICES EN FORMAT UNIFORMES AVEC IMAGE/CONTENU ALTERNÉS */}
             {services.map((service, index) => {
@@ -354,94 +341,14 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* Section FAQ */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-kote-blue-dark/5 to-transparent" />
-        <div className="container-kote relative z-10">
-          <h2 className="text-3xl font-bold text-center text-white mb-12">
-            Questions fréquentes
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.3, delay: index * 0.02 }}
-                className="bg-white/20 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-              >
-                <details className="group">
-                  <summary className="flex items-center justify-between p-6 text-lg font-semibold text-white cursor-pointer">
-                    {faq.question}
-                    <span className="transform group-open:rotate-180 transition-transform duration-300">
-                      <svg
-                        className="w-6 h-6 text-kote-turquoise"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="px-6 pb-6 text-white/90">
-                    {faq.answer}
-                  </div>
-                </details>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Section Articles de Blog */}
+      <BlogArticlesSection numberOfArticles={3} />
+
+      {/* Section Réalisations */}
+      <RealisationsSection numberOfRealisations={3} />
 
       {/* CTA final */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-kote-blue-dark to-kote-blue-light" />
-        <div 
-          className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-        <div className="container-kote relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Prêt à concrétiser votre projet piscine ?
-            </h2>
-            <p className="text-lg text-white/90 mb-8">
-              Nous sommes à votre écoute pour vous accompagner dans la réalisation 
-              de votre projet. Contactez-nous dès maintenant pour un devis personnalisé.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CtaButton 
-                to="/contact"
-                text="Nous contacter"
-                color="green"
-                size="large"
-                icon="arrow"
-              />
-              <CtaButton 
-                to={`tel:${contact.phone.tel}`}
-                text={contact.phone.display}
-                external={true}
-                color="turquoise"
-                size="default"
-                icon="phone"
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <CallToAction />
     </>
   );
 };

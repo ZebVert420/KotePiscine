@@ -15,6 +15,22 @@ const BlogPage = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [visiblePosts, setVisiblePosts] = useState(13);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Vérifier si l'appareil est mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Debounce search term
   useEffect(() => {
@@ -64,6 +80,27 @@ const BlogPage = () => {
     setSelectedCategory(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Gérer la sélection de catégorie
+  const handleCategorySelect = (categoryId: string | null) => {
+    setSelectedCategory(categoryId);
+    setSelectedTag(null);
+    
+    // Fermer le menu mobile après sélection
+    if (isMobile) {
+      setMobileMenuOpen(false);
+    }
+  };
+
+  // Fonction pour activer/désactiver le menu mobile
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  // Trouver la catégorie actuellement sélectionnée
+  const currentCategory = selectedCategory 
+    ? blogCategories.find(cat => cat.id === selectedCategory) 
+    : null;
 
   return (
     <>
@@ -125,7 +162,98 @@ const BlogPage = () => {
                 </div>
               )}
 
-              <div className="flex flex-wrap justify-center gap-2">
+              {/* Menu mobile déroulant - affiché uniquement sur mobile et tablette */}
+              <div className="lg:hidden w-full mb-4">
+                <div className="backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl p-4 animate-fade-in-up">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="flex items-center justify-between w-full text-white py-2 focus:outline-none"
+                  >
+                    <span className="text-xl font-bold flex items-center ">
+                       {/* Afficher l'icône si une catégorie est sélectionnée ou l'icône par défaut */}
+                       <span className={`mr-6 ml-3 h-5 w-5 text-kote-turquoise/80`}>
+                         {React.createElement(currentCategory?.icon || FaNewspaper)}
+                       </span>
+                       {!selectedCategory 
+                        ? 'Tous les articles' 
+                        : currentCategory?.name || 'Sélectionner une catégorie'}
+                    </span>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-200 ${mobileMenuOpen ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24" 
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  
+                  {/* Menu déroulant mobile */}
+                  <div 
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      mobileMenuOpen 
+                        ? 'max-h-screen opacity-100 mt-4'
+                        : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <ul className="space-y-2 px-1">
+                      <li>
+                        <button
+                          onClick={() => handleCategorySelect(null)}
+                          className={`w-full text-left px-4 py-2.5 rounded-full transition-all duration-300 ${
+                            selectedCategory === null && selectedTag === null
+                              ? 'bg-kote-turquoise text-white font-semibold shadow-md' 
+                              : 'text-white hover:bg-white/10'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="inline-flex items-center justify-center">
+                              <FaNewspaper className={`${selectedCategory === null ? 'text-white' : 'text-kote-turquoise/80'} mr-4 h-5 w-5`} />
+                              <span>Tous les articles</span>
+                            </div>
+                            <span className="inline-flex items-center justify-center w-5 h-5 bg-white/10 text-xs rounded-full">
+                              {blogPosts.length}
+                            </span>
+                          </div>
+                        </button>
+                      </li>
+                      {blogCategories.map((category) => {
+                        const postCount = categoryPostCount[category.id] || 0;
+                        return (
+                          <li key={category.id}>
+                            <button
+                              onClick={() => handleCategorySelect(category.id)}
+                              className={`w-full text-left px-4 py-2.5 rounded-full transition-all duration-300 ${
+                                selectedCategory === category.id 
+                                  ? 'bg-kote-turquoise text-white font-semibold shadow-md' 
+                                  : 'text-white hover:bg-white/10'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center">
+                                  {category.icon && (
+                                      <span className={`mr-4 h-5 w-5 inline-flex items-center justify-center ${selectedCategory === category.id ? 'text-white' : 'text-kote-turquoise/80'}`}>
+                                        {React.createElement(category.icon)}
+                                      </span>
+                                  )}
+                                  <span>{category.name}</span>
+                                </div>
+                                <span className="inline-flex items-center justify-center w-5 h-5 bg-white/10 text-xs rounded-full">
+                                  {postCount}
+                                </span>
+                              </div>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Boutons de filtrage - visibles uniquement sur desktop large */}
+              <div className="hidden lg:flex flex-wrap justify-center gap-2">
                 {/* Bouton "Tous" - taille réduite */}
                 <button
                   onClick={() => {

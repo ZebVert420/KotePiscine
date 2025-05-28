@@ -42,7 +42,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0, featured = false, 
           image: 'aspect-[16/10]',
           title: 'text-xl md:text-2xl',
           excerpt: 'line-clamp-4',
-          padding: 'p-6 md:p-7'
+          padding: 'px-6 py-4 md:px-7 md:py-5'
         };
       case 'small':
         return {
@@ -132,7 +132,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0, featured = false, 
       animate="visible"
       exit="exit"
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className={`group card-glass-opaque overflow-hidden hover:border-white/30 transition-all duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col text-white cursor-pointer ${sizeClasses.container}`}
+      className={`group card-glass-opaque overflow-hidden hover:border-white/30 transition-all duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col text-white cursor-pointer h-full ${sizeClasses.container}`}
     >
       <Link to={`/blog/article/${post.slug}`} className="block h-full">
         <div className="h-full flex flex-col">
@@ -177,7 +177,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0, featured = false, 
             <h3 className={`${sizeClasses.title} font-semibold text-white mb-1.5 group-hover:text-kote-turquoise transition-colors duration-200`}>
               {post.title}
             </h3>
-            <p className={`text-white/90 text-sm ${sizeClasses.excerpt} mb-4 flex-grow`}>
+            <p className={`text-white/90 text-sm line-clamp-3 mb-4 flex-grow`}>
               {post.excerpt}
             </p>
 
@@ -206,7 +206,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0, featured = false, 
             )}
 
             {/* Lien "Lire la suite" */}
-            <div className="flex items-center gap-2 text-kote-turquoise font-medium group-hover:text-white transition-colors">
+            <div className="pt-4 flex items-center gap-2 text-white font-medium group-hover:text-kote-turquoise transition-colors">
               <span>Lire l'article</span>
               <FaArrowRight className="transform group-hover:translate-x-2 transition-transform text-sm" />
             </div>

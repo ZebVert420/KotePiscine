@@ -7,6 +7,8 @@ import { realisationCategories } from '../config/realisations.config';
 import { fictiveRealisationsData, FictiveRealisationData } from '../config/fictiveRealisations.config';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import AnimatedElement from '../components/common/AnimatedElement';
+import React from 'react';
+import { MdPhotoLibrary } from 'react-icons/md';
 
 const RealisationsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -15,8 +17,24 @@ const RealisationsPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [filteredRealisations, setFilteredRealisations] = useState<FictiveRealisationData[]>([]);
   const [visibleProjects, setVisibleProjects] = useState(6);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const currentCategory = selectedCategory ? realisationCategories.find(cat => cat.slug === selectedCategory) : undefined;
+
+  // Vérifier si l'appareil est mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Mise à jour des réalisations filtrées lorsque la catégorie change
   useEffect(() => {
@@ -50,6 +68,16 @@ const RealisationsPage = () => {
     if (lightboxOpen) {
       closeLightbox();
     }
+    
+    // Fermer le menu mobile après sélection d'une catégorie
+    if (isMobile) {
+      setMobileMenuOpen(false);
+    }
+  };
+
+  // Fonction pour activer/désactiver le menu mobile
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   const openLightbox = (realisation: FictiveRealisationData) => {
@@ -73,6 +101,13 @@ const RealisationsPage = () => {
   const previousImage = () => {
     if (currentImageIndex > 0) {
       setCurrentImageIndex(currentImageIndex - 1);
+    }
+  };
+  
+  // Nouvelle fonction pour aller directement à une image spécifique
+  const goToImage = (index: number) => {
+    if (currentRealisation && index >= 0 && index < currentRealisation.images.length) {
+      setCurrentImageIndex(index);
     }
   };
   
@@ -137,7 +172,91 @@ const RealisationsPage = () => {
           {/* Filtres de navigation par catégorie */}
           <div className="mb-12">
             <AnimatedElement delay={0.2}>
-              <div className="flex flex-wrap justify-center gap-3">
+              {/* Menu mobile déroulant - affiché uniquement sur mobile */}
+              <div className="md:hidden w-full mb-4">
+                <div className="backdrop-blur-xl bg-white/10 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-2xl p-4 animate-fade-in-up">
+                  <button
+                    onClick={toggleMobileMenu}
+                    className="flex items-center justify-between w-full text-white py-2 focus:outline-none"
+                  >
+                    <span className="text-xl font-bold flex items-center">
+                      {/* Afficher l'icône si une catégorie est sélectionnée ou l'icône par défaut */}
+                       <span className={`mr-6 ml-3 h-5 w-5 text-kote-turquoise/80`}>
+                         {React.createElement(currentCategory?.icon || MdPhotoLibrary)}
+                       </span>
+                      {!selectedCategory 
+                        ? 'Toutes nos réalisations' 
+                        : currentCategory?.title || 'Sélectionner une catégorie'}
+                    </span>
+                    <svg 
+                      className={`w-5 h-5 transition-transform duration-200 ${mobileMenuOpen ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24" 
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  
+                  {/* Menu déroulant mobile */}
+                  <div 
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      mobileMenuOpen 
+                        ? 'max-h-screen opacity-100 mt-4'
+                        : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <ul className="space-y-2 px-1">
+                      <li>
+                        <button
+                          onClick={() => changeCategory(null)}
+                          className={`w-full text-left px-4 py-2.5 rounded-full transition-all duration-300 ${
+                            !selectedCategory 
+                              ? 'bg-kote-turquoise text-white font-semibold shadow-md' 
+                              : 'text-white hover:bg-white/10'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                              <MdPhotoLibrary className={`mr-4 h-5 w-5 ${!selectedCategory ? 'text-white' : 'text-kote-turquoise/80'}`} />
+                              <span>Toutes nos réalisations</span>
+                            </div>
+                            <span className="inline-flex items-center justify-center w-5 h-5 bg-white/10 text-xs rounded-full">
+                              {fictiveRealisationsData.length}
+                            </span>
+                          </div>
+                        </button>
+                      </li>
+                      {realisationCategories.map(cat => (
+                        <li key={cat.id}>
+                          <button
+                            onClick={() => changeCategory(cat.slug)}
+                            className={`w-full text-left px-4 py-2.5 rounded-full transition-all duration-300 ${
+                              currentCategory?.slug === cat.slug 
+                                ? 'bg-kote-turquoise text-white font-semibold shadow-md' 
+                                : 'text-white hover:bg-white/10'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center">
+                                {cat.icon && <cat.icon className={`mr-4 h-5 w-5 ${currentCategory?.slug === cat.slug ? 'text-white' : 'text-kote-turquoise/80'}`} />}
+                                <span>{cat.title}</span>
+                              </div>
+                              <span className="inline-flex items-center justify-center w-5 h-5 bg-white/10 text-xs rounded-full">
+                                {categoryRealisationCount[cat.slug] || 0}
+                              </span>
+                            </div>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Boutons de filtrage - visibles uniquement sur desktop */}
+              <div className="hidden md:flex flex-wrap justify-center gap-3">
                 <button
                   onClick={() => changeCategory(null)}
                   className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ease-in-out shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kote-turquoise flex items-center ${
@@ -251,6 +370,7 @@ const RealisationsPage = () => {
         onClose={closeLightbox}
         onNextImage={nextImage}
         onPreviousImage={previousImage}
+        onGoToImage={goToImage}
       />
 
       <CallToAction />

@@ -131,7 +131,7 @@ const ContactPage = () => {
         {/* Organisation avec un système de grille principal */}
         <div className="grid grid-cols-12 gap-6">
           {/* SECTION 1: Galerie et Informations complémentaires */}
-          <div className="col-span-12 grid grid-cols-12 gap-6 mb-6">
+          <div className="col-span-12 grid grid-cols-12 gap-6">
             {/* Galerie photos du magasin */}
             <div className="col-span-12 md:col-span-8">
               <div className="relative h-full">
@@ -212,7 +212,6 @@ const ContactPage = () => {
               {/* Carte des horaires */}
               
                 <div className="relative h-full">
-                  <div className="card-shadow-projected" aria-hidden="true"></div>
                   
                   <div className="relative h-full card-glass-transparent card-glass-reflect overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
@@ -232,13 +231,13 @@ const ContactPage = () => {
                           </div>
                         </div>
                         
-                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-turquoise/40 to-kote-blue-light/30 backdrop-blur-md border border-white/30 shadow-lg transform-gpu transition-all duration-300 hover:scale-[1.02]">
+                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30 shadow-lg transform-gpu transition-all duration-300 hover:scale-[1.02]">
                           <div className="mr-4 p-3 bg-white/30 rounded-full shadow-inner">
                             <FaClock className="h-7 w-7 text-white drop-shadow-md" />
                           </div>
                           <div>
                             <h3 className="text-lg text-white drop-shadow-sm">Samedi</h3>
-                            <p className="text-white text-lg">9h --- 12h</p>
+                            <p className="text-white text-lg">9h - 12h</p>
                           </div>
                         </div>
                       </div>
@@ -355,7 +354,7 @@ const ContactPage = () => {
           </AnimatedElement>
 
           {/* SECTION 3: Moyens de contact (2 colonnes) */}
-          <div className="col-span-12 grid grid-cols-12 gap-6 mb-6">
+          <div className="col-span-12 grid grid-cols-12 gap-6">
             {/* CTA téléphone principal */}
             <AnimatedElement delay={0.1} className="col-span-12 md:col-span-6">
               <div className="relative h-full">

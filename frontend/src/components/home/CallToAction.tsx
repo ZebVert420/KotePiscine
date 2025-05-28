@@ -3,7 +3,7 @@ import contact from '../../config/contact';
 
 const CallToAction = () => {
   return (
-    <section className="py-16 relative">
+    <section className="py-16 relative w-full">
       {/* Filtre foncé */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       
@@ -13,8 +13,8 @@ const CallToAction = () => {
             Prêt à donner vie à votre projet piscine ?
           </h2>
           <p className="text-white/90 mb-8">
-            Nous sommes là pour vous accompagner dans la réalisation de votre rêve aquatique.
-            Contactez-nous dès maintenant pour un devis personnalisé.
+            Nous sommes là pour vous accompagner dans la réalisation de vos idées. <br />
+            Contactez-nous dès maintenant pour en savoir plus
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CtaButton 
