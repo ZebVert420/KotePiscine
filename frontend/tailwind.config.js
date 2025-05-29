@@ -78,7 +78,6 @@ module.exports = {
         },
         '.card-glass-transparent': {
           '@apply backdrop-blur-xl border border-white/20 rounded-2xl': {},
-          boxShadow: theme('boxShadow.card-standard'),
         },
         '.card-glass-opaque': {
           '@apply backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl': {},
