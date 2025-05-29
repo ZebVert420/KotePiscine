@@ -111,7 +111,7 @@ const ServicesPage = () => {
                 <div className="relative h-full">
                   <div className="card-shadow-projected" aria-hidden="true"></div>
                   
-                  <div className="relative h-full p-5 card-glass-transparent overflow-hidden">
+                  <div className="relative h-full p-5  card-glass-reflect overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                     
                     <AnimatedElement key={stat.label} delay={0.1 + index * 0.1} className="relative z-10 flex flex-col items-center text-center h-full">
