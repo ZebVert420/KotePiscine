@@ -273,9 +273,9 @@ const ContactPage = () => {
                           <div className="mr-4 p-3 bg-white/20 rounded-full">
                             <FaInstagram className="h-6 w-6 text-white" />
                           </div>
-                          <div>
+                          <div className="min-w-0 overflow-hidden">
                             <h3 className="font-bold text-white">Instagram</h3>
-                            <p className="text-white/80 text-sm">@kotepiscine.guadeloupe</p>
+                            <p className="text-white/80 text-sm truncate">@kotepiscine.guadeloupe</p>
                           </div>
                         </a>
 
@@ -288,9 +288,9 @@ const ContactPage = () => {
                           <div className="mr-4 p-3 bg-white/20 rounded-full">
                             <FaFacebook className="h-6 w-6 text-white" />
                           </div>
-                          <div>
+                          <div className="min-w-0 overflow-hidden">
                             <h3 className="font-bold text-white">Facebook</h3>
-                            <p className="text-white/80 text-sm">kotepiscine.guadeloupe</p>
+                            <p className="text-white/80 text-sm truncate">kotepiscine.guadeloupe</p>
                           </div>
                         </a>
                       </div>

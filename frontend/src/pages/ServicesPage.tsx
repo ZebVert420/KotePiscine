@@ -109,10 +109,10 @@ const ServicesPage = () => {
             {stats.slice(0, 2).map((stat, index) => (
               <div className="md:col-span-6 lg:col-span-2">
                 <div className="relative h-full">
-                  <div className="" aria-hidden="true"></div>
+                  <div className="card-shadow-projected" aria-hidden="true"></div>
                   
-                  <div className="relative h-full p-5 card-glass-transparent card-glass-reflect overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 "></div>
+                  <div className="relative h-full p-5 card-glass-transparent overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
                     
                     <AnimatedElement key={stat.label} delay={0.1 + index * 0.1} className="relative z-10 flex flex-col items-center text-center h-full">
                       <div className="p-3 rounded-full bg-gradient-to-br from-kote-turquoise/30 to-kote-blue-dark/20 mb-3">

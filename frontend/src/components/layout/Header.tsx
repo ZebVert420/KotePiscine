@@ -135,7 +135,7 @@ const Header = () => {
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center h-16 md:h-20">
+      <div className="mx-auto px-4 flex justify-between items-center h-16 md:h-20">
         {/* Logo */}
         <Link 
           to="/" 
