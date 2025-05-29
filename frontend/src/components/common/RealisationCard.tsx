@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FictiveRealisationData } from '../../config/fictiveRealisations.config';
 import { realisationCategories } from '../../config/realisations.config';
 import { IconType } from 'react-icons';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // Animation variants pour les cartes
 const cardVariants = {
@@ -16,7 +15,7 @@ interface RealisationCardProps {
   realisation: FictiveRealisationData;
   index: number;
   size?: 'small' | 'medium' | 'large';
-  onClick: (realisation: FictiveRealisationData, imageIndex: number) => void;
+  onClick: (realisation: FictiveRealisationData) => void;
 }
 
 const RealisationCard: React.FC<RealisationCardProps> = ({ 
@@ -28,20 +27,6 @@ const RealisationCard: React.FC<RealisationCardProps> = ({
   const isLarge = size === 'large';
   const isSmall = size === 'small';
   
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % realisation.images.length);
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? realisation.images.length - 1 : prevIndex - 1
-    );
-  };
-
   const realisationCategory = realisationCategories.find(cat => cat.slug === realisation.categorySlug);
   const IconComponent = realisationCategory?.icon;
 
@@ -60,36 +45,14 @@ const RealisationCard: React.FC<RealisationCardProps> = ({
       className={`group card-glass-opaque overflow-hidden hover:border-white/30 transition-all duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col text-white cursor-pointer h-full ${
         isLarge ? 'md:col-span-2' : ''
       }`}
-      onClick={() => onClick(realisation, currentImageIndex)}
+      onClick={() => onClick(realisation)}
     >
       <div className={`${isLarge ? 'aspect-[16/10]' : 'aspect-[4/3]'} bg-black/20 relative overflow-hidden`}>
         <img 
-          src={realisation.images[currentImageIndex]} 
+          src={realisation.images[0]} 
           alt={realisation.title} 
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* Flèche Gauche */}
-        {realisation.images.length > 1 && (
-          <button
-            onClick={prevImage}
-            className="absolute top-1/2 left-2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black/50 backdrop-blur-sm z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 lg:opacity-0 opacity-100"
-            aria-label="Image précédente"
-          >
-            <FaChevronLeft className="h-5 w-5" />
-          </button>
-        )}
-
-        {/* Flèche Droite */}
-        {realisation.images.length > 1 && (
-          <button
-            onClick={nextImage}
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black/50 backdrop-blur-sm z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 lg:opacity-0 opacity-100"
-            aria-label="Image suivante"
-          >
-            <FaChevronRight className="h-5 w-5" />
-          </button>
-        )}
-
         {IconComponent && (
           <div className="absolute top-3 left-3 flex items-center text-white z-10 bg-slate-900/50 backdrop-blur-sm px-2 py-1 rounded-lg">
             {React.createElement(IconComponent as IconType, {

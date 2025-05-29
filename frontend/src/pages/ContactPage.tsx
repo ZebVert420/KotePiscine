@@ -231,7 +231,7 @@ const ContactPage = () => {
                           </div>
                         </div>
                         
-                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30  transform-gpu transition-all duration-300 hover:scale-[1.02]">
+                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30 shadow-lg">
                           <div className="mr-4 p-3 bg-white/30 rounded-full shadow-inner">
                             <FaClock className="h-7 w-7 text-white drop-shadow-md" />
                           </div>
