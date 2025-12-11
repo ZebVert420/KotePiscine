@@ -212,6 +212,7 @@ const ContactPage = () => {
               {/* Carte des horaires */}
               
                 <div className="relative h-full">
+                  <div className="card-shadow-projected" aria-hidden="true"></div>
                   
                   <div className="relative h-full card-glass-transparent card-glass-reflect overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/25 to-transparent rounded-t-2xl"></div>
@@ -220,7 +221,7 @@ const ContactPage = () => {
                       <h2 className="text-2xl font-bold text-white mb-6">Nos horaires</h2>
                       
                       <div className="space-y-4">
-                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30 shadow-lg transform-gpu transition-all duration-300 hover:scale-[1.02]">
+                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30 shadow-md transform-gpu transition-all duration-300 hover:scale-[1.02]">
                           <div className="mr-4 p-3 bg-white/30 rounded-full shadow-inner">
                             <FaClock className="h-7 w-7 text-white drop-shadow-md" />
                           </div>
@@ -231,7 +232,7 @@ const ContactPage = () => {
                           </div>
                         </div>
                         
-                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30 shadow-lg">
+                        <div className="flex items-center p-5 rounded-xl bg-gradient-to-r from-kote-blue-light/40 to-kote-turquoise/30 backdrop-blur-md border border-white/30 shadow-md transform-gpu transition-all duration-300 hover:scale-[1.02]">
                           <div className="mr-4 p-3 bg-white/30 rounded-full shadow-inner">
                             <FaClock className="h-7 w-7 text-white drop-shadow-md" />
                           </div>

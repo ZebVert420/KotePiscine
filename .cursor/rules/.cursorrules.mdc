@@ -34,16 +34,25 @@ The goal is to help you maintain a big picture as well as the progress of the ta
 - Il est important de typer explicitement les paramètres dans les callbacks (find, filter, map) pour éviter les erreurs TypeScript "implicitly has an 'any' type"
 - Toujours importer les types depuis les fichiers de définition existants pour maintenir la cohérence
 - Les styles inline redondants avec Tailwind peuvent créer des conflits de positionnement - préférer les classes Tailwind pures
+- Avec `backdrop-blur-*` + des backgrounds translucides, les `box-shadow` des éléments voisins/au-dessus peuvent devenir visibles “à travers” (artefacts sombres), et l’effet peut sembler se “déplacer/scale” avec l’élément ombré.
 
 
 # Scratchpad
 
+## Tâche actuelle : Ombre “Lundi - Vendredi” visible dans la carte “Samedi” (mobile) — `ContactPage.tsx`
 
+### Objectif
+Identifier l’origine exacte de la “marque noire” en haut de la carte “Samedi”.
 
+### Plan
+[X] Inspecter les classes Tailwind des 2 cartes (ombre / transparence / backdrop)
+[X] Vérifier s’il existe des styles globaux/custom (Tailwind config / CSS) qui amplifient l’ombre
+[X] Conclure sur la cause (classe(s) responsables)
+[X] Appliquer un correctif local dans `ContactPage.tsx` sans impacter le reste
 
+### Résultat
+La marque noire provient de **`shadow-lg` sur la carte “Lundi - Vendredi”**, visible à travers la carte “Samedi” car les deux cartes ont un **fond translucide (`.../40`, `.../30`) + `backdrop-blur-md`** : le `backdrop-filter` compose/blur ce qui est derrière (dont l’ombre), ce qui donne l’impression que l’ombre “s’imprime” dans la carte du dessous et “scale” quand la carte du dessus scale.
 
-
-
-
-
+### Correction appliquée
+- Remplacement de `shadow-lg` → `shadow-md` sur les 2 cartes “Lundi - Vendredi” et “Samedi” (section horaires) pour réduire la portée de l’ombre et éviter qu’elle se voie via le `backdrop-blur` de la carte suivante.
 
