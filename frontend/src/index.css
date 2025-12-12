@@ -11,22 +11,6 @@
     -webkit-appearance: none;
   }
   
-  /* Support spécifique pour iOS Safari - Éviter le fond blanchâtre */
-  @supports (-webkit-touch-callout: none) {
-    html, body, #root {
-      background: transparent !important;
-    }
-  }
-  
-  /* Fallback pour iOS qui nécessite le support de viewport-fit=cover */
-  @media screen and (device-width: 390px) and (device-height: 844px),
-         screen and (device-width: 393px) and (device-height: 852px),
-         screen and (device-width: 428px) and (device-height: 926px) {
-    html, body, #root {
-      background: transparent !important;
-    }
-  }
-  
   /* Barre de défilement personnalisée pour tout le site */
   ::-webkit-scrollbar {
     width: 10px;
@@ -61,6 +45,27 @@
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold text-kote-blue-dark;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* iOS Safari (iPhone) - Liquid Glass tab bar                                  */
+/* -------------------------------------------------------------------------- */
+/* IMPORTANT :
+   Ces règles sont volontairement hors de @layer, car certains builds Tailwind/PostCSS
+   peuvent éliminer/ignorer des @supports/@media imbriqués dans @layer. */
+@supports (-webkit-touch-callout: none) {
+  html, body, #root {
+    background: transparent !important;
+  }
+}
+
+/* Fallback iPhone (viewport-fit=cover) pour certaines tailles courantes */
+@media screen and (device-width: 390px) and (device-height: 844px),
+       screen and (device-width: 393px) and (device-height: 852px),
+       screen and (device-width: 428px) and (device-height: 926px) {
+  html, body, #root {
+    background: transparent !important;
   }
 }
 

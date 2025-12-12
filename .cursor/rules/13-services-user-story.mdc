@@ -1,11 +1,6 @@
 ---
-description: Décrit l'expérience utilisateur attendue lors de la navigation et de la découverte des prestations dans la section Services du site Koté Piscine.
-globs: 
-  - frontend/src/pages/ServicesPage.tsx
-  - frontend/src/pages/services/**/*.tsx
-  - frontend/src/components/layout/ServicesLayout.tsx
-  - frontend/src/config/services.ts
-alwaysApply: true
+globs: frontend\src\pages\ServicesPage.tsx
+alwaysApply: false
 ---
 # User Story - Navigation et Découverte des Services
 
