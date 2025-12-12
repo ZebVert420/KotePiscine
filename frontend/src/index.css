@@ -7,6 +7,24 @@
     font-family: 'Arboria', sans-serif;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 153, 217, 0.5) rgba(255, 255, 255, 0.2);
+    /* Support pour iOS Safari - Barre d'onglets transparente */
+    -webkit-appearance: none;
+  }
+  
+  /* Support spécifique pour iOS Safari - Éviter le fond blanchâtre */
+  @supports (-webkit-touch-callout: none) {
+    html, body, #root {
+      background: transparent !important;
+    }
+  }
+  
+  /* Fallback pour iOS qui nécessite le support de viewport-fit=cover */
+  @media screen and (device-width: 390px) and (device-height: 844px),
+         screen and (device-width: 393px) and (device-height: 852px),
+         screen and (device-width: 428px) and (device-height: 926px) {
+    html, body, #root {
+      background: transparent !important;
+    }
   }
   
   /* Barre de défilement personnalisée pour tout le site */
